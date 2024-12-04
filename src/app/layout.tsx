@@ -28,11 +28,13 @@ export default function RootLayout({
 						className='mx-auto min-h-dvh flex flex-col w-full
 							h-full grow'>
 						<NavigationBar />
-						<div className='min-h-full flex flex-col p-2 max-w-[1200px] mx-auto w-full grow'>
-							<PageTransition>{children}</PageTransition>
-						</div>
+						<PageTransition>
+							<div className='min-h-full flex flex-col p-2 max-w-[1200px] mx-auto w-full grow'>
+								{children}
+							</div>
+							<Footer />
+						</PageTransition>
 					</div>
-					<Footer />
 				</Scrollbar>
 			</body>
 		</html>

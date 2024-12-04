@@ -10,7 +10,6 @@ const MotionButton = React.forwardRef<HTMLButtonElement, MotionButtonProps>(
 		return (
 			<motion.button
 				ref={ref} // No need for explicit casting now
-				whileHover={{ scale: 1.1 }}
 				whileTap={{ scale: 0.98 }}
 				className={className}
 				{...props} // Pass all combined props
