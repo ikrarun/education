@@ -3,10 +3,10 @@ import { Separator } from "@/components/ui/separator";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { GraduationCap, Star } from "lucide-react";
 import Featured_section from "./featured_section";
-import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
 import { Dela_Gothic_One } from "next/font/google";
+import MotionButton from "./motionButton";
 
 const delaGothic = Dela_Gothic_One({
 	subsets: ["latin"],
@@ -17,7 +17,7 @@ function Home() {
 	return (
 		<div className='flex flex-col gap-12 max-w-6xl grow items-center justify-center mx-auto w-full min-h-screen px-4 py-8 md:py-16'>
 			{/* Hero Section */}
-			<main className='flex flex-col items-center justify-center w-full text-center py-16 md:py-24'>
+			<main className='flex select-none flex-col items-center justify-center w-full text-center py-16 md:py-24'>
 				<h2 className='text-xl font-medium text-muted-foreground mb-4'>
 					Where Learning Meets Opportunity—For Free!
 				</h2>
@@ -38,9 +38,9 @@ function Home() {
 					</p>
 				</section>
 
-				<Button asChild size='lg' className='text-2xl'>
+				<MotionButton className='text-2xl bg-black px-4 py-2 text-white rounded-lg'>
 					<Link href='/about'>Get Started</Link>
-				</Button>
+				</MotionButton>
 			</main>
 			{/* Description Section */}
 

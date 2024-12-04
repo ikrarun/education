@@ -3,11 +3,10 @@ import "./../assets/globals.css";
 import NavigationBar from "@/navigation/navigationbar";
 import Footer from "@/navigation/footer";
 import "mac-scrollbar/dist/mac-scrollbar.css";
-import {Poppins as Font } from "next/font/google";
+import { Poppins as Font } from "next/font/google";
 const font = Font({ subsets: ["latin"], weight: "400" });
 import Scrollbar from "@/components/components/scrollbar/Scrollbar";
-
-
+import PageTransition from "@/assets/pageTransition";
 
 export const metadata: Metadata = {
 	title: "EduKation",
@@ -27,10 +26,10 @@ export default function RootLayout({
 				<Scrollbar>
 					<div
 						className='mx-auto min-h-dvh flex flex-col w-full
-					h-full grow'>
+							h-full grow'>
 						<NavigationBar />
 						<div className='min-h-full flex flex-col p-2 max-w-[1200px] mx-auto w-full grow'>
-							{children}
+							<PageTransition>{children}</PageTransition>
 						</div>
 					</div>
 					<Footer />

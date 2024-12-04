@@ -1,7 +1,7 @@
 "use client";
 
 import { Card, CardContent } from "@/components/ui/card";
-import { motion } from "motion/react";
+import { motion } from "framer-motion";
 import {
 	BookOpen,
 	Clock,
@@ -62,7 +62,7 @@ export default function EduKationFeatures() {
 						key={index}
 						initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
-						transition={{ duration: 0.5, delay: index * 0.1 }}>
+						transition={{ duration: 0.2, delay: index * 0.1 }}>
 						<Card className='h-full transition-all duration-300 hover:shadow-lg hover:-translate-y-1'>
 							<CardContent className='flex flex-col items-center text-center p-6 h-full'>
 								<div className='p-4 bg-gradient-to-br from-gray-100 to-gray-200 rounded-full mb-4'>
