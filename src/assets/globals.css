@@ -3,6 +3,17 @@
 @tailwind utilities;
 
 
+body {
+  overscroll-behavior: none;
+}
+
+:root {
+    -ms-overflow-style: none;  /* Internet Explorer 10+ */
+    scrollbar-width: none;  /* Firefox */
+}
+:root::-webkit-scrollbar { 
+    display: none;  /* Safari and Chrome */
+}
 
 @layer base {
   :root {

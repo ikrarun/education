@@ -1,13 +1,16 @@
 import type { Metadata } from "next";
-import "./globals.css";
-import { Inter } from "next/font/google";
+import "./../assets/globals.css";
 import NavigationBar from "@/navigation/navigationbar";
 import Footer from "@/navigation/footer";
+import "mac-scrollbar/dist/mac-scrollbar.css";
+import {Poppins as Font } from "next/font/google";
+const font = Font({ subsets: ["latin"], weight: "400" });
+import Scrollbar from "@/components/components/scrollbar/Scrollbar";
 
-const inter = Inter({ subsets: ["latin"] });
+
 
 export const metadata: Metadata = {
-	title: "Education",
+	title: "EduKation",
 	description: "Craft your future with us",
 };
 
@@ -19,16 +22,19 @@ export default function RootLayout({
 	return (
 		<html lang='en'>
 			<body
-				className={`${inter.className} flex-col flex min-h-dvh antialiased`}>
-				<NavigationBar />
-				<div
-					className='mx-auto flex flex-col w-full
-         h-full grow'>
-					<div className='min-h-full flex flex-col p-4 max-w-[1200px] mx-auto w-full grow'>
-						{children}
+				data-mdb-perfect-scrollbar-init
+				className={`${font.className} flex-col flex`}>
+				<Scrollbar>
+					<div
+						className='mx-auto min-h-dvh flex flex-col w-full
+					h-full grow'>
+						<NavigationBar />
+						<div className='min-h-full flex flex-col p-2 max-w-[1200px] mx-auto w-full grow'>
+							{children}
+						</div>
 					</div>
 					<Footer />
-				</div>
+				</Scrollbar>
 			</body>
 		</html>
 	);
