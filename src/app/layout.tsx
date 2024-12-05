@@ -4,8 +4,7 @@ import NavigationBar from "@/navigation/navigationbar";
 import Footer from "@/navigation/footer";
 import "mac-scrollbar/dist/mac-scrollbar.css";
 import { Poppins as Font } from "next/font/google";
-const font = Font({ subsets: ["latin"], weight: "400" });
-import Scrollbar from "@/components/ui/Scrollbar";
+const font = Font({ subsets: ["latin"], weight:['100','200','300','400','500','600','700','800','900']});
 import PageTransition from "@/components/animations/pageTransition";
 import ContextMenuProvider from "@/components/navigation/contextMenuProvider";
 
@@ -32,7 +31,6 @@ export default function RootLayout({
 				data-mdb-perfect-scrollbar-init
 				className={`${font.className} flex-col flex`}>
 				<ContextMenuProvider>
-					<Scrollbar>
 						<div
 							className='mx-auto min-h-dvh flex flex-col w-full
 							h-full grow'>
@@ -44,7 +42,6 @@ export default function RootLayout({
 								<Footer />
 							</PageTransition>
 						</div>
-					</Scrollbar>
 				</ContextMenuProvider>
 			</body>
 		</html>

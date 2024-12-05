@@ -53,6 +53,11 @@ const ContextMenuProvider = ({ children }: { children: React.ReactNode }) => {
 					<Items onclick={() => router.replace("/about", { scroll: false })}>
 						<InfoIcon className='w-4 h-4 mr-2' /> About
 					</Items>
+					<Separator className='w-full bg-gray-400' />
+					<Items onclick={() => window.location.reload()}>
+						<RotateCwIcon className='w-4 h-4 mr-2' /> Force Reload
+					</Items>
+
 				</Content>
 			</ContextMenu.Portal>
 		</ContextMenu.Root>
