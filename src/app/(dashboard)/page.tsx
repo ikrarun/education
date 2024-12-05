@@ -27,7 +27,8 @@ function Home() {
 					</span>
 					<p
 						style={font.style}
-						className='text-2xl -rotate-[30deg] absolute -top-2 -left-8 font-normal'>
+						className='text-xl bg-black/95 text-white px-2 py-1 -rotate-[12deg] absolute -top-12
+						  font-normal'>
 						100% Free
 					</p>
 				</h1>

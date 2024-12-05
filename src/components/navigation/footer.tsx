@@ -5,7 +5,7 @@ import { Card } from "../ui/card";
 
 function footer() {
 	return (
-		<div className=' w-full p-2  h-fit '>
+		<div className=' w-full pb-4 px-6 h-fit '>
 			<Card className='h-fit p-4 items-center  bg-blue-800 shadow-slate-200  text-white flex flex-col max-w-[900px] mx-auto w-full'>
 				<ul className='mb-8 mx-auto gap-4 md:gap-0 justify-between w-full max-w-2xl flex md:flex-row flex-col'>
 					<Link
