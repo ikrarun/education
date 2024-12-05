@@ -14,7 +14,6 @@ const getRandomGradientColor = (): GradientColor => {
 	return colors[Math.floor(Math.random() * colors.length)];
 };
 
-
 function Home() {
 	return (
 		<div className='flex flex-col gap-12 max-w-6xl grow items-center justify-center mx-auto w-full min-h-screen px-4 py-8 md:py-16'>
@@ -32,55 +31,55 @@ function Home() {
 				<div className='flex flex-col w-fit mx-auto'>
 					<Link
 						className='mt-8 group transition-all duration-1000 ease-in-out'
-						href='/about'>
+						href='/login'>
 						<MotionButton
 							style={{ backgroundColor: "black" }}
 							className='group'>
 							Get Started
 						</MotionButton>
 					</Link>
-					<ListAnimation className='text-base flex flex-col md:flex-row gap-2 w-full mx-auto font-normal text-start text-gray-800 mt-4 md:mt-10'>
-						<li
-							className='inline-flex
-					 items-center'>
-							<span className='p-2 mr-2 bg-amber-500 rounded-full'>
-								<Check
-									rotate={-30}
-									className='w-3 h-3'
-								/>
+					<ListAnimation className='text-base flex flex-col md:flex-row gap-4 w-full mx-auto font-normal text-start text-gray-800 mt-8 md:mt-16'>
+						<li className='inline-flex items-center'>
+							<span
+								className='p-2 mr-2 bg-amber-400 rounded-full 
+							shadow-md inset-shadow-sm inset-shadow-white/20 ring-black/30 ring-1 inset-ring inset-ring-white/15
+							flex items-center justify-center'>
+								<Check strokeWidth={4} className='w-3 h-3 text-black' />
 							</span>
-							100% Free
+							<span className='text-base font-normal text-gray-700'>
+								100% Free, No Hidden Fees
+							</span>
 						</li>
-						<li
-							className='inline-flex
-					 items-center'>
-							<span className='p-2 mr-2 bg-amber-500 rounded-full'>
-								<Check
-									rotate={-30}
-									className='w-3 h-3'
-								/>
+						<li className='inline-flex items-center'>
+							<span
+								className='p-2 mr-2 bg-amber-400 rounded-full 
+							shadow-md inset-shadow-sm inset-shadow-white/20 ring-black/30 ring-1 inset-ring inset-ring-white/15
+							flex items-center justify-center'>
+								<Check strokeWidth={4} className='w-3 h-3 text-black' />
 							</span>
-							No Hidden Fees
+							<span className='text-base font-normal text-gray-700'>
+								No Credit Card Required
+							</span>
 						</li>
-						<li
-							className='inline-flex
-						items-center'>
-							<span className='p-2 mr-2 bg-amber-500 rounded-full'>
-								<Check
-									rotate={-30}
-									className='w-3 h-3'
-								/>
+						<li className='inline-flex items-center'>
+							<span
+								className='p-2 mr-2 bg-amber-400 rounded-full 
+							shadow-md inset-shadow-sm inset-shadow-white/20 ring-black/30 ring-1 inset-ring inset-ring-white/15
+							flex items-center justify-center'>
+								<Check strokeWidth={4} className='w-3 h-3 text-black' />
 							</span>
-							Free to use
+							<span className='text-base font-normal text-gray-700'>
+								Free to use
+							</span>
 						</li>
 					</ListAnimation>
 				</div>
 			</main>
 			{/* Description Section */}
 
-			<div className='flex w-full flex-col items-center justify-center grow'>
+			<section className='flex w-full flex-col items-center justify-center grow'>
 				<Card className='w-full overflow-hidden rounded-lg shadow-lg'>
-					<CardHeader className=' bg-amber-500 text-primary-foreground p-6'>
+					<CardHeader className=' bg-amber-400 text-primary-foreground p-6'>
 						<CardTitle className='flex items-center text-center justify-center text-base md:text-2xl text-black font-medium'>
 							<GraduationCap className='mr-2 md:flex hidden md:h-6 md:w-6' />
 							Connecting Students with the Perfect Teachers
@@ -94,7 +93,7 @@ function Home() {
 						</p>
 					</CardContent>
 				</Card>
-			</div>
+			</section>
 
 			{/* Features Section */}
 			<Featured_section />

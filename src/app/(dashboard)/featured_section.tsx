@@ -52,7 +52,7 @@ export default function EduKationFeatures() {
 	];
 
 	return (
-		<div className='flex w-full flex-col items-center justify-center py-12'>
+		<section className='flex w-full flex-col items-center justify-center py-12'>
 			<h2 className='text-4xl font-semibold text-center mb-8 text-black'>
 				Why Choose EduKation?
 			</h2>
@@ -75,6 +75,6 @@ export default function EduKationFeatures() {
 					</motion.div>
 				))}
 			</div>
-		</div>
+		</section>
 	);
 }
