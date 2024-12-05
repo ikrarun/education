@@ -2,7 +2,6 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Github, Instagram, Twitter } from "lucide-react";
 import Link from "next/link";
 import React from "react";
-import TriggerError from "./triggerError";
 
 export default function page() {
 	return (
