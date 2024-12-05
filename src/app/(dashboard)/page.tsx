@@ -1,7 +1,7 @@
 import React from "react";
 import { Separator } from "@/components/ui/separator";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { ArrowRightCircle, CheckCheck, GraduationCap } from "lucide-react";
+import {  Check, GraduationCap } from "lucide-react";
 import Featured_section from "./featured_section";
 import Link from "next/link";
 
@@ -27,7 +27,7 @@ function Home() {
 			<main className='flex select-none mt-24 flex-col items-center justify-center w-full text-center py-16 md:py-24'>
 				<h1
 					className={`${delaGothic.className} font-dela-gothic text-6xl font-bold mb-8`}>
-					<span className='bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 bg-clip-text text-transparent'>
+					<span style={{ color: "blue" }} className=''>
 						Welcome to EduKation!
 					</span>
 				</h1>
@@ -38,21 +38,52 @@ function Home() {
 				<Link
 					className='mt-8 group transition-all duration-1000 ease-in-out'
 					href='/about'>
-					<MotionButton className='text-2xl  inline-flex gap-2 items-center  shadow-lg bg-black px-4 py-2 text-white rounded-lg'>
+					<MotionButton style={{ backgroundColor: "black" }} className='group'>
 						Get Started
-						<ArrowRightCircle className='hidden group-hover:block w-6 h-6' />
 					</MotionButton>
 				</Link>
-				<ListAnimation className='text-base flex flex-col md:flex-row gap-2 w-fit mx-auto  font-medium text-start text-muted-foreground mt-4'>
-					<li className='inline-flex items-center'>
-						<CheckCheck className='w-4 text-blue-800 h-4 mr-2' />
+				<ListAnimation className='text-base flex flex-col md:flex-row gap-2 w-fit mx-auto  font-medium text-start text-muted-foreground mt-4 md:mt-10'>
+					<li
+						className='inline-flex
+					 items-center'>
+						<span
+							style={{ backgroundColor: "blue" }}
+							className='p-2 mr-2 rounded-full'>
+							<Check
+								rotate={-30}
+								stroke='white'
+								className='w-3 text-white h-3'
+							/>
+						</span>
 						100% Free
 					</li>
-					<li className='inline-flex items-center'>
-						<CheckCheck className='w-4 text-blue-800 h-4 mr-2' /> No Hidden Fees
+					<li
+						className='inline-flex
+					 items-center'>
+						<span
+							style={{ backgroundColor: "blue" }}
+							className='p-2 mr-2 rounded-full'>
+							<Check
+								rotate={-30}
+								stroke='white'
+								className='w-3 text-white h-3'
+							/>
+						</span>
+						No Hidden Fees
 					</li>
-					<li className='inline-flex items-center'>
-						<CheckCheck className='w-4 text-blue-800 h-4 mr-2' /> Free to use
+					<li
+						className='inline-flex
+					 items-center'>
+						<span
+							style={{ backgroundColor: "blue" }}
+							className='p-2 mr-2 rounded-full'>
+							<Check
+								rotate={-30}
+								stroke='white'
+								className='w-3 text-white h-3'
+							/>
+						</span>
+						Free to use
 					</li>
 				</ListAnimation>
 			</main>
