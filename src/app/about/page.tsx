@@ -2,6 +2,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Github, Instagram, Twitter } from "lucide-react";
 import Link from "next/link";
 import React from "react";
+import TriggerError from "./triggerError";
 
 export default function page() {
 	return (
@@ -60,6 +61,9 @@ export default function page() {
 							</CardContent>
 						</Card>
 					</Link>
+				</div>
+				<div className="mt-8">
+				<TriggerError />
 				</div>
 			</div>
 		</div>

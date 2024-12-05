@@ -53,7 +53,7 @@ export default function EduKationFeatures() {
 
 	return (
 		<div className='flex w-full flex-col items-center justify-center py-12'>
-			<h2 className='text-4xl font-bold text-center mb-8 bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent'>
+			<h2 className='text-4xl font-bold text-center mb-8 text-black'>
 				Why Choose EduKation?
 			</h2>
 			<div className='grid gap-8 sm:grid-cols-2 lg:grid-cols-3 w-full'>
@@ -61,7 +61,7 @@ export default function EduKationFeatures() {
 					<motion.div
 						key={index}
 						initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
+						whileInView={{ opacity: 1, y: 0 }}
 						transition={{ duration: 0.2, delay: index * 0.1 }}>
 						<Card className='h-full transition-all duration-300 hover:shadow-lg hover:-translate-y-1'>
 							<CardContent className='flex flex-col items-center text-center p-6 h-full'>
