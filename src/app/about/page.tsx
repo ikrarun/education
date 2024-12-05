@@ -62,9 +62,9 @@ export default function page() {
 						</Card>
 					</Link>
 				</div>
-				<div className="mt-8">
-				<TriggerError />
-				</div>
+				{/* <div className='mt-8'>
+					<TriggerError />
+				</div> */}
 			</div>
 		</div>
 	);

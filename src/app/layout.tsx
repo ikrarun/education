@@ -5,8 +5,8 @@ import Footer from "@/navigation/footer";
 import "mac-scrollbar/dist/mac-scrollbar.css";
 import { Poppins as Font } from "next/font/google";
 const font = Font({ subsets: ["latin"], weight: "400" });
-import Scrollbar from "@/components/components/scrollbar/Scrollbar";
-import PageTransition from "@/assets/pageTransition";
+import Scrollbar from "@/components/ui/Scrollbar";
+import PageTransition from "@/components/animations/pageTransition";
 import ContextMenuProvider from "@/components/navigation/contextMenuProvider";
 
 export const metadata: Metadata = {

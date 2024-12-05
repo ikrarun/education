@@ -2,15 +2,8 @@
 
 import React from "react";
 import * as ContextMenu from "@radix-ui/react-context-menu";
-import {
-	Equal,
-	Home,
-	ListCollapse,
-	MinusCircle,
-	PlusCircle,
-	RotateCwIcon,
-} from "lucide-react";
-import { Separator } from "../components/ui/separator";
+import { Home, InfoIcon, RotateCwIcon } from "lucide-react";
+import { Separator } from "../ui/separator";
 import { useRouter } from "next/navigation";
 
 const Items = ({
@@ -25,7 +18,7 @@ const Items = ({
 			onClick={() => {
 				if (onclick !== undefined) onclick();
 			}}
-			className='outline-none text-gray-400 hover:text-white pl-2 pr-4 inline-flex items-center cursor-pointer'>
+			className='outline-none text-gray-300 hover:text-white pl-2 pr-4 inline-flex items-center cursor-pointer'>
 			{children}
 		</ContextMenu.Item>
 	);
@@ -51,40 +44,14 @@ const ContextMenuProvider = ({ children }: { children: React.ReactNode }) => {
 					<Items onclick={() => router.refresh()}>
 						<RotateCwIcon className='w-4 h-4 mr-2' /> Refresh
 					</Items>
-					<Separator className='w-full bg-gray-400' />
-					<Items
-						onclick={() => {
-							const currentZoom = document.body.style.zoom || 1.0;
-							if (Number(currentZoom) >= 2.0) return;
-							console.log(Number(currentZoom) + 0.1);
-							document.body.style.zoom = `${Number(currentZoom) + 0.1}`;
-						}}>
-						<PlusCircle className='w-4 h-4 mr-2' /> ZoomIn
-					</Items>
-					<Separator className='w-full bg-gray-400' />
-					<Items
-						onclick={() => {
-							const currentZoom = document.body.style.zoom || 1.0;
-							if (Number(currentZoom) <= 1.0) return;
-							console.log(Number(currentZoom) - 0.1);
-							document.body.style.zoom = `${Number(currentZoom) - 0.1}`;
-						}}>
-						<MinusCircle className='w-4 h-4 mr-2' /> ZoomOut
-					</Items>
-					<Separator className='w-full bg-gray-400' />
-					<Items
-						onclick={() => {
-							document.body.style.zoom = `1.0`;
-						}}>
-						<Equal className='w-4 h-4 mr-2' /> Reset
-					</Items>
+
 					<Separator className='w-full bg-gray-400' />
 					<Items onclick={() => router.replace("/", { scroll: false })}>
 						<Home className='w-4 h-4 mr-2' /> Home
 					</Items>
 					<Separator className='w-full bg-gray-400' />
 					<Items onclick={() => router.replace("/about", { scroll: false })}>
-						<ListCollapse className='w-4 h-4 mr-2' /> About
+						<InfoIcon className='w-4 h-4 mr-2' /> About
 					</Items>
 				</Content>
 			</ContextMenu.Portal>

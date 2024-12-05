@@ -1,52 +1,60 @@
 import React from "react";
 import { Separator } from "@/components/ui/separator";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { ArrowRightCircle, GraduationCap, Star } from "lucide-react";
+import { ArrowRightCircle, CheckCheck, GraduationCap } from "lucide-react";
 import Featured_section from "./featured_section";
 import Link from "next/link";
 
-import { Yesteryear as Font } from "next/font/google";
 import { Dela_Gothic_One } from "next/font/google";
 import MotionButton from "./motionButton";
+import ListAnimation from "@/components/animations/listAnimation";
+import Testimonial, { GradientColor } from "./testimonial";
 
-const font = Font({ subsets: ["latin"], weight: "400" });
+const getRandomGradientColor = (): GradientColor => {
+	const colors = Object.values(GradientColor); // Get all enum values
+	return colors[Math.floor(Math.random() * colors.length)];
+};
 
 const delaGothic = Dela_Gothic_One({
 	subsets: ["latin"],
 	weight: "400",
 });
+
 function Home() {
 	return (
 		<div className='flex flex-col gap-12 max-w-6xl grow items-center justify-center mx-auto w-full min-h-screen px-4 py-8 md:py-16'>
 			{/* Hero Section */}
 			<main className='flex select-none mt-24 flex-col items-center justify-center w-full text-center py-16 md:py-24'>
 				<h1
-					className={`${delaGothic.className} relative font-dela-gothic text-4xl md:text-7xl font-bold mb-8`}>
+					className={`${delaGothic.className} font-dela-gothic text-6xl font-bold mb-8`}>
 					<span className='bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 bg-clip-text text-transparent'>
 						Welcome to EduKation!
 					</span>
-					<p
-						style={font.style}
-						className='text-xl bg-black/95 text-white px-2 py-1 -rotate-[12deg] absolute -top-12
-						  font-normal'>
-						100% Free
-					</p>
 				</h1>
 
 				<h2 className='text-2xl font-medium text-muted-foreground mb-4'>
-					Where Learning Meets Opportunity—For Free!
+					Learning Meets Opportunity!
 				</h2>
 				<Link
-					className='mt-16 group transition-all duration-1000 ease-in-out'
+					className='mt-8 group transition-all duration-1000 ease-in-out'
 					href='/about'>
 					<MotionButton className='text-2xl  inline-flex gap-2 items-center  shadow-lg bg-black px-4 py-2 text-white rounded-lg'>
-						Get Started{" "}
+						Get Started
 						<ArrowRightCircle className='hidden group-hover:block w-6 h-6' />
 					</MotionButton>
 				</Link>
-				<h1 className='text-base font-medium text-muted-foreground mt-4'>
-					No Charges, No Barriers, No Hassle – Just Find Your Perfect Teacher.
-				</h1>
+				<ListAnimation className='text-base flex flex-col md:flex-row gap-2 w-fit mx-auto  font-medium text-start text-muted-foreground mt-4'>
+					<li className='inline-flex items-center'>
+						<CheckCheck className='w-4 text-blue-800 h-4 mr-2' />
+						100% Free
+					</li>
+					<li className='inline-flex items-center'>
+						<CheckCheck className='w-4 text-blue-800 h-4 mr-2' /> No Hidden Fees
+					</li>
+					<li className='inline-flex items-center'>
+						<CheckCheck className='w-4 text-blue-800 h-4 mr-2' /> Free to use
+					</li>
+				</ListAnimation>
 			</main>
 			{/* Description Section */}
 
@@ -77,65 +85,31 @@ function Home() {
 			<section className='flex flex-col my-8 gap-6 items-start text-start w-full'>
 				<h2 className='text-3xl font-bold mb-4'>What Our Users Are Saying</h2>
 				<div className='grid gap-6 md:grid-cols-2 w-full'>
-					<Card className='p-6 bg-gradient-to-br from-pink-100 to-purple-100'>
-						<div className='flex items-center mb-4'>
-							<Star
-								fill='rgb(234 179 8)'
-								className='text-yellow-500 h-5 w-5 mr-1'
-							/>
-							<Star
-								fill='rgb(234 179 8)'
-								className='text-yellow-500 h-5 w-5 mr-1'
-							/>
-							<Star
-								fill='rgb(234 179 8)'
-								className='text-yellow-500 h-5 w-5 mr-1'
-							/>
-							<Star
-								fill='rgb(234 179 8)'
-								className='text-yellow-500 h-5 w-5 mr-1'
-							/>
-							<Star fill='rgb(234 179 8)' className='text-yellow-500 h-5 w-5' />
-						</div>
-						<p className='text-lg mb-4'>
-							&#34;I found the perfect tutor for my exam prep. EduKation&apos;s
-							matching system is incredibly accurate, and the flexibility of
-							scheduling is a game-changer!&quot;
-						</p>
-						<p className='font-semibold'>
-							— Sarah K., Computer Science Student
-						</p>
-					</Card>
-					<Card className='p-6 bg-gradient-to-br from-blue-100 to-green-100'>
-						<div className='flex items-center mb-4'>
-							<Star
-								fill='rgb(234 179 8)'
-								className='text-yellow-500 h-5 w-5 mr-1'
-							/>
-							<Star
-								fill='rgb(234 179 8)'
-								className='text-yellow-500 h-5 w-5 mr-1'
-							/>
-							<Star
-								fill='rgb(234 179 8)'
-								className='text-yellow-500 h-5 w-5 mr-1'
-							/>
-							<Star
-								fill='rgb(234 179 8)'
-								className='text-yellow-500 h-5 w-5 mr-1'
-							/>
-							<Star fill='rgb(234 179 8)' className='text-yellow-500 h-5 w-5' />
-						</div>
-						<p className='text-lg mb-4'>
-							&quot;As a teacher, I&apos;ve connected with so many passionate
-							students from around the world. The platform&lsquo;s ease of use
-							and the fact that it&lsquo;s free makes it accessible to
-							everyone!&quot;
-						</p>
-						<p className='font-semibold'>
-							— Prof. Michael R., Literature Expert
-						</p>
-					</Card>
+					<Testimonial
+						color={getRandomGradientColor()}
+						author='Prof. John Doe, Physics Teacher'
+						rating={4.5}>
+						As a teacher, I&apos;ve connected with so many passionate students
+						from around the world. The platform&lsquo;s ease of use and the fact
+						that it&lsquo;s free makes it accessible to everyone!
+					</Testimonial>
+
+					<Testimonial
+						color={getRandomGradientColor()}
+						author='Prof. Michela R., Literature Expert'
+						rating={4}>
+						This platform is a game-changer! I have access to a global community
+						of learners, and I love the simplicity of setting up my lessons.
+					</Testimonial>
+
+					<Testimonial
+						color={getRandomGradientColor()}
+						author='Prof. Albert Einstein, Physics Genius'
+						rating={3.8}>
+						What I love most about this platform is the fact that it’s
+						accessible to all students, regardless of their background or
+						financial situation.
+					</Testimonial>
 				</div>
 			</section>
 		</div>
