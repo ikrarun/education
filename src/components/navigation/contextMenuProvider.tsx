@@ -25,7 +25,7 @@ const Items = ({
 			onClick={() => {
 				if (onclick !== undefined) onclick();
 			}}
-			className='outline-none hover:text-white pl-2 pr-4 inline-flex items-center cursor-pointer'>
+			className='outline-none text-gray-400 hover:text-white pl-2 pr-4 inline-flex items-center cursor-pointer'>
 			{children}
 		</ContextMenu.Item>
 	);
