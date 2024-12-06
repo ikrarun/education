@@ -7,7 +7,6 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
-
   },
   "dependencies": {
     "@radix-ui/react-avatar": "^1.1.1",
@@ -19,6 +18,7 @@
     "@types/perfect-scrollbar": "^0.7.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "firebase": "^11.0.2",
     "framer-motion": "^11.13.1",
     "lucide-react": "^0.462.0",
     "mac-scrollbar": "^0.13.6",
