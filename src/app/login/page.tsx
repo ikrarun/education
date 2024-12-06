@@ -14,25 +14,10 @@ import { FcGoogle } from "react-icons/fc";
 import { BsFacebook, BsTwitterX } from "react-icons/bs";
 import { useRouter } from "next/navigation";
 
-/**
- * The login page component.
- *
- * This component renders a card with a form containing three buttons to login
- * with Google, Facebook, or Twitter. The buttons are wrapped in a {@link motion.button}
- * component to add hover and tap animations. The component also renders a link to
- * report any issues with the login process.
- *
- * @returns The login page component.
- */
+
 export default function Component() {
 	const router = useRouter();
-	/**
-	 * Handles the login process.
-	 *
-	 * This function is called when one of the login buttons is clicked.
-	 * It should contain your login logic, such as calling an API to authenticate
-	 * the user and then redirecting them to the profile page.
-	 */
+
 	const handleLogin = () => {
 		// Add your login logic here
 		router.push("/profile");

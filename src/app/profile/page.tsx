@@ -14,12 +14,7 @@ import { Circle, CircleCheck, Home, Mail } from "lucide-react";
 import Link from "next/link";
 import React from "react";
 
-/**
- * Profile page, displays user profile information and other details like
- * detailed evaluation etc.
- *
- * @returns {React.ReactElement} The Profile page component
- */
+
 export default function Profile() {
 	return (
 		<main className='flex select-none md:p-0 p-2 h-full min-h-[90vh] md:flex-row gap-2 flex-col-reverse w-full grow items-top justify-top'>

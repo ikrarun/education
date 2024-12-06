@@ -8,14 +8,15 @@ interface PageTransitionProps {
 	children: React.ReactNode;
 }
 import { Toaster } from "sonner";
-import { useEffect, useState } from "react";
-import { generateToken, messaging } from "@/lib/firebaseWrapper";
-import { onMessage } from "firebase/messaging";
+import { useEffect } from "react";
 
-const PageTransition: React.FC<PageTransitionProps> = ({ children }) => {
+const PageTransition: React.FC<PageTransitionProps> = ({
+	children,
+}: {
+	children: React.ReactNode;
+}) => {
 	const pathname = usePathname();
-	const [isNotificationPermissionGranted, setNotificationPermissionGranted] =
-		useState(false);
+
 	useEffect(() => {
 		const handleClick = (e: KeyboardEvent) => {
 			if (e.key === "Tab") {
@@ -30,59 +31,10 @@ const PageTransition: React.FC<PageTransitionProps> = ({ children }) => {
 		};
 	}, []);
 
-	useEffect(() => {
-		async function requestPermission() {
-			try {
-				console.log("Requesting notification permission...");
-				const permission = await Notification.requestPermission();
-
-				if (permission === "granted") {
-					console.log("Notification permission granted.");
-					await generateToken(); // Assuming `generateToken` is defined elsewhere.
-					setNotificationPermissionGranted(true);
-					onMessage(messaging, (payload) => {
-						// console.log("Message received:", payload);
-						const notificationTitle =
-							payload.notification?.title || "Default Title";
-						const notificationOptions = {
-							body: payload.notification?.body || "Default body.",
-							icon: payload.notification?.icon || "/favicon.ico",
-							url: payload.data?.["link"],
-						};
-
-						// Display the notification
-						const notification = new Notification(
-							notificationTitle,
-							notificationOptions
-						);
-						notification.onclick = () => {
-							if (notificationOptions.url) {
-								const url = notificationOptions.url;
-								window.open(url, "_blank");
-							}
-						};
-					});
-				} else {
-					setNotificationPermissionGranted(false);
-					console.warn("Notification permission denied.");
-				}
-			} catch (error) {
-				console.error("Error requesting notification permission:", error);
-			}
-		}
-
-		requestPermission();
-	}, []);
-
 	return (
 		<div
 			className='mx-auto min-h-dvh  flex flex-col w-full
 							h-full grow'>
-			<h1 className='w-full bg-black text-white text-xs'>
-				{`You have ${
-					isNotificationPermissionGranted ? "granted" : "not granted"
-				} notification permission.`}
-			</h1>
 			<NavigationBar />
 			<Toaster richColors visibleToasts={1} expand />
 

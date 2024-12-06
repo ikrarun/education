@@ -1,3 +1,4 @@
+
 import type { Metadata, Viewport } from "next";
 import "./../assets/globals.css";
 import "mac-scrollbar/dist/mac-scrollbar.css";
@@ -7,6 +8,7 @@ const font = Font({
 	weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
 });
 import ContextMenuProvider from "@/components/navigation/contextMenuProvider";
+import FirebaseProvider from "@/app/fiebaseProvider";
 
 export const metadata: Metadata = {
 	title: "EduKation",
@@ -32,7 +34,10 @@ export default function RootLayout({
 			<body
 				data-mdb-perfect-scrollbar-init
 				className={`${font.className} select-none flex-col flex`}>
-				<ContextMenuProvider>{children}</ContextMenuProvider>
+				<ContextMenuProvider>
+					<FirebaseProvider>{children}
+					</FirebaseProvider>
+					</ContextMenuProvider>
 			</body>
 		</html>
 	);
