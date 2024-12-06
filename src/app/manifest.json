@@ -30,7 +30,7 @@
 	"description": "Where Learning Meets Opportunity, For Free!",
 	"start_url": "/",
 	"display": "standalone",
-	"background_color": "#000000",
+	"background_color": "#fbbf24",
 	"theme_color": "#fbbf24",
 	"prefer_related_applications": false,
 	"related_applications": [],
