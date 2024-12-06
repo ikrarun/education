@@ -1,8 +1,11 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-	reactStrictMode: true,
-	swcMinify: true,
+	compress: true,
+	i18n: {
+		locales: ["en", "in"],
+		defaultLocale: "en",
+	},
 };
 
 export default nextConfig;
