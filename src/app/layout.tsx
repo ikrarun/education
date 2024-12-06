@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-	themeColor: "rgb(30 64 175)",
+	themeColor: "rgb(251 191 36)",
 	width: "device-width",
 	initialScale: 1,
 	maximumScale: 1,
@@ -29,7 +29,7 @@ export default function RootLayout({
 		<html lang='en'>
 			<body
 				data-mdb-perfect-scrollbar-init
-				className={`${font.className} flex-col flex`}>
+				className={`${font.className} select-none flex-col flex`}>
 				<ContextMenuProvider>{children}</ContextMenuProvider>
 			</body>
 		</html>
