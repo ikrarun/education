@@ -1,3 +1,4 @@
+import ListAnimation from "@/components/animations/listAnimation";
 import { Card, CardContent } from "@/components/ui/card";
 import { Github, Instagram, Twitter } from "lucide-react";
 import Link from "next/link";
@@ -8,7 +9,7 @@ export default function page() {
 		<div className='flex px-4 pb-2 pt-4 flex-col w-full items-center justify-center grow'>
 			<div className='flex flex-col w-full gap-1 items-center '>
 				<h1 className='my-2 mb-8 font-semibold text-2xl'>Connect with the Developer !</h1>
-				<div className='flex gap-2 max-w-[900px] w-full flex-col md:flex-row'>
+				<ListAnimation className='flex gap-2 max-w-[900px] w-full flex-col md:flex-row'>
 					<Link
 						className='h-full w-full transition-all duration-300 hover:shadow-lg hover:-translate-y-1'
 						prefetch={false}
@@ -60,7 +61,7 @@ export default function page() {
 							</CardContent>
 						</Card>
 					</Link>
-				</div>
+				</ListAnimation>
 			</div>
 		</div>
 	);

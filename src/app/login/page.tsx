@@ -12,6 +12,7 @@ import {
 import { motion } from "framer-motion";
 import { FcGoogle } from "react-icons/fc";
 import { BsFacebook, BsTwitterX } from "react-icons/bs";
+import { useRouter } from "next/navigation";
 
 const buttonVariants = {
 	hidden: { opacity: 0, y: 20 },
@@ -19,15 +20,15 @@ const buttonVariants = {
 		opacity: 1,
 		y: 0,
 		transition: {
-			delay: i * 0.1,
+			delay: 0.5 + i * 0.4,
 			duration: 0.5,
-			ease: [0.48, 0.15, 0.25, 0.96],
+			ease: "easeInOut",
 		},
 	}),
 	hover: {
 		scale: 1.05,
 		transition: {
-			duration: 0.2,
+			duration: 0.1,
 			ease: "easeInOut",
 		},
 	},
@@ -37,24 +38,29 @@ const buttonVariants = {
 };
 
 export default function Component() {
+	const router = useRouter();
+	const handleLogin = () => {
+		// Add your login logic here
+		router.push("/profile");
+	};
 	return (
 		<motion.main
 			initial={{ opacity: 0 }}
 			animate={{ opacity: 1 }}
-			transition={{ duration: 0.5 }}
+			transition={{ duration: 0.2, delay: 0.1 }}
 			className='flex flex-col grow items-center justify-center'>
 			<Card className='mx-auto my-auto p-4 max-w-sm space-y-2'>
 				<CardHeader className='space-y-2 text-center'>
 					<motion.div
-						initial={{ opacity: 0, y: -20 }}
+						initial={{ opacity: 0, y: 20 }}
 						animate={{ opacity: 1, y: 0 }}
-						transition={{ duration: 0.5, delay: 0.2 }}>
+						transition={{ duration: 0.2, delay: 0.1 }}>
 						<CardTitle className='text-3xl font-bold'>Login</CardTitle>
 					</motion.div>
 					<motion.div
-						initial={{ opacity: 0, y: -10 }}
+						initial={{ opacity: 0, y: 10 }}
 						animate={{ opacity: 1, y: 0 }}
-						transition={{ duration: 0.5, delay: 0.3 }}>
+						transition={{ duration: 0.2, delay: 0.5 }}>
 						<CardDescription className='text-gray-500 dark:text-gray-400'>
 							We have a few options for you to login, please select one of the
 							options below.
@@ -72,6 +78,7 @@ export default function Component() {
 						{ icon: BsTwitterX, text: "Login with Twitter" },
 					].map((button, index) => (
 						<motion.button
+							onClick={handleLogin}
 							key={button.text}
 							variants={buttonVariants}
 							initial='hidden'
@@ -80,8 +87,8 @@ export default function Component() {
 							whileTap='tap'
 							custom={index}
 							className='w-full p-2 inline-flex rounded-md border border-gray-200 items-center justify-center
-                         hover:bg-gray-200 transition-all duration-300
-                         ease-in-out outline-none hover:border-gray-800/40'>
+                         hover:bg-gray-200 
+                          outline-none hover:border-gray-800/40'>
 							<button.icon
 								className={`mr-2 h-6 w-6 ${button.iconColor || ""}`}
 							/>
@@ -93,9 +100,9 @@ export default function Component() {
 				</CardContent>
 				<CardFooter>
 					<motion.div
-						initial={{ opacity: 0 }}
-						animate={{ opacity: 1 }}
-						transition={{ duration: 0.5, delay: 0.7 }}
+						initial={{ opacity: 0, y: 10 }}
+						animate={{ opacity: 1, y: 0 }}
+						transition={{ duration: 0.2, delay: 1.5 }}
 						className='w-full'>
 						<Link
 							href='/report'
