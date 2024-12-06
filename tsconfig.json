@@ -34,7 +34,18 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts"
-, "src/app/not-found.tsx"  ],
+,
+"src/app/not-found.tsx",
+"src/app/login/page.tsx",
+"src/app/profile/page.tsx",
+"src/app/layout.tsx",
+"src/app/global-error.tsx",
+"src/app/template.tsx",
+"src/app/(dashboard)/featured_section.tsx",
+"src/app/(dashboard)/motionButton.tsx",
+"src/app/(dashboard)/page.tsx",
+"src/app/(dashboard)/testimonial.tsx"
+],
   "exclude": [
     "node_modules"
   ]

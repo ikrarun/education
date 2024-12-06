@@ -1,0 +1,9 @@
+module.exports = {
+  extends: [
+    "next/core-web-vitals",
+    "next/typescript"
+  ],
+  ignorePatterns: [
+    "next.cofig.ts"
+  ]
+}

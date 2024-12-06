@@ -11,8 +11,6 @@ export enum GradientColor {
 	yellow = "from-yellow-100 via-amber-100 to-orange-100",
 	indigo = "from-indigo-100 via-blue-100 to-cyan-100",
 }
-
-
 export default function Testimonial({
 	children,
 	author,

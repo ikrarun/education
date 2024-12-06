@@ -4,6 +4,13 @@ import { Github, Instagram, Twitter } from "lucide-react";
 import Link from "next/link";
 import React from "react";
 
+/**
+ * The about page component.
+ *
+ * This component renders a list of links to the developer's social media profiles.
+ *
+ * @returns The about page component.
+ */
 export default function page() {
 	return (
 		<div className='flex px-4 pb-2 pt-4 flex-col w-full items-center justify-center grow'>

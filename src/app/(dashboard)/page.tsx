@@ -9,10 +9,13 @@ import MotionButton from "./motionButton";
 import ListAnimation from "@/components/animations/listAnimation";
 import Testimonial, { GradientColor } from "./testimonial";
 
+
+
 const getRandomGradientColor = (): GradientColor => {
 	const colors = Object.values(GradientColor); // Get all enum values
 	return colors[Math.floor(Math.random() * colors.length)];
 };
+
 
 function Home() {
 	return (

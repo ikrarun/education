@@ -14,6 +14,12 @@ import { Circle, CircleCheck, Home, Mail } from "lucide-react";
 import Link from "next/link";
 import React from "react";
 
+/**
+ * Profile page, displays user profile information and other details like
+ * detailed evaluation etc.
+ *
+ * @returns {React.ReactElement} The Profile page component
+ */
 export default function Profile() {
 	return (
 		<main className='flex select-none md:p-0 p-2 h-full min-h-[90vh] md:flex-row gap-2 flex-col-reverse w-full grow items-top justify-top'>
@@ -86,7 +92,7 @@ export default function Profile() {
 					<h1 className="inline-flex relative gap-2 items-center">
 						I am working on it
 						<Circle
-							className='w-3 absolute -top-2 -right-3 animate-pulse duration-[1000ms] ease-in-out transition-all h-3'
+							className='w-3 absolute -top-2 -right-3 animate-pulse duration-1000 ease-in-out transition-all h-3'
 							stroke='green'
 							fill='green'
 						/>

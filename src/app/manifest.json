@@ -7,10 +7,7 @@
 	"categories": [
 		"education"
 	],
-	"display_override": [
-		"window-controls-overlay",
-		"standalone"
-	],
+	"display_override": "standalone",
 	"orientation": "portrait",
 	"shortcuts": [
 		{
