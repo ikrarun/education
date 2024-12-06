@@ -29,6 +29,7 @@
 	"display": "standalone",
 	"background_color": "#fbbf24",
 	"theme_color": "#fbbf24",
+	"id": "com.edukation",
 	"prefer_related_applications": false,
 	"related_applications": [],
 	"icons": [
