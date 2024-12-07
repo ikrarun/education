@@ -4,33 +4,31 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Check, GraduationCap } from "lucide-react";
 import Featured_section from "./featured_section";
 import Link from "next/link";
-
 import MotionButton from "./motionButton";
 import ListAnimation from "@/components/animations/listAnimation";
 import Testimonial, { GradientColor } from "./testimonial";
-
-
 
 const getRandomGradientColor = (): GradientColor => {
 	const colors = Object.values(GradientColor); // Get all enum values
 	return colors[Math.floor(Math.random() * colors.length)];
 };
 
-
 function Home() {
 	return (
 		<div className='flex flex-col gap-12 max-w-6xl grow items-center justify-center mx-auto w-full min-h-screen px-4 py-8 md:py-16'>
 			{/* Hero Section */}
-			<main className='flex select-none mt-24 flex-col items-center justify-center w-full text-center py-16 md:py-24'>
-				<h1 className={`text-6xl mb-8`}>
-					<span className='bg-clip-text font-bold text-transparent bg-gradient-to-r from-red-500 via-amber-500 to-red-500'>
-						Welcome to EduKation!
-					</span>
-				</h1>
+			<main className='flex  select-none mt-24 flex-col items-center justify-center w-full text-center py-16 md:py-24'>
+				<div className=' flex flex-col items-center justify-center'>
+					<h1 className={`text-6xl mb-8`}>
+						<span className='bg-clip-text font-bold text-transparent bg-gradient-to-r from-amber-500 via-red-600/80 to-amber-500'>
+							Welcome to EduKation!
+						</span>
+					</h1>
 
-				<h2 className='text-2xl font-normal text-muted-foreground mb-4'>
-					Learning Meets Opportunity!
-				</h2>
+					<h2 className='text-2xl font-normal text-muted-foreground mb-4'>
+						Learning Meets Opportunity!
+					</h2>
+				</div>
 				<div className='flex flex-col w-fit mx-auto'>
 					<Link
 						className='mt-8 group transition-all duration-1000 ease-in-out'

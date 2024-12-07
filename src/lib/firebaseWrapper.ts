@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
 import {getApp, getApps, initializeApp } from "firebase/app";
-import { getMessaging, getToken } from "firebase/messaging";
+import { getMessaging, getToken, Messaging } from "firebase/messaging";
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -18,9 +18,14 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
 
+let messaging: Messaging;
 
-const messaging = getMessaging(app);
+if (typeof window !== "undefined") {
+	messaging = getMessaging(app);
+}
+
 export const generateToken = async () => {
+	if (!messaging) return;
 	const token = await getToken(messaging, {
 		vapidKey: process.env.NEXT_PUBLIC_FIREBASE_VAPID_KEY || "test",
 	});

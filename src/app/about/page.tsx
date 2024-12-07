@@ -13,16 +13,18 @@ import React from "react";
  */
 export default function page() {
 	return (
-		<div className='flex px-4 pb-2 pt-4 flex-col w-full items-center justify-center grow'>
-			<div className='flex flex-col w-full gap-1 items-center '>
-				<h1 className='my-2 mb-8 font-semibold text-2xl'>Connect with the Developer !</h1>
-				<ListAnimation className='flex gap-2 max-w-[900px] w-full flex-col md:flex-row'>
+		<div className='flex px-4 pb-2 max-w-[900px] pt-4 flex-col w-full mx-auto items-center justify-center grow'>
+			<div className='flex flex-col w-full justify-center gap-1 mx-auto items-center '>
+				<h1 className='my-2 mb-8 font-semibold text-2xl'>
+					Connect with the Developer !
+				</h1>
+				<ListAnimation className='flex gap-2 items-center justify-center mx-auto grow w-full flex-col md:flex-row'>
 					<Link
-						className='h-full w-full transition-all duration-300 hover:shadow-lg hover:-translate-y-1'
+						className='h-full w-full grow transition-all duration-300 hover:shadow-lg hover:-translate-y-1'
 						prefetch={false}
 						target='_blank'
 						href={"https://twitter.com/suraj_is_arun"}>
-						<Card>
+						<Card className='w-full'>
 							<CardContent className='flex flex-col items-center text-center p-6 h-full'>
 								<div className='p-4 bg-gradient-to-br from-gray-100 to-gray-200 rounded-full mb-4'>
 									<Twitter stroke='blue' className='w-8 h-8' />
@@ -36,11 +38,11 @@ export default function page() {
 					</Link>
 
 					<Link
-						className='h-full w-full transition-all duration-300 hover:shadow-lg hover:-translate-y-1'
+						className='h-full grow w-full transition-all duration-300 hover:shadow-lg hover:-translate-y-1'
 						prefetch={false}
 						target='_blank'
 						href={"https://instagram.com/suraj_is_arun"}>
-						<Card>
+						<Card className='w-full'>
 							<CardContent className='flex flex-col items-center text-center p-6 h-full'>
 								<div className='p-4 bg-gradient-to-br from-gray-100 to-gray-200 rounded-full mb-4'>
 									<Instagram stroke='red' className='w-8 h-8' />
@@ -54,17 +56,17 @@ export default function page() {
 					</Link>
 
 					<Link
-						className='h-full w-full transition-all duration-300 hover:shadow-lg hover:-translate-y-1'
+						className='h-full grow w-full transition-all duration-300 hover:shadow-lg hover:-translate-y-1'
 						prefetch={false}
 						target='_blank'
 						href={"https://github.com/ikrarun"}>
-						<Card>
+						<Card className='w-full'>
 							<CardContent className='flex flex-col items-center text-center p-6 h-full'>
 								<div className='p-4 bg-gradient-to-br from-gray-100 to-gray-200 rounded-full mb-4'>
 									<Github stroke='black' className='w-8 h-8' />
 								</div>
 								<h3 className='text-xl font-medium mb-2'>Github</h3>
-								<p className='text-muted-foreground'>See my work on Github</p>
+								<p className='text-muted-foreground'>Check my work on Github</p>
 							</CardContent>
 						</Card>
 					</Link>
