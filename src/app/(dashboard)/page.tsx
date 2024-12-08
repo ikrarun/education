@@ -2,12 +2,13 @@ import React from "react";
 import { Separator } from "@/components/ui/separator";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Check, GraduationCap } from "lucide-react";
+import { PiChalkboardTeacherDuotone, PiStudentDuotone } from "react-icons/pi";
 import Featured_section from "./featured_section";
 import Link from "next/link";
 import MotionButton from "./motionButton";
 import ListAnimation from "@/components/animations/listAnimation";
 import Testimonial, { GradientColor } from "./testimonial";
-
+import testimonial from "@/store/testimonial.json";
 const getRandomGradientColor = (): GradientColor => {
 	const colors = Object.values(GradientColor); // Get all enum values
 	return colors[Math.floor(Math.random() * colors.length)];
@@ -30,15 +31,31 @@ function Home() {
 					</h2>
 				</div>
 				<div className='flex flex-col w-fit mx-auto'>
-					<Link
-						className='mt-8 group transition-all duration-1000 ease-in-out'
-						href='/login'>
-						<MotionButton
-							style={{ backgroundColor: "black" }}
-							className='group'>
-							Get Started
-						</MotionButton>
-					</Link>
+					<div className='inline-flex mx-auto gap-2'>
+						<Link
+							className='mt-8 group transition-all duration-1000 ease-in-out'
+							href='/filldetail'>
+							<MotionButton
+								style={{ backgroundColor: "black" }}
+								className='group inline-flex gap-1'>
+								I am a Student
+								<PiStudentDuotone stroke='white' className='h-8 w-8' />
+							</MotionButton>
+						</Link>
+						<Link
+							className='mt-8 group transition-all duration-1000 ease-in-out'
+							href='/login'>
+							<MotionButton
+								style={{ backgroundColor: "black" }}
+								className='group inline-flex gap-1'>
+								I am a Teacher
+								<PiChalkboardTeacherDuotone
+									stroke='white'
+									className='w-8 h-8'
+								/>
+							</MotionButton>
+						</Link>
+					</div>
 					<ListAnimation className='text-base flex flex-col md:flex-row gap-4 w-full mx-auto font-normal text-start text-gray-800 mt-8 md:mt-16'>
 						<li className='inline-flex items-center'>
 							<span
@@ -106,33 +123,19 @@ function Home() {
 				<h2 className='text-3xl font-semibold mb-4'>
 					What Our Users Are Saying
 				</h2>
-				<div className='grid gap-6 md:grid-cols-2 w-full'>
-					<Testimonial
-						color={getRandomGradientColor()}
-						author='Prof. John Doe, Physics Teacher'
-						rating={4.5}>
-						As a teacher, I&apos;ve connected with so many passionate students
-						from around the world. The platform&lsquo;s ease of use and the fact
-						that it&lsquo;s free makes it accessible to everyone!
-					</Testimonial>
-
-					<Testimonial
-						color={getRandomGradientColor()}
-						author='Prof. Michela R., Literature Expert'
-						rating={4}>
-						This platform is a game-changer! I have access to a global community
-						of learners, and I love the simplicity of setting up my lessons.
-					</Testimonial>
-
-					<Testimonial
-						color={getRandomGradientColor()}
-						author='Prof. Albert Einstein, Physics Genius'
-						rating={3.8}>
-						What I love most about this platform is the fact that it’s
-						accessible to all students, regardless of their background or
-						financial situation.
-					</Testimonial>
-				</div>
+				<ListAnimation
+					variants={"always"}
+					className='grid gap-6 h-full md:grid-cols-2 w-full'>
+					{testimonial.map((testimonial, index) => (
+						<Testimonial
+							key={index}
+							author={testimonial.author}
+							color={getRandomGradientColor()}
+							rating={testimonial.rating}>
+							{testimonial.message}
+						</Testimonial>
+					))}
+				</ListAnimation>
 			</section>
 		</div>
 	);

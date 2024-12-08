@@ -10,35 +10,27 @@ import {
 	CardHeader,
 	CardTitle,
 } from "@/components/ui/card";
-import { MultiSelect } from "@/components/multi-select";
-import {
-	SiLibreofficemath,
-	SiCilium,
-	SiCodeforces,
-	SiTower,
-	SiGoogleearth,
-	SiBookstack,
-	SiMusicbrainz,
-} from "@icons-pack/react-simple-icons";
-
-const subjectList = [
-	{ value: "mathematics", label: "Mathematics", icon: SiLibreofficemath },
-	{ value: "science", label: "Science", icon: SiCilium },
-	{ value: "computer_science", label: "Computer Science", icon: SiCodeforces },
-	{ value: "history", label: "History", icon: SiTower },
-	{ value: "geography", label: "Geography", icon: SiGoogleearth },
-	{ value: "literature", label: "Literature", icon: SiBookstack },
-	{ value: "music", label: "Music", icon: SiMusicbrainz },
+import { MultiSelect, MultiSelectHandle } from "@/components/multi-select";
+const subjectsList = [
+	{ value: "mathematics", label: "Mathematics" },
+	{ value: "science", label: "Science" },
+	{ value: "computer_science", label: "Computer Science" },
+	{ value: "history", label: "History" },
+	{ value: "geography", label: "Geography" },
+	{ value: "literature", label: "Literature" },
+	{ value: "music", label: "Music" },
 ];
 
 import { Input } from "@/components/ui/input";
-import { DateTimePicker } from "@/components/date-time-picker";
+import DateTimePicker from "@/components/date-time-picker";
 import { Button } from "@/components/ui/button";
 import { Send } from "lucide-react";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { formSchema } from "@/lib/types"; // Assuming you have defined the type
 import { z } from "zod";
 import { handleFormSubmit } from "./action";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 export default function Detail() {
 	const {
@@ -46,6 +38,7 @@ export default function Detail() {
 		handleSubmit,
 		formState: { errors },
 		reset,
+		watch,
 		setValue, // Added setValue
 	} = useForm<z.infer<typeof formSchema>>({
 		resolver: zodResolver(formSchema),
@@ -54,30 +47,12 @@ export default function Detail() {
 			phone: "",
 			location: "",
 			subject: [],
-			date: new Date(),
 		},
 	});
 
+	const multiRef = useRef<MultiSelectHandle>(null);
 	const [isPending, setIsPending] = useState(false);
-
-	const resetForm = () => {
-		if (window !== undefined) {
-			const phoneInput = document.getElementById("phone") as HTMLInputElement;
-			if (phoneInput) {
-				phoneInput.value = "";
-			}
-			const dateInput = document.getElementById("date") as HTMLInputElement;
-			if (dateInput) {
-				dateInput.value = "";
-			}
-			const locationInput = document.getElementById(
-				"location"
-			) as HTMLInputElement;
-			if (locationInput) {
-				locationInput.value = "";
-			}
-		}
-	};
+	const router = useRouter();
 
 	const onSubmit: SubmitHandler<z.infer<typeof formSchema>> = async (data) => {
 		try {
@@ -92,10 +67,10 @@ export default function Detail() {
 			// Show success message
 
 			const response = await handleFormSubmit(data);
-			alert(response);
-			// Reset the form
-			await resetForm();
+			toast.success(response);
+			multiRef.current?.handleClear();
 			reset();
+			router.refresh();
 		} catch (error) {
 			console.error("Submission error:", error);
 			alert("Failed to submit the form. Please try again.");
@@ -121,6 +96,7 @@ export default function Detail() {
 							<Input
 								type='text'
 								placeholder='Name'
+								tabIndex={1}
 								autoComplete='off'
 								{...register("name")}
 								disabled={isPending}
@@ -138,12 +114,16 @@ export default function Detail() {
 							<PhoneInput
 								countries={["IN"]}
 								id='phone'
-								defaultCountry='IN'
 								disabled={isPending}
 								onChange={(value) => setValue("phone", value)}
 								maxLength={11}
+								value={watch("phone")}
+								tabIndex={2}
+								countryCallingCodeEditable={false}
+								defaultCountry='IN'
 								autoComplete='off'
-								className='col-span-1 shadowborder-none focus-visible:ring-primary-foreground overflow-hidden rounded-lg shadow-amber-500/50'
+								international={false}
+								className='col-span-1 focus-visible:ring-primary-foreground shadow overflow-hidden rounded-lg shadow-amber-500/50'
 								placeholder='Enter a phone number'
 							/>
 							{errors.phone && (
@@ -159,9 +139,11 @@ export default function Detail() {
 						<div className='space-y-1'>
 							<DateTimePicker
 								id='date'
-								onChange={(value) => setValue("date", value)}
-								disabled={isPending}
-								className='col-span-1 justify-between shadow shadow-amber-500/50'
+								date={watch("date")}
+								setDate={(date) =>
+									setValue("date", date!, { shouldValidate: true })
+								}
+								className='col-span-1 shadow shadow-amber-500/50'
 							/>
 							{errors.date && (
 								<p className='text-xs text-red-500 pl-2'>
@@ -178,6 +160,7 @@ export default function Detail() {
 								type='text'
 								placeholder='Address'
 								autoComplete='off'
+								tabIndex={3}
 								{...register("location")}
 								disabled={isPending}
 								className='col-span-1 focus-visible:ring-primary-foreground shadow shadow-amber-500/50'
@@ -194,12 +177,15 @@ export default function Detail() {
 
 						<div className='space-y-1'>
 							<MultiSelect
-								options={subjectList}
+								options={subjectsList}
 								className='col-span-1 md:col-span-2 shadow shadow-amber-500/50'
 								placeholder='Select subjects'
-								disabled={isPending}
+								ref={multiRef}
+								tabIndex={4}
 								onValueChange={(value) => setValue("subject", value)}
+								value={watch("subject")}
 							/>
+
 							{errors.subject && (
 								<p className='text-xs text-red-500 pl-2'>
 									{errors.subject.message}
@@ -212,6 +198,7 @@ export default function Detail() {
 
 						<Button
 							disabled={isPending}
+							tabIndex={5}
 							className='w-fit mt-4 col-span-1 md:col-span-2 shadow shadow-amber-500/50'
 							type='submit'>
 							<Send className='mr-2 h-4 w-4' />
@@ -231,3 +218,23 @@ export default function Detail() {
 		</main>
 	);
 }
+
+
+export function roundDateToNextQuarter (){
+	// If no date provided, use current date
+	const date = new Date();
+
+	// Get minutes and calculate the next quarter hour
+	const minutes = date.getMinutes();
+	const roundedMinutes = Math.ceil(minutes / 15) * 15;
+
+	// If rounded minutes is 60, move to next hour
+	if (roundedMinutes === 60) {
+		date.setHours(date.getHours() + 1, 0, 0, 0);
+	} else {
+		// Set minutes to rounded value, reset seconds and milliseconds
+		date.setMinutes(roundedMinutes, 0, 0);
+	}
+
+	return date;
+};

@@ -6,6 +6,7 @@ import { Home, InfoIcon, RotateCwIcon } from "lucide-react";
 import { Separator } from "../ui/separator";
 import { useRouter } from "next/navigation";
 
+import { PrimeReactProvider } from "primereact/api";
 const Items = ({
 	children,
 	onclick,
@@ -27,7 +28,7 @@ const Items = ({
 const Content = ({ children }: { children: React.ReactNode }) => {
 	return (
 		<ContextMenu.Content className='z-50 min-w-[200px] w-fit gap-2 flex flex-col shadow-inner bg-black/60 backdrop-blur-md text-gray-200   overflow-hidden rounded-md border p-2 text-popover-foreground'>
-			{children}
+			<PrimeReactProvider>{children}</PrimeReactProvider>
 		</ContextMenu.Content>
 	);
 };

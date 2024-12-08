@@ -1,9 +1,8 @@
 "use client";
 
 import * as React from "react";
+import { format, startOfToday, isSameDay } from "date-fns";
 import { CalendarIcon } from "lucide-react";
-import { format } from "date-fns";
-
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
@@ -12,28 +11,41 @@ import {
 	PopoverContent,
 	PopoverTrigger,
 } from "@/components/ui/popover";
-import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
+import {
+	Select,
+	SelectContent,
+	SelectItem,
+	SelectTrigger,
+	SelectValue,
+} from "@/components/ui/select";
+import { roundDateToNextQuarter } from "@/app/filldetail/page";
 
-export function DateTimePicker({
-	defaultDate,
-	className,
-	onChange,
-	disabled,
-	id,
-}: {
-	id: string;
-	defaultDate?: Date;
-	className?: string;
-	disabled?: boolean;
-	onChange?: (date: Date) => void;
-}) {
-	const [date, setDate] = React.useState<Date | undefined>(defaultDate);
-	const [isOpen, setIsOpen] = React.useState(false);
+interface DateTimePickerProps extends React.HTMLAttributes<HTMLInputElement> {
+	date: Date | undefined;
+	setDate: (date: Date | undefined) => void;
+	className: string;
+}
 
-	const hours = Array.from({ length: 12 }, (_, i) => i + 1);
-	const handleDateSelect = (selectedDate: Date | undefined) => {
-		if (selectedDate) {
-			setDate(selectedDate);
+export default function DateTimePicker({ date, setDate,className }: DateTimePickerProps) {
+	const minutes = ["00", "15", "30", "45"];
+	const hours = Array.from({ length: 12 }, (_, i) =>
+		i === 0 ? "12" : i.toString().padStart(2, "0")
+	);
+	const amPmOptions = ["AM", "PM"];
+
+	const handleDateChange = (newDate: Date | undefined) => {
+		if (newDate) {
+			const now = new Date();
+			if (isSameDay(newDate, now)) {
+				// If selected date is today, set time to current time
+				newDate.setHours(now.getHours(), now.getMinutes(), 0, 0);
+			} else {
+				// If selected date is in the future, set time to 12:00 AM
+				newDate.setHours(0, 0, 0, 0);
+			}
+			setDate(newDate);
+		} else {
+			setDate(undefined);
 		}
 	};
 
@@ -41,132 +53,162 @@ export function DateTimePicker({
 		type: "hour" | "minute" | "ampm",
 		value: string
 	) => {
-		if (date) {
-			const newDate = new Date(date);
-			if (type === "hour") {
-				newDate.setHours(
-					(parseInt(value) % 12) + (newDate.getHours() >= 12 ? 12 : 0)
-				);
-			} else if (type === "minute") {
+		if (!date) return;
+
+		const now = new Date();
+		const newDate = new Date(date);
+
+		switch (type) {
+			case "hour":
+				let hour = parseInt(value);
+				const currentAmPm = newDate.getHours() >= 12 ? "PM" : "AM";
+				if (currentAmPm === "PM" && hour !== 12) {
+					hour += 12;
+				} else if (currentAmPm === "AM" && hour === 12) {
+					hour = 0;
+				}
+				newDate.setHours(hour);
+				break;
+			case "minute":
 				newDate.setMinutes(parseInt(value));
-			} else if (type === "ampm") {
-				const currentHours = newDate.getHours();
-				newDate.setHours(
-					value === "PM" ? currentHours + 12 : currentHours - 12
-				);
-			}
+				break;
+			case "ampm":
+				const currentHour = newDate.getHours();
+				if (value === "AM" && currentHour >= 12) {
+					newDate.setHours(currentHour - 12);
+				} else if (value === "PM" && currentHour < 12) {
+					newDate.setHours(currentHour + 12);
+				}
+				break;
+		}
+
+		if (newDate >= now) {
 			setDate(newDate);
 		}
 	};
 
-	React.useEffect(() => {
-		if (date && onChange) {
-			onChange(date);
+	const isHourDisabled = (hour: string) => {
+		if (!date) return false;
+		const now = new Date();
+		if (!isSameDay(date, now)) return false;
+		const hourNum = parseInt(hour);
+		const currentAmPm = now.getHours() >= 12 ? "PM" : "AM";
+		if (currentAmPm === "PM" && hourNum !== 12) {
+			return hourNum + 12 <= now.getHours();
 		}
-	}, [date, onChange]);
+		return hourNum < now.getHours() || (hourNum === 12 && now.getHours() === 0);
+	};
+
+	const isMinuteDisabled = (minute: string) => {
+		if (!date) return false;
+		const now = new Date();
+		if (!isSameDay(date, now)) return false;
+		if (date.getHours() > now.getHours()) return false;
+		if (date.getHours() === now.getHours()) {
+			return parseInt(minute) <= now.getMinutes();
+		}
+		return true;
+	};
+
+	const isAmPmDisabled = (ampm: string) => {
+		if (!date) return false;
+		const now = new Date();
+		if (!isSameDay(date, now)) return false;
+		const currentAmPm = now.getHours() >= 12 ? "PM" : "AM";
+		return ampm === "AM" && currentAmPm === "PM";
+	};
+
+	// Convert 24-hour time to 12-hour time
+	const getCurrentHour = () => {
+		if (!date) return undefined;
+		const hour = date.getHours();
+		return (hour % 12 || 12).toString().padStart(2, "0");
+	};
+
+	// Determine current AM/PM
+	const getCurrentAmPm = () => {
+		if (!date) return undefined;
+		return date.getHours() >= 12 ? "PM" : "AM";
+	};
 
 	return (
-		<Popover open={isOpen} onOpenChange={setIsOpen}>
+		<Popover>
 			<PopoverTrigger asChild>
 				<Button
-					id={id}
-					variant='outline'
+					variant={"outline"}
 					className={cn(
-						"w-full justify-start hover:text-black hover:bg-white text-left font-normal",
+						"w-full justify-between text-left font-normal",
 						!date && "text-muted-foreground",
 						className
 					)}
-					disabled={disabled}>
-					{date ? (
-						format(date, "MM/dd/yyyy hh:mm aa")
-					) : (
-						<span>MM/DD/YYYY hh:mm aa</span>
-					)}
+					onClick={() => date?? setDate(roundDateToNextQuarter())}	
+					aria-label='Pick date and time'>
+					{date ? format(date, "PPP p") : <span>Pick date and time</span>}
 					<CalendarIcon className='mr-2 h-4 w-4' />
 				</Button>
 			</PopoverTrigger>
-			<PopoverContent className='w-full text-center p-0'>
-				<div className='sm:flex'>
-					<Calendar
-						mode='single'
-						selected={date}
-						onSelect={handleDateSelect}
-						initialFocus
-					/>
-					<div className='flex flex-col sm:flex-row sm:h-[300px] divide-y sm:divide-y-0 sm:divide-x'>
-						<ScrollArea className='w-64 sm:w-auto'>
-							<div className='flex sm:flex-col p-2'>
-								{hours.reverse().map((hour) => (
-									<Button
-										key={hour}
-										size='icon'
-										variant={
-											date && date.getHours() % 12 === hour % 12
-												? "default"
-												: "ghost"
-										}
-										className={`sm:w-full shrink-0 aspect-square ${
-											date && date.getHours() % 12 === hour % 12
-												? "bg-amber-500 hover:bg-amber-500/90"
-												: "bg-transparent"
-										}`}
-										onClick={() => handleTimeChange("hour", hour.toString())}>
-										{hour}
-									</Button>
-								))}
-							</div>
-							<ScrollBar orientation='horizontal' className='sm:hidden' />
-						</ScrollArea>
-						<ScrollArea className='w-64 sm:w-auto'>
-							<div className='flex sm:flex-col p-2'>
-								{Array.from({ length: 12 }, (_, i) => i * 5).map((minute) => (
-									<Button
-										key={minute}
-										size='icon'
-										variant={
-											date && date.getMinutes() === minute ? "default" : "ghost"
-										}
-										className={`sm:w-full shrink-0 aspect-square ${
-											date && date.getMinutes() === minute
-												? "bg-amber-500 hover:bg-amber-500/90"
-												: "bg-transparent"
-										}`}
-										onClick={() =>
-											handleTimeChange("minute", minute.toString())
-										}>
-										{minute}
-									</Button>
-								))}
-							</div>
-							<ScrollBar orientation='horizontal' className='sm:hidden' />
-						</ScrollArea>
-						<ScrollArea className=''>
-							<div className='flex sm:flex-col p-2'>
-								{["AM", "PM"].map((ampm) => (
-									<Button
-										key={ampm}
-										size='icon'
-										variant={
-											date &&
-											((ampm === "AM" && date.getHours() < 12) ||
-												(ampm === "PM" && date.getHours() >= 12))
-												? "default"
-												: "ghost"
-										}
-										className={`sm:w-full shrink-0 aspect-square ${
-											date &&
-											((ampm === "AM" && date.getHours() < 12) ||
-												(ampm === "PM" && date.getHours() >= 12))
-												? "bg-amber-500 hover:bg-amber-500/90"
-												: "bg-transparent"
-										}`}
-										onClick={() => handleTimeChange("ampm", ampm)}>
-										{ampm}
-									</Button>
-								))}
-							</div>
-						</ScrollArea>
-					</div>
+			<PopoverContent className='w-auto p-0' align='start'>
+				<Calendar
+					mode='single'
+					selected={date}
+					onSelect={handleDateChange}
+					initialFocus
+					disabled={(date) => date < startOfToday()}
+				/>
+				<div className='border-t p-3 flex gap-2'>
+					<Select
+						value={getCurrentHour()}
+						onValueChange={(value) => handleTimeChange("hour", value)}>
+						<SelectTrigger className='w-[80px]'>
+							<SelectValue placeholder='Hour' />
+						</SelectTrigger>
+						<SelectContent>
+							{hours.map((hour) => (
+								<SelectItem
+									key={hour}
+									value={hour}
+									disabled={isHourDisabled(hour)}>
+									{hour}
+								</SelectItem>
+							))}
+						</SelectContent>
+					</Select>
+					<Select
+						value={
+							date ? date.getMinutes().toString().padStart(2, "0") : undefined
+						}
+						onValueChange={(value) => handleTimeChange("minute", value)}>
+						<SelectTrigger className='w-[80px]'>
+							<SelectValue placeholder='Min' />
+						</SelectTrigger>
+						<SelectContent>
+							{minutes.map((minute) => (
+								<SelectItem
+									key={minute}
+									value={minute}
+									disabled={isMinuteDisabled(minute)}>
+									{minute}
+								</SelectItem>
+							))}
+						</SelectContent>
+					</Select>
+					<Select
+						value={getCurrentAmPm()}
+						onValueChange={(value) => handleTimeChange("ampm", value)}>
+						<SelectTrigger className='w-[80px]'>
+							<SelectValue placeholder='AM/PM' />
+						</SelectTrigger>
+						<SelectContent>
+							{amPmOptions.map((ampm) => (
+								<SelectItem
+									key={ampm}
+									value={ampm}
+									disabled={isAmPmDisabled(ampm)}>
+									{ampm}
+								</SelectItem>
+							))}
+						</SelectContent>
+					</Select>
 				</div>
 			</PopoverContent>
 		</Popover>

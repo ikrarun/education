@@ -3,7 +3,7 @@ import React from "react";
 import { ArrowUpRight, Axis3D } from "lucide-react";
 function navigationbar() {
 	return (
-		<div className='sticky top-0 backdrop-blur-3xl inline-flex w-full z-50 bg-amber-400 text-black shadow-lg'>
+		<div tabIndex={-1} className='sticky top-0 backdrop-blur-3xl inline-flex w-full z-50 bg-amber-400 text-black shadow-lg'>
 			<div className='  max-w-[1200px] mx-auto shadow-sm w-full p-2 inline-flex justify-between items-center'>
 				<Link
 					className='inline-flex  rounded-lg  px-4 py-2 font-bold gap-2 items-center'

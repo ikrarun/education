@@ -8,7 +8,6 @@ interface PageTransitionProps {
 	children: React.ReactNode;
 }
 import { Toaster } from "sonner";
-import { useEffect } from "react";
 
 const PageTransition: React.FC<PageTransitionProps> = ({
 	children,
@@ -17,22 +16,22 @@ const PageTransition: React.FC<PageTransitionProps> = ({
 }) => {
 	const pathname = usePathname();
 
-	useEffect(() => {
-		const handleClick = (e: KeyboardEvent) => {
-			if (e.key === "Tab") {
-				e.preventDefault();
-				return;
-			}
-		};
+	// useEffect(() => {
+	// 	const handleClick = (e: KeyboardEvent) => {
+	// 		if (e.key === "Tab") {
+	// 			e.preventDefault();
+	// 			return;
+	// 		}
+	// 	};
 
-		window.addEventListener("keydown", handleClick);
-		return () => {
-			window.removeEventListener("keydown", handleClick);
-		};
-	}, []);
+	// 	window.addEventListener("keydown", handleClick);
+	// 	return () => {
+	// 		window.removeEventListener("keydown", handleClick);
+	// 	};
+	// }, []);
 
 	return (
-		<div
+		<div tabIndex={-1}
 			className='mx-auto min-h-dvh  flex flex-col w-full
 							h-full grow'>
 			<NavigationBar />

@@ -1,0 +1,17 @@
+[
+    {
+        "author": "Prof. John Doe, Physics Teacher",
+        "rating": 4.5,
+        "message": "As a teacher, I've connected with so many passionate students from around the world. The platform's ease of use and the fact that it's free makes it accessible to everyone!"
+    },
+    {
+        "author": "Prof. Michela R., Literature Expert",
+        "rating": 4,
+        "message": "This platform is a game-changer! I have access to a global community of learners, and I love the simplicity of setting up my lessons."
+    },
+    {
+        "author": "Prof. Albert Einstein, Physics Genius",
+        "rating": 3.8,
+        "message": "What I love most about this platform is the fact that it's accessible to all students, regardless of their background or financial situation."
+    }
+]

@@ -6,9 +6,9 @@ import { z } from "zod";
 export async function handleFormSubmit(data: z.infer<typeof formSchema>) {
 	// Convert FormData to a plain object
 
-	console.log("Form Data:", data);
+	console.log("Form data: Submitted by user", data);
 
-	return `Form submitted successfully! \n Name:- ${data.name} \n Phone:- ${data.phone} \n Subjects:- ${data.subject} \n Date:- ${data.date} \n Location:- ${data.location}`;
+	return `Form submitted successfully! Data: ${JSON.stringify(data)}`;
 
 	// Perform actions with `data` (e.g., send it to an API)
 }

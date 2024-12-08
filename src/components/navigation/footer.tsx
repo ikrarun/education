@@ -4,7 +4,7 @@ import Link from "next/link";
 
 function footer() {
 	return (
-		<div className=' w-full p-4 h-fit '>
+		<div tabIndex={-1} className=' w-full p-4 h-fit '>
 			<div className='h-fit outline-none rounded-lg overflow-clip p-4 items-center bg-amber-400 text-black flex flex-col max-w-[900px] mx-auto w-full'>
 				<ul className='mb-8 mx-auto gap-4 md:gap-0 justify-between w-full max-w-2xl flex md:flex-row flex-col'>
 					<Link
