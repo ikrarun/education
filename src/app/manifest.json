@@ -1,13 +1,13 @@
 {
-	"protocol_handlers": [
-		{}
-	],
 	"name": "EduKation : Craft your future with us",
 	"short_name": "EduKation",
 	"categories": [
 		"education"
 	],
-	"display_override": "standalone",
+	"display_override": [
+		"standalone",
+		"window-controls-overlay"
+	],
 	"orientation": "portrait",
 	"shortcuts": [
 		{
@@ -31,7 +31,6 @@
 	"theme_color": "#fbbf24",
 	"id": "com.edukation",
 	"prefer_related_applications": false,
-	"related_applications": [],
 	"icons": [
 		{
 			"src": "/logo.png",
