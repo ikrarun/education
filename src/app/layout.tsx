@@ -11,6 +11,7 @@ import FirebaseProvider from "@/app/fiebaseProvider";
 export const metadata: Metadata = {
 	title: "EduKation",
 	description: "Craft your future with us",
+	manifest: "/manifest.json",
 };
 
 export const viewport: Viewport = {
