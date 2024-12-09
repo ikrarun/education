@@ -79,7 +79,7 @@ body {
 	* {
 		@apply border-border;
 	}
-	body.bg {
+	/* body.bg {
 		@apply bg-background text-foreground;
-	}
+	} */
 }
