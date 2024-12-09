@@ -25,8 +25,8 @@
 	"description": "Where Learning Meets Opportunity, For Free!",
 	"start_url": "/",
 	"display": "standalone",
-	"background_color": "#FBBF24",
-	"theme_color": "#fbbf24",
+	"background_color": "#fff",
+	"theme_color": "#fff",
 	"id": "com.edukation",
 	"icons": [
 		{
@@ -84,7 +84,7 @@
 		{
 			"src": "/logo.jpg",
 			"sizes": "512x512",
-			"type": "image/jpg",
+			"type": "image/jpeg",
 			"form_factor": "wide"
 		}
 	]
