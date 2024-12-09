@@ -1,7 +1,5 @@
-"use client";
-
+import AnimatedContainer from "@/components/animations/animatedContainer";
 import { Card, CardContent } from "@/components/ui/card";
-import { motion } from "framer-motion";
 import {
 	BookOpen,
 	Clock,
@@ -10,7 +8,6 @@ import {
 	Globe,
 	Shield,
 } from "lucide-react";
-
 
 export default function EduKationFeatures() {
 	const features = [
@@ -53,29 +50,25 @@ export default function EduKationFeatures() {
 	];
 
 	return (
-		<section className='flex w-full flex-col items-center justify-center py-12'>
+		<section className='flex w-full flex-col items-center justify-center mt-12'>
 			<h2 className='text-4xl font-semibold text-center mb-8 text-black'>
 				Why Choose EduKation?
 			</h2>
-			<div className='grid gap-8 sm:grid-cols-2 lg:grid-cols-3 w-full'>
+			<AnimatedContainer variants="always" className='grid gap-2 h-fit md:gap-3 sm:grid-cols-2 lg:grid-cols-3 w-full'>
 				{features.map((feature, index) => (
-					<motion.div
+					<Card
 						key={index}
-						initial={{ opacity: 0, y: 20 }}
-						whileInView={{ opacity: 1, y: 0 }}
-						transition={{ duration: 0.2, delay: index * 0.1 }}>
-						<Card className='h-full transition-all duration-300 hover:shadow-lg hover:-translate-y-1'>
-							<CardContent className='flex flex-col items-center text-center p-6 h-full'>
-								<div className='p-4 bg-gradient-to-br from-gray-100 to-gray-200 rounded-full mb-4'>
-									{feature.icon}
-								</div>
-								<h3 className='text-xl font-medium mb-2'>{feature.title}</h3>
-								<p className='text-muted-foreground'>{feature.description}</p>
-							</CardContent>
-						</Card>
-					</motion.div>
+						className='h-full transition-all duration-300 hover:shadow-lg hover:-translate-y-1'>
+						<CardContent className='flex flex-col items-center text-center p-6 h-full'>
+							<div className='p-4 bg-gradient-to-br from-gray-100 to-gray-200 rounded-full mb-4'>
+								{feature.icon}
+							</div>
+							<h3 className='text-xl font-medium mb-2'>{feature.title}</h3>
+							<p className='text-muted-foreground'>{feature.description}</p>
+						</CardContent>
+					</Card>
 				))}
-			</div>
+			</AnimatedContainer>
 		</section>
 	);
 }

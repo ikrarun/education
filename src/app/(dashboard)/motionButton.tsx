@@ -12,14 +12,11 @@ const MotionButton = React.forwardRef<HTMLButtonElement, MotionButtonProps>(
 				ref={ref}
 				whileTap={{ scale: 0.98 }} // Slightly scale down when clicked
 				whileHover={{
-					scale: 1.05, // Slight scale increase on hover
 					transition: { duration: 0.2, ease: "easeInOut" }, // Smooth transition on hover
 				}}
 				className={`relative inline-flex gap-2 items-center text-2xl px-4 py-2 text-white rounded-lg shadow-lg ${className}`}
 				{...props}>
 				{children}
-
-				
 			</motion.button>
 		);
 	}

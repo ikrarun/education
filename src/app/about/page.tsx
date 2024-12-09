@@ -1,4 +1,4 @@
-import ListAnimation from "@/components/animations/listAnimation";
+import ListAnimation from "@/components/animations/animatedContainer";
 import { Card, CardContent } from "@/components/ui/card";
 import { Github, Instagram, Twitter } from "lucide-react";
 import Link from "next/link";

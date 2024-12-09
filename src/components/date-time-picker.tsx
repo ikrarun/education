@@ -19,13 +19,13 @@ import {
 	SelectValue,
 } from "@/components/ui/select";
 
-export const roundDateToNextQuarter = () => {
+export const roundDatetoStepsof = (steps: number) => {
 	// If no date provided, use current date
 	const date = new Date();
 
 	// Get minutes and calculate the next quarter hour
 	const minutes = date.getMinutes();
-	const roundedMinutes = Math.ceil(minutes / 15) * 15;
+	const roundedMinutes = Math.ceil(minutes / steps) * 15;
 
 	// If rounded minutes is 60, move to next hour
 	if (roundedMinutes === 60) {
@@ -159,7 +159,7 @@ export default function DateTimePicker({ date, setDate,className }: DateTimePick
 						!date && "text-muted-foreground",
 						className
 					)}
-					onClick={() => date?? setDate(roundDateToNextQuarter())}	
+					onClick={() => date?? setDate(roundDatetoStepsof(10))}	
 					aria-label='Pick date and time'>
 					{date ? format(date, "PPP p") : <span>Pick date and time</span>}
 					<CalendarIcon className='mr-2 h-4 w-4' />
