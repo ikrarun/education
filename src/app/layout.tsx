@@ -1,6 +1,5 @@
 import type { Metadata, Viewport } from "next";
 import "./../assets/globals.css";
-import "mac-scrollbar/dist/mac-scrollbar.css";
 import { Poppins as Font } from "next/font/google";
 const font = Font({
 	subsets: ["latin"],
@@ -31,7 +30,6 @@ export default function RootLayout({
 	return (
 		<html lang='en'>
 			<body
-				data-mdb-perfect-scrollbar-init
 				className={`${font.className} bg select-none flex-col flex`}>
 				<ContextMenuProvider>
 					<FirebaseProvider>{children}</FirebaseProvider>
