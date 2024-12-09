@@ -23,6 +23,8 @@ export default function FirebaseProvider({
 					console.error("Service Worker registration failed:", error);
 				});
 		}
+
+		
 	}, []);
 	useEffect(() => {
 		async function requestPermission() {

@@ -1,13 +1,14 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import NavigationBar from "@/components/navigation/navigationbar";
 import Footer from "@/components/navigation/footer";
 interface PageTransitionProps {
 	children: React.ReactNode;
 }
 import { Toaster } from "sonner";
+import { ArrowLeft, Axis3D } from "lucide-react";
 
 const PageTransition: React.FC<PageTransitionProps> = ({
 	children,
@@ -15,7 +16,7 @@ const PageTransition: React.FC<PageTransitionProps> = ({
 	children: React.ReactNode;
 }) => {
 	const pathname = usePathname();
-
+	const router = useRouter();
 	// useEffect(() => {
 	// 	const handleClick = (e: KeyboardEvent) => {
 	// 		if (e.key === "Tab") {
@@ -31,9 +32,23 @@ const PageTransition: React.FC<PageTransitionProps> = ({
 	// }, []);
 
 	return (
-		<div tabIndex={-1}
+		<div
+			tabIndex={-1}
 			className='mx-auto min-h-dvh  flex flex-col w-full
 							h-full grow'>
+			<div className='title-bar transition-all bg-amber-400 duration-1000 sticky top-0 z-50 inline-flex w-fit items-center justify-between pl-6 '>
+				<div className='inline-flex items-center'>
+					<Axis3D className='w-5 h-5' />
+					<h1 className='text-sm'>EduKation</h1>
+				</div>
+				<div className='inline-flex items-center'>
+					{pathname !== "/" && (
+						<button className="cursor-pointer" onClick={() => router.back()}>
+							<ArrowLeft className='w-5 h-5 mr-2' />
+						</button>
+					)}
+				</div>
+			</div>
 			<NavigationBar />
 			<Toaster richColors visibleToasts={1} expand />
 
