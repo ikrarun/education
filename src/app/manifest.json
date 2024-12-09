@@ -19,18 +19,15 @@
 			"url": "/about"
 		}
 	],
+	"dir": "ltr",
 	"lang": "en",
 	"scope": "/",
-	"launch_handler": {
-		"client_mode": "auto"
-	},
 	"description": "Where Learning Meets Opportunity, For Free!",
 	"start_url": "/",
 	"display": "standalone",
 	"background_color": "#fbbf24",
 	"theme_color": "#fbbf24",
 	"id": "com.edukation",
-	"prefer_related_applications": false,
 	"icons": [
 		{
 			"src": "/logo.png",
