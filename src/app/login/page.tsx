@@ -14,7 +14,6 @@ import { FcGoogle } from "react-icons/fc";
 import { BsFacebook, BsTwitterX } from "react-icons/bs";
 import { useRouter } from "next/navigation";
 
-
 export default function Component() {
 	const router = useRouter();
 
@@ -51,14 +50,11 @@ export default function Component() {
 							whileTap={{ scale: 0.95 }}
 							transition={{ duration: 0.2, ease: "easeInOut" }}
 							className='w-full p-2 inline-flex rounded-md border border-gray-200 items-center justify-center
-                         hover:bg-gray-200
-                          outline-none hover:border-gray-800/40'>
+                          outline-none '>
 							<button.icon
 								className={`mr-2 h-6 w-6 ${button.iconColor || ""}`}
 							/>
-							<span className='text-gray-600 hover:text-gray-800 place-self-center'>
-								{button.text}
-							</span>
+							<span className=' place-self-center'>{button.text}</span>
 						</motion.button>
 					))}
 				</CardContent>

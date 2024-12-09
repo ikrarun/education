@@ -2,8 +2,8 @@
 
 import { motion } from "framer-motion";
 import { usePathname, useRouter } from "next/navigation";
-import NavigationBar from "@/components/navigation/navigationbar";
-import Footer from "@/components/navigation/footer";
+import NavigationBar from "@/components/providers/navigationbar";
+import Footer from "@/components/providers/footer";
 interface PageTransitionProps {
 	children: React.ReactNode;
 }
@@ -36,7 +36,7 @@ const PageTransition: React.FC<PageTransitionProps> = ({
 			tabIndex={-1}
 			className='mx-auto min-h-dvh  flex flex-col w-full
 							h-full grow'>
-			<div className='title-bar transition-all bg-amber-400 duration-1000 sticky top-0 z-50 inline-flex w-fit items-center justify-between pl-6 '>
+			<div className='title-bar transition-all duration-1000 sticky top-0 z-50 inline-flex w-fit items-center justify-between pl-6 '>
 				<div className='inline-flex items-center'>
 					<Axis3D className='w-5 h-5' />
 					<h1 className='text-sm'>EduKation</h1>

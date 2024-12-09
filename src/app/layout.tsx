@@ -1,12 +1,13 @@
-import type { Metadata, Viewport } from "next";
+import { Metadata, Viewport } from "next";
 import "./../assets/globals.css";
 import { Poppins as Font } from "next/font/google";
 const font = Font({
 	subsets: ["latin"],
 	weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
 });
-import ContextMenuProvider from "@/components/navigation/contextMenuProvider";
+import ContextMenuProvider from "@/components/providers/contextMenuProvider";
 import FirebaseProvider from "@/app/fiebaseProvider";
+import { ThemeProvider } from "@/components/providers/themeProviders";
 
 const defaultURL =
 	process.env.NODE_ENV === "development"
@@ -244,7 +245,16 @@ export const viewport: Viewport = {
 	viewportFit: "cover",
 	width: "device-width",
 	initialScale: 1,
-	themeColor: "#fbbf24",
+	themeColor: [
+		{
+			media: "(prefers-color-scheme: dark)",
+			color: "#000000",
+		},
+		{
+			media: "(prefers-color-scheme: light)",
+			color: "#fbff24",
+		},
+	],
 	maximumScale: 1,
 	userScalable: false,
 };
@@ -254,10 +264,17 @@ export default function RootLayout({
 	children: React.ReactNode;
 }>) {
 	return (
-		<html lang='en'>
+		<html lang='en' suppressHydrationWarning>
+			
 			<body className={`${font.className} bg select-none flex-col flex`}>
 				<ContextMenuProvider>
-					<FirebaseProvider>{children}</FirebaseProvider>
+					<ThemeProvider
+						attribute='class'
+						defaultTheme='system'
+						enableSystem
+						disableTransitionOnChange>
+						<FirebaseProvider>{children}</FirebaseProvider>
+					</ThemeProvider>
 				</ContextMenuProvider>
 			</body>
 		</html>
