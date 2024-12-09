@@ -1,4 +1,3 @@
-
 import type { Metadata, Viewport } from "next";
 import "./../assets/globals.css";
 import "mac-scrollbar/dist/mac-scrollbar.css";
@@ -20,6 +19,7 @@ export const viewport: Viewport = {
 	viewportFit: "cover",
 	width: "device-width",
 	initialScale: 1,
+	themeColor: "#fbbf24",
 	maximumScale: 1,
 	userScalable: false,
 };
@@ -34,9 +34,8 @@ export default function RootLayout({
 				data-mdb-perfect-scrollbar-init
 				className={`${font.className} bg select-none flex-col flex`}>
 				<ContextMenuProvider>
-					<FirebaseProvider>{children}
-					</FirebaseProvider>
-					</ContextMenuProvider>
+					<FirebaseProvider>{children}</FirebaseProvider>
+				</ContextMenuProvider>
 			</body>
 		</html>
 	);
