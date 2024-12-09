@@ -220,21 +220,4 @@ export default function Detail() {
 }
 
 
-export function roundDateToNextQuarter (){
-	// If no date provided, use current date
-	const date = new Date();
 
-	// Get minutes and calculate the next quarter hour
-	const minutes = date.getMinutes();
-	const roundedMinutes = Math.ceil(minutes / 15) * 15;
-
-	// If rounded minutes is 60, move to next hour
-	if (roundedMinutes === 60) {
-		date.setHours(date.getHours() + 1, 0, 0, 0);
-	} else {
-		// Set minutes to rounded value, reset seconds and milliseconds
-		date.setMinutes(roundedMinutes, 0, 0);
-	}
-
-	return date;
-};
