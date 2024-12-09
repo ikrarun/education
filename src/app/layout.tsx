@@ -16,7 +16,6 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-	themeColor: "#fbbf24",
 	minimumScale: 1,
 	viewportFit: "cover",
 	width: "device-width",
@@ -33,7 +32,7 @@ export default function RootLayout({
 		<html lang='en'>
 			<body
 				data-mdb-perfect-scrollbar-init
-				className={`${font.className} select-none flex-col flex`}>
+				className={`${font.className} bg select-none flex-col flex`}>
 				<ContextMenuProvider>
 					<FirebaseProvider>{children}
 					</FirebaseProvider>
