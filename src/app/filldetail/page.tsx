@@ -23,7 +23,7 @@ const subjectsList = [
 
 import { Input } from "@/components/ui/input";
 import DateTimePicker from "@/components/date-time-picker";
-import { Button } from "@/components/ui/button";
+import { BetterButton } from "@/components/ui/betterbutton";
 import { Send } from "lucide-react";
 import { useRef, useState } from "react";
 import { formSchema } from "@/lib/types"; // Assuming you have defined the type
@@ -196,14 +196,14 @@ export default function Detail() {
 							</p>
 						</div>
 
-						<Button
+						<BetterButton
 							disabled={isPending}
 							tabIndex={5}
 							className='w-fit mt-4 col-span-1 md:col-span-2 shadow shadow-amber-500/50'
 							type='submit'>
 							<Send className='mr-2 h-4 w-4' />
 							{isPending ? "Submitting..." : "Submit"}
-						</Button>
+						</BetterButton>
 					</form>
 				</CardContent>
 				<CardFooter>
@@ -218,6 +218,3 @@ export default function Detail() {
 		</main>
 	);
 }
-
-
-

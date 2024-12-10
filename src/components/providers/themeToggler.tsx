@@ -1,9 +1,8 @@
 "use client";
 import { useTheme } from "next-themes";
 import { CgMoon, CgSun } from "react-icons/cg";
-import { buttonVariants } from "../ui/button";
 import { useEffect, useState } from "react";
-
+import { BetterButton } from "../ui/betterbutton";
 const ThemeToggler = () => {
 	const { theme, setTheme } = useTheme();
 
@@ -15,27 +14,25 @@ const ThemeToggler = () => {
 
 	if (!mounted) {
 		return (
-			<button
-				className={`${buttonVariants({
-					variant: "transparent_outline",
-					size: "icon",
-				})}  `}>
+			<BetterButton
+				variant={"transparent_outline"}
+				className='rounded-full'
+				size={"icon"}>
 				{<CgSun />}
-			</button>
+			</BetterButton>
 		);
 	}
 	return (
-		<button
-			className={`${buttonVariants({
-				variant: "transparent_outline",
-				size: "icon",
-			})}  `}
+		<BetterButton
+			size={'icon'}
+			variant={'transparent_outline'}
+			className="rounded-full"
 			onClick={() => {
 				if (theme == "dark") setTheme("light");
 				else setTheme("dark");
 			}}>
 			{theme == "dark" ? <CgMoon /> : <CgSun />}
-		</button>
+		</BetterButton>
 	);
 };
 

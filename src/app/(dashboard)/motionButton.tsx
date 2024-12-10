@@ -2,7 +2,7 @@
 import React from "react";
 import { motion, HTMLMotionProps } from "framer-motion";
 import { cn } from "@/lib/utils";
-import { buttonVariants } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/betterbutton";
 
 export type MotionButtonProps = HTMLMotionProps<"button"> &
 	React.ButtonHTMLAttributes<HTMLButtonElement>;

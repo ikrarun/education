@@ -4,13 +4,6 @@ import { Github, Instagram, Twitter } from "lucide-react";
 import Link from "next/link";
 import React from "react";
 
-/**
- * The about page component.
- *
- * This component renders a list of links to the developer's social media profiles.
- *
- * @returns The about page component.
- */
 export default function page() {
 	return (
 		<div className='flex px-4 pb-2 max-w-[900px] pt-4 flex-col w-full mx-auto items-center justify-center grow'>
@@ -18,7 +11,7 @@ export default function page() {
 				<h1 className='my-2 mb-8 font-semibold text-2xl'>
 					Connect with the Developer !
 				</h1>
-				<ListAnimation className='flex gap-2 items-center justify-center mx-auto grow w-full flex-col md:flex-row'>
+				<ListAnimation loop className='flex gap-2 items-center justify-center mx-auto grow w-full flex-col md:flex-row'>
 					<Link
 						className='h-full w-full grow transition-all duration-300 hover:shadow-lg hover:-translate-y-1'
 						prefetch={false}

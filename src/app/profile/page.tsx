@@ -1,5 +1,5 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { buttonVariants } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/betterbutton";
 import {
 	Card,
 	CardContent,

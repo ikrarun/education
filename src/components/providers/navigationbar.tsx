@@ -1,31 +1,29 @@
 import React from "react";
 import { ArrowUpRight, Axis3D } from "lucide-react";
-import Link from "next/link";
-import { buttonVariants } from "../ui/button";
+import { BetterButton } from "../ui/betterbutton";
 import ThemeToggler from "./themeToggler";
+import Link from "next/link";
 function Navigationbar() {
 	return (
 		<div
 			id='navbar'
 			tabIndex={-1}
-			className='sticky top-0 dark:bg-background bg-primary  w-full z-50 border-b-[0.01em] border-primary/40'>
+			className='sticky top-0 backdrop-blur-3xl  w-full z-50 border-b-[0.01em] '>
 			<div className='  max-w-[1200px] mx-auto w-full p-2 inline-flex justify-between items-center'>
 				<Link
-					className='inline-flex  rounded-lg  px-4 py-2 font-bold gap-2 items-center'
+					className='inline-flex  text-foreground   rounded-lg  px-4 py-2 font-bold gap-2 items-center'
 					href='/'>
 					<Axis3D className='w-5 h-5' />
 					<h1 className='text-xl font-normal'>EduKation</h1>
 				</Link>
 				<div className='inline-flex font-normal justify-center items-center gap-4'>
-					<Link
-						className={`${buttonVariants({
-							variant: "transparent_outline",
-							size: "navbar",
-						})} `}
-						href='/about'>
+					<BetterButton
+						variant={"outline"}
+						href='/about'
+						className='text-foreground pl-4 pr-3'>
 						About
 						<ArrowUpRight />
-					</Link>
+					</BetterButton>
 					<ThemeToggler />
 				</div>
 			</div>

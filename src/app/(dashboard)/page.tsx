@@ -4,9 +4,7 @@ import FeaturedSection from "./featured_section";
 import AnimatedContainer from "@/components/animations/animatedContainer";
 import Testimonial from "./testimonial";
 import testimonial from "@/store/testimonial.json";
-import { Button } from "@/components/ui/button";
-
-// Reusable ListItem component for checklist items
+import { BetterButton } from "@/components/ui/betterbutton";
 
 const ListItem = ({ text }: { text: string }) => (
 	<li className='inline-flex items-center'>
@@ -19,16 +17,12 @@ const ListItem = ({ text }: { text: string }) => (
 
 // Hero Section
 const HeroSection = () => (
-	<main className='flex select-none mt-24 flex-col items-center justify-center w-full text-center py-16 md:py-24'>
+	<main className='flex select-none mt-24 flex-col items-center justify-center w-full text-center pb-3'>
 		<h1 className='text-6xl mb-8'>
-			<span
-				className='bg-clip-text font-bold text-transparent bg-gradient-to-r from-amber-500 via-red-600/80 to-amber-500
-			dark:from-amber-300 dark:via-red-400 dark:to-amber-300'>
-				Welcome to EduKation!
-			</span>
+			<span className='bg-clip-text font-bold '>Welcome to EduKation!</span>
 		</h1>
-		<h2 className='text-2xl font-normal text-muted-foreground mb-4'>
-			Learning Meets Opportunity!
+		<h2 className='text-2xl font-normal text-muted-foreground'>
+			Where Learning Meets Opportunity!
 		</h2>
 	</main>
 );
@@ -40,27 +34,27 @@ const CallToAction = () => (
 		className='flex flex-col items-center justify-center w-fit mx-auto'>
 		<AnimatedContainer
 			gapInItems={0.2}
-			className='flex md:flex-row w-fit flex-col mx-auto mt-8 gap-2'>
-			<Button
-				variant={"special"}
+			className='flex mr-4 md:flex-row w-fit flex-col mx-auto mt-4 gap-2'>
+			<BetterButton
 				href='/filldetail'
-				className='inline-flex w-full text-black hover:text-black text-2xl items-center gap-2'>
+				size={"lg"}
+				className='inline-flex w-full px-4 text-2xl items-center gap-2'>
 				<h1 className='text-lg font-normal'>I am a Student</h1>
-			</Button>
-			<Button
-				variant={"special"}
+			</BetterButton>
+			<BetterButton
+				size={"lg"}
 				href='/about'
-				className='inline-flex text-black hover:text-black w-full text-2xl items-center gap-2'>
+				className='inline-flex w-full px-4 text-2xl items-center gap-2'>
 				<h1 className='text-lg font-normal'>I am a Teacher</h1>
-			</Button>
+			</BetterButton>
 		</AnimatedContainer>
 
 		<AnimatedContainer
 			startAfter={0.25}
 			className='text-base flex flex-col md:flex-row gap-4 w-full mx-auto font-normal text-start text-gray-800 mt-8 md:mt-16'>
 			<ListItem text='100% Free, No Hidden Fees' />
-			<ListItem text='No Credit Card Required' />
 			<ListItem text='Free to use' />
+			<ListItem text='No Credit Card Required' />
 		</AnimatedContainer>
 	</AnimatedContainer>
 );
@@ -90,9 +84,7 @@ const DescriptionSection = () => (
 const TestimonialSection = () => (
 	<section className='flex flex-col my-8 gap-6 items-start text-start w-full'>
 		<h2 className='text-3xl font-semibold mb-4'>What Our Users Are Saying</h2>
-		<AnimatedContainer
-			variants={"always"}
-			className='grid gap-6 h-full md:grid-cols-2 w-full'>
+		<AnimatedContainer loop className='grid gap-6 h-full md:grid-cols-2 w-full'>
 			{testimonial.map((testimonial, index) => (
 				<Testimonial
 					key={index}
