@@ -7,6 +7,7 @@ import testimonial from "@/store/testimonial.json";
 import { Button } from "@/components/ui/button";
 
 // Reusable ListItem component for checklist items
+
 const ListItem = ({ text }: { text: string }) => (
 	<li className='inline-flex items-center'>
 		<span className='p-2 mr-2 rounded-full bg-primary shadow-md flex items-center justify-center'>

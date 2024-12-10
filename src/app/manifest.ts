@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next";
 
 export default function manifest(): MetadataRoute.Manifest {
 	return {
-		name: "EduKation",
+		name: "EduKation: Craft your future with us",
 		short_name: "EduKation",
 		description: "Where Learning Meets Opportunity, For Free!",
 		icons: [
@@ -154,6 +154,6 @@ export default function manifest(): MetadataRoute.Manifest {
 		display: "standalone",
 		start_url: "/",
 		orientation: "portrait",
-		display_override: ["window-controls-overlay"],
+		display_override: ["standalone"],
 	};
 }

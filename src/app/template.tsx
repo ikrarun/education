@@ -9,6 +9,8 @@ interface PageTransitionProps {
 }
 import { Toaster } from "sonner";
 import { ArrowLeft, Axis3D } from "lucide-react";
+import { useEffect } from "react";
+import Link from "next/link";
 
 const PageTransition: React.FC<PageTransitionProps> = ({
 	children,
@@ -31,19 +33,26 @@ const PageTransition: React.FC<PageTransitionProps> = ({
 	// 	};
 	// }, []);
 
+	useEffect(() => {
+		document.getElementById("bacck")?.addEventListener("click", () => {
+			alert("You clicked the action button!");
+			router.back();
+		});
+	}, [router]);
+
 	return (
 		<div
 			tabIndex={-1}
 			className='mx-auto min-h-dvh  flex flex-col w-full
 							h-full grow'>
-			<div className='title-bar transition-all duration-1000 sticky top-0 z-50 inline-flex w-fit items-center justify-between pl-6 '>
-				<div className='inline-flex items-center'>
+			<div id="titlebar" className='bg-primary sticky top-0 z-50 inline-flex w-fit items-center justify-between pl-6 '>
+				<Link href='/' className='inline-flex items-center'>
 					<Axis3D className='w-5 h-5' />
 					<h1 className='text-sm'>EduKation</h1>
-				</div>
+				</Link>
 				<div className='inline-flex items-center'>
 					{pathname !== "/" && (
-						<button className="cursor-pointer" onClick={() => router.back()}>
+						<button className='cursor-pointer' id='back'>
 							<ArrowLeft className='w-5 h-5 mr-2' />
 						</button>
 					)}

@@ -1,10 +1,57 @@
 import { Metadata, Viewport } from "next";
 import "./../assets/globals.css";
-import { Poppins as Font } from "next/font/google";
-const font = Font({
-	subsets: ["latin"],
-	weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+import Font from "next/font/local";
+const localFont = Font({
+	src: [
+		{
+			path: "./fonts/SFProDisplay-Ultralight.woff2",
+			weight: "100",
+			style: "normal",
+		},
+		{
+			path: "./fonts/SFProDisplay-Thin.woff2",
+			weight: "200",
+			style: "normal",
+		},
+		{
+			path: "./fonts/SFProDisplay-Light.woff2",
+			weight: "300",
+			style: "normal",
+		},
+
+		{
+			path: "./fonts/SFProDisplay-Regular.woff2",
+			weight: "400",
+			style: "normal",
+		},
+		{
+			path: "./fonts/SFProDisplay-Medium.woff2",
+			weight: "500",
+			style: "normal",
+		},
+		{
+			path: "./fonts/SFProDisplay-Semibold.woff2",
+			weight: "600",
+			style: "normal",
+		},
+		{
+			path: "./fonts/SFProDisplay-Bold.woff2",
+			weight: "700",
+			style: "normal",
+		},
+		{
+			path: "./fonts/SFProDisplay-Heavy.woff2",
+			weight: "800",
+			style: "normal",
+		},
+		{
+			path: "./fonts/SFProDisplay-Black.woff2",
+			weight: "900",
+			style: "normal",
+		},
+	],
 });
+
 import ContextMenuProvider from "@/components/providers/contextMenuProvider";
 import FirebaseProvider from "@/app/fiebaseProvider";
 import { ThemeProvider } from "@/components/providers/themeProviders";
@@ -248,11 +295,11 @@ export const viewport: Viewport = {
 	themeColor: [
 		{
 			media: "(prefers-color-scheme: dark)",
-			color: "#000000",
+			color: "#000",
 		},
 		{
 			media: "(prefers-color-scheme: light)",
-			color: "#fbff24",
+			color: "#ffc107",
 		},
 	],
 	maximumScale: 1,
@@ -265,12 +312,11 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang='en' suppressHydrationWarning>
-			
-			<body className={`${font.className} bg select-none flex-col flex`}>
+			<body className={`${localFont.className} bg select-none flex-col flex`}>
 				<ContextMenuProvider>
 					<ThemeProvider
 						attribute='class'
-						defaultTheme='system'
+						defaultTheme='light'
 						enableSystem
 						disableTransitionOnChange>
 						<FirebaseProvider>{children}</FirebaseProvider>

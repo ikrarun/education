@@ -85,39 +85,25 @@ body {
 	}
 }
 
-.title-bar {
-	/* Make sure the `div` stays there, even when scrolling. */
+#titlebar {
 	position: fixed;
-	-webkit-app-region: drag;
-	display: none;
-	/**
-   * Gradient, because why not. Endless opportunities.
-   * The gradient ends in `#fbbf24`, which happens to be the app's
-   * `<meta name="theme-color" content="#fbbf24">`.
-   */
-	z-index: 500;
-
-	/* Use the environment variable for the left anchoring with a fallback. */
 	left: env(titlebar-area-x, 0);
-	/* Use the environment variable for the top anchoring with a fallback. */
 	top: env(titlebar-area-y, 0);
-	/* Use the environment variable for setting the width with a fallback. */
+	height: env(titlebar-area-height, 50px);
 	width: env(titlebar-area-width, 100%);
-	/* Use the environment variable for setting the height with a fallback. */
-	height: 0;
+	-webkit-app-region: drag;
 }
 
-@media (display-mode: window-controls-overlay) {
-	.navbar {
-		display: none;
-		margin-top: env(titlebar-area-height, 33px);
-	}
-	.title-bar {
-		display: inline-flex;
-		height: env(titlebar-area-height, 33px);
-	}
-}
-
-.navbar {
+#navbar {
 	display: inline-flex;
+}
+
+/* Hide navbar when in window-controls-overlay mode */
+@media (display-mode: window-controls-overlay) {
+	#titlebar {
+		display: none;
+	}
+	#navbar {
+		-webkit-app-region: drag;
+	}
 }
