@@ -293,7 +293,6 @@ export const metadata: Metadata = {
 		countryName: "INDIA",
 		locale: "en-US",
 		type: "website",
-		
 	},
 	twitter: {
 		card: "summary_large_image",
@@ -306,7 +305,8 @@ export const metadata: Metadata = {
 				height: 600,
 			},
 		],
-	}
+	},
+	creator: "Kumar Arun",
 };
 
 export const viewport: Viewport = {
