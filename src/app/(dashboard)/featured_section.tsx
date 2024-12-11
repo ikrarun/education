@@ -54,11 +54,13 @@ export default function EduKationFeatures() {
 			<h2 className='text-4xl font-semibold text-center mb-8 '>
 				Why Choose EduKation?
 			</h2>
-			<AnimatedContainer className='grid gap-2 h-fit md:gap-3 sm:grid-cols-2 lg:grid-cols-3 w-full'>
+			<AnimatedContainer
+				onetime='yes'
+				className='grid gap-2 h-fit md:gap-3 sm:grid-cols-2 lg:grid-cols-3 w-full'>
 				{features.map((feature, index) => (
 					<Card
 						key={index}
-						className='h-full transition-all duration-300 hover:shadow-lg hover:-translate-y-1'>
+						className='h-full  cursor-pointer overflow-hidden transition-all duration-300 hover:shadow-lg '>
 						<CardContent className='flex flex-col items-center text-center p-6 h-full'>
 							<div className='p-4 bg-gradient-to-br from-gray-100 to-gray-200 rounded-full mb-4'>
 								{feature.icon}

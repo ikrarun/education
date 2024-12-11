@@ -12,7 +12,7 @@ export default function Testimonial({
 	rating: number;
 }) {
 	return (
-		<Card className='p-6 size-full bg-gradient-to-br flex flex-col justify-between'>
+		<Card className='p-6 cursor-pointer box size-full hover:shadow-lg bg-gradient-to-br flex flex-col justify-between'>
 			<div className='flex flex-col items-start gap-2'>
 				<StarRating rating={rating} />
 				<p className='text-lg mb-4'>{children}</p>

@@ -17,7 +17,7 @@ const ListItem = ({ text }: { text: string }) => (
 
 // Hero Section
 const HeroSection = () => (
-	<main className='flex select-none mt-24 flex-col items-center justify-center w-full text-center pb-3'>
+	<main className='flex mt-24 flex-col items-center justify-center w-full text-center pb-3'>
 		<h1 className='text-6xl mb-8'>
 			<span className='bg-clip-text font-bold '>Welcome to EduKation!</span>
 		</h1>
@@ -78,7 +78,9 @@ const DescriptionSection = () => (
 const TestimonialSection = () => (
 	<section className='flex flex-col my-8 gap-6 items-start text-start w-full'>
 		<h2 className='text-3xl font-semibold mb-4'>What Our Users Are Saying</h2>
-		<AnimatedContainer className='grid gap-6 h-full md:grid-cols-2 w-full'>
+		<AnimatedContainer
+			onetime='no'
+			className='grid gap-3 h-full md:grid-cols-2 w-full'>
 			{testimonial.map((testimonial, index) => (
 				<Testimonial
 					key={index}

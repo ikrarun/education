@@ -14,10 +14,9 @@ import { Circle, CircleCheck, Home, Mail } from "lucide-react";
 import Link from "next/link";
 import React from "react";
 
-
 export default function Profile() {
 	return (
-		<main className='flex select-none md:p-0 p-2 h-full min-h-[90vh] md:flex-row gap-2 flex-col-reverse w-full grow items-top justify-top'>
+		<main className='flex md:p-0 p-2 h-full min-h-[90vh] md:flex-row gap-2 flex-col-reverse w-full grow items-top justify-top'>
 			<Card className='mx-auto w-full md:w-fit flex flex-col p-2 max-w-full md:max-w-xs gap-2'>
 				<CardHeader className='space-y-1'>
 					<CardTitle className='text-xl font-medium'>Profile</CardTitle>
@@ -84,7 +83,7 @@ export default function Profile() {
 				</CardHeader>
 
 				<CardContent className='grow flex flex-col items-center justify-center'>
-					<h1 className="inline-flex relative gap-2 items-center">
+					<h1 className='inline-flex relative gap-2 items-center'>
 						I am working on it
 						<Circle
 							className='w-3 absolute -top-2 -right-3 animate-pulse duration-1000 ease-in-out transition-all h-3'

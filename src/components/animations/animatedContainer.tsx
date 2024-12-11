@@ -1,26 +1,28 @@
-import React from "react";
 import * as motion from "motion/react-client";
-
-interface ListAnimationProps {
+import { Children } from "react";
+interface AnimatedContainerProps {
 	children: React.ReactNode;
 	className?: string;
 	startAfter?: number;
 	gapInItems?: number;
+	onetime: "yes" | "no";
 }
 
 export default function AnimatedContainer({
 	children,
 	className,
-	gapInItems = 0.2,
+	gapInItems = 0.1,
 	startAfter = 0,
-}: ListAnimationProps) {
+	onetime = "no",
+}: AnimatedContainerProps) {
 	return (
 		<div className={className}>
-			{React.Children.map(children, (child, index) => (
+			{Children.map(children, (child, index) => (
 				<motion.div
 					key={index}
 					initial={{ opacity: 0, y: 20 }}
-					whileInView={{ opacity: 1, y: 0 }}
+					whileInView={{ opacity: 1, y: 0, repeatCount: Infinity }}
+					viewport={{ once: onetime === "yes" }}
 					transition={{
 						duration: 0.24,
 						ease: "easeInOut",
