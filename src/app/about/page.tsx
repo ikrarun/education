@@ -11,7 +11,7 @@ export default function page() {
 				<h1 className='my-2 mb-8 font-semibold text-2xl'>
 					Connect with the Developer !
 				</h1>
-				<ListAnimation className='flex gap-2 items-center justify-center mx-auto grow w-full flex-col md:flex-row'>
+				<ListAnimation onetime="no" className='flex gap-2 items-center justify-center mx-auto grow w-full flex-col md:flex-row'>
 					<Link
 						className='h-full w-full grow transition-all duration-300 hover:shadow-lg hover:-translate-y-1'
 						prefetch={false}
