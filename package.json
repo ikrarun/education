@@ -28,7 +28,6 @@
     "cmdk": "1.0.0",
     "date-fns": "^4.1.0",
     "firebase": "^11.0.2",
-    "framer-motion": "^11.13.1",
     "libphonenumber-js": "^1.11.16",
     "lucide-react": "^0.462.0",
     "mac-scrollbar": "^0.13.6",

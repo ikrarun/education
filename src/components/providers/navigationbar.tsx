@@ -8,7 +8,7 @@ function Navigationbar() {
 		<div
 			id='navbar'
 			tabIndex={-1}
-			className='sticky top-0 backdrop-blur-3xl  w-full z-50 border-b-[0.01em] '>
+			className='sticky bg-secondary top-0 backdrop-blur-3xl  w-full z-50 border-b-[0.01em] '>
 			<div className='  max-w-[1200px] mx-auto w-full p-2 inline-flex justify-between items-center'>
 				<Link
 					className='inline-flex  text-foreground   rounded-lg  px-4 py-2 font-bold gap-2 items-center'
@@ -18,9 +18,9 @@ function Navigationbar() {
 				</Link>
 				<div className='inline-flex font-normal justify-center items-center gap-4'>
 					<BetterButton
-						variant={"outline"}
+						variant={"transparent_outline"}
 						href='/about'
-						className='text-foreground pl-4 pr-3'>
+						className='text-foreground bg-secondary pl-4 pr-3'>
 						About
 						<ArrowUpRight />
 					</BetterButton>

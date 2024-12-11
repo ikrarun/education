@@ -9,7 +9,7 @@ import {
 	CardHeader,
 	CardTitle,
 } from "@/components/ui/card";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import { FcGoogle } from "react-icons/fc";
 import { BsFacebook, BsTwitterX } from "react-icons/bs";
 import { useRouter } from "next/navigation";

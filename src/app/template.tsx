@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion } from 'motion/react';
 import { usePathname } from "next/navigation";
 import NavigationBar from "@/components/providers/navigationbar";
 import Footer from "@/components/providers/footer";

@@ -8,8 +8,8 @@ import { BetterButton } from "@/components/ui/betterbutton";
 
 const ListItem = ({ text }: { text: string }) => (
 	<li className='inline-flex items-center'>
-		<span className='p-2 mr-2 rounded-full bg-primary shadow-md flex items-center justify-center'>
-			<Check strokeWidth={4} className='w-3 h-3 text-black' />
+		<span className='p-2 mr-2 rounded-full bg-primary text-background shadow-md flex items-center justify-center'>
+			<Check strokeWidth={4} className='w-3 h-3' />
 		</span>
 		<span className='text-base font-normal text-muted-foreground'>{text}</span>
 	</li>
@@ -51,7 +51,7 @@ const CallToAction = () => (
 
 		<AnimatedContainer
 			startAfter={0.25}
-			className='text-base flex flex-col md:flex-row gap-4 w-full mx-auto font-normal text-start text-gray-800 mt-8 md:mt-16'>
+			className='text-base flex flex-col md:flex-row gap-4 w-full mx-auto font-normal text-start mt-8 md:mt-16'>
 			<ListItem text='100% Free, No Hidden Fees' />
 			<ListItem text='Free to use' />
 			<ListItem text='No Credit Card Required' />
@@ -64,7 +64,7 @@ const DescriptionSection = () => (
 	<section className='flex w-full flex-col items-center justify-center grow'>
 		<Card className='w-full overflow-hidden rounded-lg shadow-lg'>
 			<CardHeader className=' bg-primary text-primary-foreground p-6'>
-				<CardTitle className='flex items-center text-center justify-center text-base md:text-2xl text-black font-medium'>
+				<CardTitle className='flex items-center text-center justify-center text-base md:text-2xl font-medium'>
 					<GraduationCap className='mr-2 md:flex hidden md:h-6 md:w-6' />
 					Connecting Students with the Perfect Teachers
 				</CardTitle>
@@ -84,7 +84,7 @@ const DescriptionSection = () => (
 const TestimonialSection = () => (
 	<section className='flex flex-col my-8 gap-6 items-start text-start w-full'>
 		<h2 className='text-3xl font-semibold mb-4'>What Our Users Are Saying</h2>
-		<AnimatedContainer loop className='grid gap-6 h-full md:grid-cols-2 w-full'>
+		<AnimatedContainer className='grid gap-6 h-full md:grid-cols-2 w-full'>
 			{testimonial.map((testimonial, index) => (
 				<Testimonial
 					key={index}
