@@ -54,7 +54,7 @@ export default function EduKationFeatures() {
 			<h2 className='text-4xl font-semibold text-center mb-8 '>
 				Why Choose EduKation?
 			</h2>
-			<AnimatedContainer variants="always" className='grid gap-2 h-fit md:gap-3 sm:grid-cols-2 lg:grid-cols-3 w-full'>
+			<AnimatedContainer className='grid gap-2 h-fit md:gap-3 sm:grid-cols-2 lg:grid-cols-3 w-full'>
 				{features.map((feature, index) => (
 					<Card
 						key={index}

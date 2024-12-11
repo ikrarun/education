@@ -29,16 +29,12 @@ const HeroSection = () => (
 
 // Call to Action Section
 const CallToAction = () => (
-	<AnimatedContainer
-		gapInItems={0.2}
-		className='flex flex-col items-center justify-center w-fit mx-auto'>
-		<AnimatedContainer
-			gapInItems={0.2}
-			className='flex mr-4 md:flex-row w-fit flex-col mx-auto mt-4 gap-2'>
+	<div className='flex flex-col items-center justify-center w-fit mx-auto'>
+		<div className='flex md:flex-row w-fit flex-col mx-auto mt-4 gap-2'>
 			<BetterButton
 				href='/filldetail'
 				size={"lg"}
-				className='inline-flex w-full px-4 text-2xl items-center gap-2'>
+				className='inline-flex w-full px-4 pr-4 text-2xl items-center gap-2'>
 				<h1 className='text-lg font-normal'>I am a Student</h1>
 			</BetterButton>
 			<BetterButton
@@ -47,16 +43,14 @@ const CallToAction = () => (
 				className='inline-flex w-full px-4 text-2xl items-center gap-2'>
 				<h1 className='text-lg font-normal'>I am a Teacher</h1>
 			</BetterButton>
-		</AnimatedContainer>
+		</div>
 
-		<AnimatedContainer
-			startAfter={0.25}
-			className='text-base flex flex-col md:flex-row gap-4 w-full mx-auto font-normal text-start mt-8 md:mt-16'>
+		<div className='text-base flex flex-col md:flex-row gap-4 w-full mx-auto font-normal text-start mt-8 md:mt-16'>
 			<ListItem text='100% Free, No Hidden Fees' />
 			<ListItem text='Free to use' />
 			<ListItem text='No Credit Card Required' />
-		</AnimatedContainer>
-	</AnimatedContainer>
+		</div>
+	</div>
 );
 
 // Description Section
