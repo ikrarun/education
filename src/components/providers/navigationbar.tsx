@@ -15,7 +15,7 @@ function Navigationbar() {
 				<Link
 					className='inline-flex  rounded-lg  px-4 py-2 font-bold gap-2 items-center'
 					href='/'>
-					<Image quality={100} unoptimized className="rounded-full " src={logo} width={30} height={30} alt='logo' />
+					<Image className="rounded-full " src={'/logo.png'} width={30} height={30} alt='logo' />
 					<h1 className='text-xl font-normal'>EduKation</h1>
 				</Link>
 				<div className='inline-flex font-normal justify-center items-center gap-2'>
