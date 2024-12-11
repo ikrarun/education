@@ -1,6 +1,5 @@
 import React from "react";
 import { ArrowUpRight } from "lucide-react";
-import logo from "./logo.svg";
 import { BetterButton } from "../ui/betterbutton";
 import ThemeToggler from "./themeToggler";
 import Link from "next/link";
