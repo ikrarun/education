@@ -277,11 +277,20 @@ export const metadata: Metadata = {
 		siteName: "EduKation",
 		images: [
 			{
-				url: "https://edukation.vercel.app/logo.jpg",
+				url: "https://edukation.vercel.app/logo.png",
 				width: 800,
 				height: 600,
 			},
 		],
+		determiner: "auto",
+		videos: [
+			{
+				url: "https://youtu.be/QDmhz1Wff5o?si=0p2mexshps7DUGvW",
+				width: 1280,
+				height: 720,
+			},
+		],
+		countryName: "INDIA",
 		locale: "en-US",
 		type: "website",
 	},
