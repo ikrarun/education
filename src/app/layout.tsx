@@ -293,7 +293,20 @@ export const metadata: Metadata = {
 		countryName: "INDIA",
 		locale: "en-US",
 		type: "website",
+		
 	},
+	twitter: {
+		card: "summary_large_image",
+		title: "EduKation",
+		description: "Craft your future with us",
+		images: [
+			{
+				url: "https://edukation.vercel.app/logo.png",
+				width: 800,
+				height: 600,
+			},
+		],
+	}
 };
 
 export const viewport: Viewport = {
