@@ -163,7 +163,7 @@ export const MultiSelect = React.forwardRef<
 						{...props}
 						onClick={handleTogglePopover}
 						className={cn(
-							"flex w-full p-1 shadow-none min-h-9 rounded-lg border h-auto items-center justify-between bg-inherit hover:bg-inherit [&_svg]:pointer-events-auto",
+							"flex w-full ring-ring hover:ring-1 focus:ring-1 p-1 shadow-none min-h-12 rounded-lg border h-auto items-center justify-between bg-inherit hover:bg-inherit [&_svg]:pointer-events-auto",
 							className
 						)}>
 						{selectedValues.length > 0 ? (
@@ -177,7 +177,8 @@ export const MultiSelect = React.forwardRef<
 												key={value}
 												className={cn(
 													isAnimating ? "animate-bounce" : "",
-													multiSelectVariants({ variant })
+													multiSelectVariants({ variant }),
+													"p-2"
 												)}
 												style={{ animationDuration: `${animation}s` }}>
 												{IconComponent && (
@@ -199,7 +200,8 @@ export const MultiSelect = React.forwardRef<
 											className={cn(
 												"bg-transparent text-foreground border-foreground/1 hover:bg-transparent",
 												isAnimating ? "animate-bounce" : "",
-												multiSelectVariants({ variant })
+												multiSelectVariants({ variant }),
+												"p-2"
 											)}
 											style={{ animationDuration: `${animation}s` }}>
 											{`+ ${selectedValues.length - maxCount} more`}

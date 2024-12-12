@@ -3,7 +3,6 @@ import { CheckIcon, ChevronsUpDown } from "lucide-react";
 import * as RPNInput from "react-phone-number-input";
 import flags from "react-phone-number-input/flags";
 
-import { Button } from "@/components/ui/button";
 import {
 	Command,
 	CommandEmpty,
@@ -20,6 +19,7 @@ import {
 } from "@/components/ui/popover";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { cn } from "@/lib/utils";
+import { BetterButton } from "./ui/betterbutton";
 
 type PhoneInputProps = Omit<
 	React.ComponentProps<"input">,
@@ -35,7 +35,10 @@ const PhoneInput: React.ForwardRefExoticComponent<PhoneInputProps> =
 			return (
 				<RPNInput.default
 					ref={ref}
-					className={cn("flex", className)}
+					className={cn(
+						"flex h-fit grow group group-focus:ring-1 ring-ring focus:ring-1 focus-within:ring-1 rounded-lg group-hover:ring-1 group-focus-visible:ring-1 flex-row ",
+						className
+					)}
 					flagComponent={FlagComponent}
 					countrySelectComponent={CountrySelect}
 					inputComponent={InputComponent}
@@ -63,7 +66,7 @@ const InputComponent = React.forwardRef<
 >(({ className, ...props }, ref) => (
 	<Input
 		className={cn(
-			"rounded-e-lg  focus-visible:ring-primary-foreground rounded-s-none",
+			"rounded-e-lg relative group-hover:ring-ring group-focus:ring-1 group-focus-visible:ring-1 ring-ring rounded-s-none",
 			className
 		)}
 		{...props}
@@ -90,10 +93,10 @@ const CountrySelect = ({
 	return (
 		<Popover>
 			<PopoverTrigger asChild>
-				<Button
+				<BetterButton
 					type='button'
-					variant='outline'
-					className='flex gap-1 rounded-e-none rounded-s-lg border-r-0 px-3 focus:z-10'
+					variant='transparent_outline'
+					className='flex gap-1 group-hover:ring-1 group-focus:ring-1 group-focus-visible:ring-1 border-[1] group ring-ring ring-0 h-13 flex-row items-center justify-center rounded-e-none rounded-s-lg border-r-0 px-3 focus:z-10'
 					disabled={disabled}>
 					<FlagComponent
 						country={selectedCountry}
@@ -105,7 +108,7 @@ const CountrySelect = ({
 							disabled ? "hidden" : "opacity-100"
 						)}
 					/>
-				</Button>
+				</BetterButton>
 			</PopoverTrigger>
 			<PopoverContent className='w-[300px] p-0'>
 				<Command>
@@ -149,7 +152,10 @@ const CountrySelectOption = ({
 		<CommandItem className='gap-2' onSelect={() => onChange(country)}>
 			<FlagComponent country={country} countryName={countryName} />
 			<span className='flex-1 text-sm'>{countryName}</span>
-			<span className='text-sm text-foreground/50'>{`+${RPNInput.getCountryCallingCode(
+			<span
+				className='text-sm group-hover:ring-1
+			 group-focus-visible:ring-1 ring-ring
+			 text-foreground/50'>{`+${RPNInput.getCountryCallingCode(
 				country
 			)}`}</span>
 			<CheckIcon
@@ -165,7 +171,7 @@ const FlagComponent = ({ country, countryName }: RPNInput.FlagProps) => {
 	const Flag = flags[country];
 
 	return (
-		<span className='flex flex-col h-fit w-fit overflow-hidden rounded-sm  object-fill'>
+		<span className='flex flex-col self-center w-fit overflow-hidden rounded-sm object-fill'>
 			{Flag && <Flag title={countryName} />}
 		</span>
 	);

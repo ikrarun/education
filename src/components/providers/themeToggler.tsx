@@ -3,7 +3,8 @@ import { useTheme } from "next-themes";
 import { CgMoon, CgSun } from "react-icons/cg";
 import { useEffect, useState } from "react";
 import { BetterButton } from "../ui/betterbutton";
-const ThemeToggler = () => {
+import { cn } from "@/lib/utils";
+const ThemeToggler = ({ className }: { className?: string }) => {
 	const { theme, setTheme } = useTheme();
 
 	const [mounted, setMounted] = useState(false);
@@ -24,9 +25,9 @@ const ThemeToggler = () => {
 	}
 	return (
 		<BetterButton
-			size={'icon'}
-			variant={'transparent_outline'}
-			className="rounded-full"
+			size={"icon"}
+			variant={"transparent_outline"}
+			className={cn("rounded-full", className)}
 			onClick={() => {
 				if (theme == "dark") setTheme("light");
 				else setTheme("dark");

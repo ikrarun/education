@@ -80,141 +80,149 @@ export default function Detail() {
 	};
 
 	return (
-		<main className='w-full grow h-full p-4'>
-			<Card className='w-full container max-w-[900px] mx-auto h-full'>
-				<CardHeader>
-					<CardTitle>Request a Tutor</CardTitle>
-					<CardDescription>
-						Fill out the form below to request a tutor
-					</CardDescription>
-				</CardHeader>
-				<CardContent className='space-y-2 flex flex-col'>
-					<form
-						onSubmit={handleSubmit(onSubmit)}
-						className='grid md:grid-cols-2 grid-cols-1 gap-x-3 gap-y-4'>
-						<div className='space-y-1'>
-							<Input
-								type='text'
-								placeholder='Name'
-								tabIndex={1}
-								autoComplete='off'
-								{...register("name")}
+		<main className='w-full  grow h-full p-4 px-3'>
+			<div className='relative max-w-3xl md:min-w-[48rem] overflow-hidden rounded-xl w-full sm:mt-5 md:mt-20 mx-auto h-fit'>
+				<span className='absolute bg-primary -top-10 -right-4 blur-[70px] dark:blur-[160px] rounded-3xl h-44 w-44' />
+				<span className='absolute bg-primary -bottom-10 -left-4 blur-[70px] dark:blur-[180px] rounded-3xl h-44 w-44' />
+				<Card className='w-full  dark:bg-black/20 bg-white/20  backdrop-blur-2xl container max-w-[900px] mx-auto h-full'>
+					<CardHeader>
+						<CardTitle>Request a Tutor</CardTitle>
+						<CardDescription>
+							Fill out the form below to request a tutor
+						</CardDescription>
+					</CardHeader>
+					<CardContent className='space-y-2 flex flex-col'>
+						<form
+							onSubmit={handleSubmit(onSubmit)}
+							className='grid md:grid-cols-2 grid-cols-1 gap-x-3 gap-y-4'>
+							<div className='space-y-1'>
+								<Input
+									type='text'
+									placeholder='Name'
+									tabIndex={1}
+									autoComplete='off'
+									{...register("name")}
+									disabled={isPending}
+									className='col-span-1'
+								/>
+								{errors.name && (
+									<p className='text-xs text-red-500 pl-2'>
+										{errors.name.message}
+									</p>
+								)}
+								<p className='text-xs text-muted-foreground pl-2'>
+									Eg: Kr Arun
+								</p>
+							</div>
+
+							<div className='space-y-1'>
+								<PhoneInput
+									countries={["IN"]}
+									id='phone'
+									disabled={isPending}
+									onChange={(value) => setValue("phone", value)}
+									maxLength={11}
+									value={watch("phone")}
+									tabIndex={2}
+									countryCallingCodeEditable={false}
+									defaultCountry='IN'
+									autoComplete='off'
+									international={false}
+									className='col-span-1'
+									placeholder='Enter a phone number'
+								/>
+								{errors.phone && (
+									<p className='text-xs text-red-500 pl-2'>
+										{errors.phone.message}
+									</p>
+								)}
+								<p className='text-xs text-muted-foreground pl-2'>
+									Eg: 1234567890
+								</p>
+							</div>
+
+							<div className='space-y-1'>
+								<DateTimePicker
+									id='date'
+									date={watch("date")}
+									setDate={(date) =>
+										setValue("date", date!, { shouldValidate: true })
+									}
+									className='col-span-1 '
+								/>
+								{errors.date && (
+									<p className='text-xs text-red-500 pl-2'>
+										{errors.date.message}
+									</p>
+								)}
+								<p className='text-xs text-muted-foreground pl-2'>
+									Select appropriate time, your tutor will contact you
+								</p>
+							</div>
+
+							<div className='space-y-1'>
+								<Input
+									type='text'
+									placeholder='Address'
+									autoComplete='off'
+									tabIndex={3}
+									{...register("location")}
+									disabled={isPending}
+									className='col-span-1'
+								/>
+								{errors.location && (
+									<p className='text-xs text-red-500 pl-2'>
+										{errors.location.message}
+									</p>
+								)}
+								<p className='text-xs text-muted-foreground pl-2'>
+									Eg: Mukharjee Nagar, Delhi
+								</p>
+							</div>
+
+							<div className='space-y-1'>
+								<MultiSelect
+									options={subjectsList}
+									className='col-span-1'
+									placeholder='Select subjects'
+									ref={multiRef}
+									tabIndex={4}
+									onValueChange={(value) => setValue("subject", value)}
+									value={watch("subject")}
+								/>
+
+								{errors.subject && (
+									<p className='text-xs text-red-500 pl-2'>
+										{errors.subject.message}
+									</p>
+								)}
+								<p className='text-xs text-muted-foreground pl-2'>
+									You can select multiple subjects
+								</p>
+							</div>
+
+							<BetterButton
 								disabled={isPending}
-								className='col-span-1 focus-visible:ring-primary-foreground shadow shadow-amber-500/50'
-							/>
-							{errors.name && (
-								<p className='text-xs text-red-500 pl-2'>
-									{errors.name.message}
+								tabIndex={5}
+								className='w-fit mt-4 col-span-1 md:col-span-2 shadow shadow-amber-500/50'
+								type='submit'>
+								<Send className='mr-2 h-4 w-4' />
+								{isPending ? "Submitting..." : "Submit"}
+							</BetterButton>
+						</form>
+					</CardContent>
+					<CardFooter>
+						<CardDescription>
+							It might take a while for the tutor to respond to your request.
+							{errors.root && (
+								<p className='text-xs text-red-500 mt-2'>
+									{errors.root.message}
 								</p>
 							)}
-							<p className='text-xs text-muted-foreground pl-2'>Eg: Kr Arun</p>
-						</div>
-
-						<div className='space-y-1'>
-							<PhoneInput
-								countries={["IN"]}
-								id='phone'
-								disabled={isPending}
-								onChange={(value) => setValue("phone", value)}
-								maxLength={11}
-								value={watch("phone")}
-								tabIndex={2}
-								countryCallingCodeEditable={false}
-								defaultCountry='IN'
-								autoComplete='off'
-								international={false}
-								className='col-span-1 focus-visible:ring-primary-foreground shadow overflow-hidden rounded-lg shadow-amber-500/50'
-								placeholder='Enter a phone number'
-							/>
-							{errors.phone && (
-								<p className='text-xs text-red-500 pl-2'>
-									{errors.phone.message}
-								</p>
-							)}
-							<p className='text-xs text-muted-foreground pl-2'>
-								Eg: 1234567890
-							</p>
-						</div>
-
-						<div className='space-y-1'>
-							<DateTimePicker
-								id='date'
-								date={watch("date")}
-								setDate={(date) =>
-									setValue("date", date!, { shouldValidate: true })
-								}
-								className='col-span-1 shadow shadow-amber-500/50'
-							/>
-							{errors.date && (
-								<p className='text-xs text-red-500 pl-2'>
-									{errors.date.message}
-								</p>
-							)}
-							<p className='text-xs text-muted-foreground pl-2'>
-								Select appropriate time, your tutor will contact you
-							</p>
-						</div>
-
-						<div className='space-y-1'>
-							<Input
-								type='text'
-								placeholder='Address'
-								autoComplete='off'
-								tabIndex={3}
-								{...register("location")}
-								disabled={isPending}
-								className='col-span-1 focus-visible:ring-primary-foreground shadow shadow-amber-500/50'
-							/>
-							{errors.location && (
-								<p className='text-xs text-red-500 pl-2'>
-									{errors.location.message}
-								</p>
-							)}
-							<p className='text-xs text-muted-foreground pl-2'>
-								Eg: Mukharjee Nagar, Delhi
-							</p>
-						</div>
-
-						<div className='space-y-1'>
-							<MultiSelect
-								options={subjectsList}
-								className='col-span-1 md:col-span-2 shadow shadow-amber-500/50'
-								placeholder='Select subjects'
-								ref={multiRef}
-								tabIndex={4}
-								onValueChange={(value) => setValue("subject", value)}
-								value={watch("subject")}
-							/>
-
-							{errors.subject && (
-								<p className='text-xs text-red-500 pl-2'>
-									{errors.subject.message}
-								</p>
-							)}
-							<p className='text-xs text-muted-foreground pl-2'>
-								You can select multiple subjects
-							</p>
-						</div>
-
-						<BetterButton
-							disabled={isPending}
-							tabIndex={5}
-							className='w-fit mt-4 col-span-1 md:col-span-2 shadow shadow-amber-500/50'
-							type='submit'>
-							<Send className='mr-2 h-4 w-4' />
-							{isPending ? "Submitting..." : "Submit"}
-						</BetterButton>
-					</form>
-				</CardContent>
-				<CardFooter>
-					<CardDescription>
-						It might take a while for the tutor to respond to your request.
-						{errors.root && (
-							<p className='text-xs text-red-500 mt-2'>{errors.root.message}</p>
-						)}
-					</CardDescription>
-				</CardFooter>
-			</Card>
+						</CardDescription>
+					</CardFooter>
+				</Card>
+			</div>
 		</main>
 	);
 }

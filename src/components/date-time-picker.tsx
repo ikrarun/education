@@ -44,7 +44,11 @@ interface DateTimePickerProps extends React.HTMLAttributes<HTMLInputElement> {
 	className: string;
 }
 
-export default function DateTimePicker({ date, setDate,className }: DateTimePickerProps) {
+export default function DateTimePicker({
+	date,
+	setDate,
+	className,
+}: DateTimePickerProps) {
 	const minutes = ["00", "15", "30", "45"];
 	const hours = Array.from({ length: 12 }, (_, i) =>
 		i === 0 ? "12" : i.toString().padStart(2, "0")
@@ -155,11 +159,11 @@ export default function DateTimePicker({ date, setDate,className }: DateTimePick
 				<Button
 					variant={"outline"}
 					className={cn(
-						"w-full justify-between text-left font-normal",
+						"w-full py-6 ring-ring bg-transparent hover:ring-1 focus:ring-1 focus-within:ring-1 justify-between text-left font-normal",
 						!date && "text-muted-foreground",
 						className
 					)}
-					onClick={() => date?? setDate(roundDatetoStepsof(10))}	
+					onClick={() => date ?? setDate(roundDatetoStepsof(10))}
 					aria-label='Pick date and time'>
 					{date ? format(date, "PPP p") : <span>Pick date and time</span>}
 					<CalendarIcon className='mr-2 h-4 w-4' />
