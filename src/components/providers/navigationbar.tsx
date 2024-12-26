@@ -1,10 +1,9 @@
 import React from "react";
 import { ArrowUpRight } from "lucide-react";
 import { BetterButton } from "../ui/betterbutton";
-import ThemeToggler from "./themeToggler";
 import Link from "next/link";
-import Image from "next/image";
-import Logo from "@/assets/logo.svg";
+
+import { Si1And1 as Icon } from "react-icons/si";
 function Navigationbar() {
 	return (
 		<div
@@ -15,24 +14,25 @@ function Navigationbar() {
 				<Link
 					className='inline-flex  rounded-lg  px-4 py-2 font-bold gap-2 items-center'
 					href='/'>
-					<Image
-						className='rounded-full border-white border p-[0.1px]'
+					{/* <Image
+						className='rounded-full border-transparent border p-[0.1px]'
 						src={Logo}
 						width={30}
 						height={30}
 						alt='logo'
-					/>
+					/> */}
+					<Icon size={25} />
 					<h1 className='text-xl font-normal'>EduKation</h1>
 				</Link>
 				<div className='inline-flex font-normal justify-center items-center gap-2'>
 					<BetterButton
 						variant={"transparent_outline"}
 						href='/about'
-						className='text-black hover:bg-black/30 hover:text-white border-white/40 rounded-xl pl-3 pr-2'>
+						className=' hover:bg-black/30 hover:text-white border-white/40 rounded-xl pl-3 pr-2'>
 						About
 						<ArrowUpRight />
 					</BetterButton>
-					<ThemeToggler className='text-black hover:bg-black/30 border-white/40 hover:text-white' />
+					{/* <ThemeToggler className=' hover:bg-black/30 border-white/40 hover:text-white' /> */}
 				</div>
 			</div>
 		</div>

@@ -81,10 +81,8 @@ export default function Detail() {
 
 	return (
 		<main className='w-full  grow h-full p-4 px-3'>
-			<div className='relative max-w-3xl md:min-w-[48rem] overflow-hidden rounded-xl w-full sm:mt-5 md:mt-20 mx-auto h-fit'>
-				<span className='absolute bg-primary -top-10 -right-4 blur-[70px] dark:blur-[160px] rounded-3xl h-44 w-44' />
-				<span className='absolute bg-primary -bottom-10 -left-4 blur-[70px] dark:blur-[180px] rounded-3xl h-44 w-44' />
-				<Card className='w-full  dark:bg-black/20 bg-white/20  backdrop-blur-2xl container max-w-[900px] mx-auto h-full'>
+			<div className='relative max-w-3xl md:min-w-[48rem]  rounded-xl w-full sm:mt-5 md:mt-20 mx-auto h-fit'>
+				<Card className='w-full drop-shadow-2xl bg-primary/5 backdrop-blur-3xl container max-w-[900px] mx-auto h-full'>
 					<CardHeader>
 						<CardTitle>Request a Tutor</CardTitle>
 						<CardDescription>

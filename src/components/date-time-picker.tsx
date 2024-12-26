@@ -4,7 +4,6 @@ import * as React from "react";
 import { format, startOfToday, isSameDay } from "date-fns";
 import { CalendarIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import {
 	Popover,
@@ -156,10 +155,10 @@ export default function DateTimePicker({
 	return (
 		<Popover>
 			<PopoverTrigger asChild>
-				<Button
-					variant={"outline"}
+				<button
+					type='button'
 					className={cn(
-						"w-full py-6 ring-ring bg-transparent hover:ring-1 focus:ring-1 focus-within:ring-1 justify-between text-left font-normal",
+						"w-full py-[0.9rem] inline-flex items-center justify-between rounded-md border border-input px-3  text-sm ring-offset-background transition-colors hover:text-accent-foreground focus-visible:outline-none  ring-ring bg-transparent hover:ring-1 focus:ring-1 focus-within:ring-1 text-left font-normal",
 						!date && "text-muted-foreground",
 						className
 					)}
@@ -167,7 +166,7 @@ export default function DateTimePicker({
 					aria-label='Pick date and time'>
 					{date ? format(date, "PPP p") : <span>Pick date and time</span>}
 					<CalendarIcon className='mr-2 h-4 w-4' />
-				</Button>
+				</button>
 			</PopoverTrigger>
 			<PopoverContent className='w-auto p-0' align='start'>
 				<Calendar

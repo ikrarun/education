@@ -52,7 +52,6 @@ const localFont = Font({
 	],
 });
 
-import ContextMenuProvider from "@/components/providers/contextMenuProvider";
 import FirebaseProvider from "@/app/fiebaseProvider";
 import { ThemeProvider } from "@/components/providers/themeProviders";
 
@@ -335,7 +334,6 @@ export default function RootLayout({
 	return (
 		<html lang='en' suppressHydrationWarning>
 			<body className={`${localFont.className} bg select-none flex-col flex`}>
-				<ContextMenuProvider>
 					<ThemeProvider
 						attribute='class'
 						defaultTheme='light'
@@ -343,7 +341,6 @@ export default function RootLayout({
 						disableTransitionOnChange>
 						<FirebaseProvider>{children}</FirebaseProvider>
 					</ThemeProvider>
-				</ContextMenuProvider>
 			</body>
 		</html>
 	);
