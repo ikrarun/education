@@ -1,54 +1,31 @@
-"use client";
-
+'use client';
 import { motion } from 'motion/react';
-import { usePathname } from "next/navigation";
-import NavigationBar from "@/components/providers/navigationbar";
-import Footer from "@/components/providers/footer";
+import { usePathname } from 'next/navigation';
+import NavigationBar from '@/components/providers/navigationbar';
+import Footer from '@/components/providers/footer';
+import { Toaster } from 'sonner';
 interface PageTransitionProps {
 	children: React.ReactNode;
 }
-import { Toaster } from "sonner";
-
-const PageTransition: React.FC<PageTransitionProps> = ({
-	children,
-}: {
-	children: React.ReactNode;
-}) => {
+const PageTransition = ({ children }: PageTransitionProps) => {
 	const pathname = usePathname();
-	// useEffect(() => {
-	// 	const handleClick = (e: KeyboardEvent) => {
-	// 		if (e.key === "Tab") {
-	// 			e.preventDefault();
-	// 			return;
-	// 		}
-	// 	};
-
-	// 	window.addEventListener("keydown", handleClick);
-	// 	return () => {
-	// 		window.removeEventListener("keydown", handleClick);
-	// 	};
-	// }, []);
-
 	return (
 		<div
 			tabIndex={-1}
-			className='mx-auto min-h-dvh  flex flex-col w-full
-							h-full grow'>
+			className='mx-auto flex h-full min-h-dvh w-full grow flex-col'
+		>
 			<NavigationBar />
 			<Toaster richColors visibleToasts={1} expand />
-
-			{/* <PageTransition> */}
-			<div className='min-h-full flex flex-col p-2 max-w-[1200px] mx-auto w-full grow'>
+			<div className='mx-auto flex min-h-full w-full max-w-[1200px] grow flex-col p-2'>
 				<motion.div
 					key={pathname}
-					className='flex flex-col grow h-full items-center justify-center'>
+					className='flex h-full grow flex-col items-center justify-center'
+				>
 					{children}
 				</motion.div>
 			</div>
 			<Footer />
-			{/* </PageTransition> */}
 		</div>
 	);
 };
-
 export default PageTransition;

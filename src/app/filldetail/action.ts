@@ -1,12 +1,12 @@
-"use server";
+'use server';
 
-import { formSchema } from "@/lib/types";
-import { z } from "zod";
+import { formSchema } from '@/lib/schemas';
+import { z } from 'zod';
 
 export async function handleFormSubmit(data: z.infer<typeof formSchema>) {
 	// Convert FormData to a plain object
 
-	console.log("Form data: Submitted by user", data);
+	console.log('Form data: Submitted by user', data);
 
 	return `Form submitted successfully! Data: ${JSON.stringify(data)}`;
 

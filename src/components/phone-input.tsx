@@ -1,7 +1,7 @@
-import * as React from "react";
-import { CheckIcon, ChevronsUpDown } from "lucide-react";
-import * as RPNInput from "react-phone-number-input";
-import flags from "react-phone-number-input/flags";
+import * as React from 'react';
+import { CheckIcon, ChevronsUpDown } from 'lucide-react';
+import * as RPNInput from 'react-phone-number-input';
+import flags from 'react-phone-number-input/flags';
 
 import {
 	Command,
@@ -10,22 +10,22 @@ import {
 	CommandInput,
 	CommandItem,
 	CommandList,
-} from "@/components/ui/command";
-import { Input } from "@/components/ui/input";
+} from '@/components/ui/command';
+import { Input } from '@/components/ui/input';
 import {
 	Popover,
 	PopoverContent,
 	PopoverTrigger,
-} from "@/components/ui/popover";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { cn } from "@/lib/utils";
-import { BetterButton } from "./ui/betterbutton";
+} from '@/components/ui/popover';
+import { ScrollArea } from '@/components/ui/scroll-area';
+import { cn } from '@/lib/utils';
+import { BetterButton } from './ui/betterbutton';
 
 type PhoneInputProps = Omit<
-	React.ComponentProps<"input">,
-	"onChange" | "value" | "ref"
+	React.ComponentProps<'input'>,
+	'onChange' | 'value' | 'ref'
 > &
-	Omit<RPNInput.Props<typeof RPNInput.default>, "onChange"> & {
+	Omit<RPNInput.Props<typeof RPNInput.default>, 'onChange'> & {
 		onChange?: (value: RPNInput.Value) => void;
 	};
 
@@ -36,7 +36,7 @@ const PhoneInput: React.ForwardRefExoticComponent<PhoneInputProps> =
 				<RPNInput.default
 					ref={ref}
 					className={cn(
-						"flex h-fit grow group group-focus:ring-1 ring-ring focus:ring-1 focus-within:ring-1 rounded-lg group-hover:ring-1 group-focus-visible:ring-1 flex-row ",
+						'group flex h-fit grow flex-row rounded-lg ring-ring focus-within:ring-1 focus:ring-1 group-hover:ring-1 group-focus:ring-1 group-focus-visible:ring-1',
 						className
 					)}
 					flagComponent={FlagComponent}
@@ -52,28 +52,28 @@ const PhoneInput: React.ForwardRefExoticComponent<PhoneInputProps> =
 					 *
 					 * @param {E164Number | undefined} value - The entered value
 					 */
-					onChange={(value) => onChange?.(value || ("" as RPNInput.Value))}
+					onChange={(value) => onChange?.(value || ('' as RPNInput.Value))}
 					{...props}
 				/>
 			);
 		}
 	);
-PhoneInput.displayName = "PhoneInput";
+PhoneInput.displayName = 'PhoneInput';
 
 const InputComponent = React.forwardRef<
 	HTMLInputElement,
-	React.ComponentProps<"input">
+	React.ComponentProps<'input'>
 >(({ className, ...props }, ref) => (
 	<Input
 		className={cn(
-			"rounded-e-lg relative group-hover:ring-ring group-focus:ring-1 group-focus-visible:ring-1 ring-ring rounded-s-none",
+			'relative rounded-e-lg rounded-s-none ring-ring group-hover:ring-ring group-focus:ring-1 group-focus-visible:ring-1',
 			className
 		)}
 		{...props}
 		ref={ref}
 	/>
 ));
-InputComponent.displayName = "InputComponent";
+InputComponent.displayName = 'InputComponent';
 
 type CountryEntry = { label: string; value: RPNInput.Country | undefined };
 
@@ -96,16 +96,17 @@ const CountrySelect = ({
 				<BetterButton
 					type='button'
 					variant='transparent_outline'
-					className='flex gap-1 group-hover:ring-1 group-focus:ring-1 group-focus-visible:ring-1 border-[1] group ring-ring ring-0 h-13 flex-row items-center justify-center rounded-e-none rounded-s-lg border-r-0 px-3 focus:z-10'
-					disabled={disabled}>
+					className='h-13 group flex flex-row items-center justify-center gap-1 rounded-e-none rounded-s-lg border-r-0 border-[1] px-3 ring-0 ring-ring focus:z-10 group-hover:ring-1 group-focus:ring-1 group-focus-visible:ring-1'
+					disabled={disabled}
+				>
 					<FlagComponent
 						country={selectedCountry}
 						countryName={selectedCountry}
 					/>
 					<ChevronsUpDown
 						className={cn(
-							"-mr-2 size-4 opacity-50",
-							disabled ? "hidden" : "opacity-100"
+							'-mr-2 size-4 opacity-50',
+							disabled ? 'hidden' : 'opacity-100'
 						)}
 					/>
 				</BetterButton>
@@ -152,15 +153,12 @@ const CountrySelectOption = ({
 		<CommandItem className='gap-2' onSelect={() => onChange(country)}>
 			<FlagComponent country={country} countryName={countryName} />
 			<span className='flex-1 text-sm'>{countryName}</span>
-			<span
-				className='text-sm group-hover:ring-1
-			 group-focus-visible:ring-1 ring-ring
-			 text-foreground/50'>{`+${RPNInput.getCountryCallingCode(
+			<span className='text-sm text-foreground/50 ring-ring group-hover:ring-1 group-focus-visible:ring-1'>{`+${RPNInput.getCountryCallingCode(
 				country
 			)}`}</span>
 			<CheckIcon
 				className={`ml-auto size-4 ${
-					country === selectedCountry ? "opacity-100" : "opacity-0"
+					country === selectedCountry ? 'opacity-100' : 'opacity-0'
 				}`}
 			/>
 		</CommandItem>
@@ -171,7 +169,7 @@ const FlagComponent = ({ country, countryName }: RPNInput.FlagProps) => {
 	const Flag = flags[country];
 
 	return (
-		<span className='flex flex-col self-center w-fit overflow-hidden rounded-sm object-fill'>
+		<span className='flex w-fit flex-col self-center overflow-hidden rounded-sm object-fill'>
 			{Flag && <Flag title={countryName} />}
 		</span>
 	);

@@ -1,22 +1,22 @@
-"use client";
+'use client';
 
-import * as React from "react";
-import { format, startOfToday, isSameDay } from "date-fns";
-import { CalendarIcon } from "lucide-react";
-import { cn } from "@/lib/utils";
-import { Calendar } from "@/components/ui/calendar";
+import * as React from 'react';
+import { format, startOfToday, isSameDay } from 'date-fns';
+import { CalendarIcon } from 'lucide-react';
+import { cn } from '@/lib/utils';
+import { Calendar } from '@/components/ui/calendar';
 import {
 	Popover,
 	PopoverContent,
 	PopoverTrigger,
-} from "@/components/ui/popover";
+} from '@/components/ui/popover';
 import {
 	Select,
 	SelectContent,
 	SelectItem,
 	SelectTrigger,
 	SelectValue,
-} from "@/components/ui/select";
+} from '@/components/ui/select';
 
 export const roundDatetoStepsof = (steps: number) => {
 	// If no date provided, use current date
@@ -48,11 +48,11 @@ export default function DateTimePicker({
 	setDate,
 	className,
 }: DateTimePickerProps) {
-	const minutes = ["00", "15", "30", "45"];
+	const minutes = ['00', '15', '30', '45'];
 	const hours = Array.from({ length: 12 }, (_, i) =>
-		i === 0 ? "12" : i.toString().padStart(2, "0")
+		i === 0 ? '12' : i.toString().padStart(2, '0')
 	);
-	const amPmOptions = ["AM", "PM"];
+	const amPmOptions = ['AM', 'PM'];
 
 	const handleDateChange = (newDate: Date | undefined) => {
 		if (newDate) {
@@ -71,7 +71,7 @@ export default function DateTimePicker({
 	};
 
 	const handleTimeChange = (
-		type: "hour" | "minute" | "ampm",
+		type: 'hour' | 'minute' | 'ampm',
 		value: string
 	) => {
 		if (!date) return;
@@ -80,24 +80,24 @@ export default function DateTimePicker({
 		const newDate = new Date(date);
 
 		switch (type) {
-			case "hour":
+			case 'hour':
 				let hour = parseInt(value);
-				const currentAmPm = newDate.getHours() >= 12 ? "PM" : "AM";
-				if (currentAmPm === "PM" && hour !== 12) {
+				const currentAmPm = newDate.getHours() >= 12 ? 'PM' : 'AM';
+				if (currentAmPm === 'PM' && hour !== 12) {
 					hour += 12;
-				} else if (currentAmPm === "AM" && hour === 12) {
+				} else if (currentAmPm === 'AM' && hour === 12) {
 					hour = 0;
 				}
 				newDate.setHours(hour);
 				break;
-			case "minute":
+			case 'minute':
 				newDate.setMinutes(parseInt(value));
 				break;
-			case "ampm":
+			case 'ampm':
 				const currentHour = newDate.getHours();
-				if (value === "AM" && currentHour >= 12) {
+				if (value === 'AM' && currentHour >= 12) {
 					newDate.setHours(currentHour - 12);
-				} else if (value === "PM" && currentHour < 12) {
+				} else if (value === 'PM' && currentHour < 12) {
 					newDate.setHours(currentHour + 12);
 				}
 				break;
@@ -113,8 +113,8 @@ export default function DateTimePicker({
 		const now = new Date();
 		if (!isSameDay(date, now)) return false;
 		const hourNum = parseInt(hour);
-		const currentAmPm = now.getHours() >= 12 ? "PM" : "AM";
-		if (currentAmPm === "PM" && hourNum !== 12) {
+		const currentAmPm = now.getHours() >= 12 ? 'PM' : 'AM';
+		if (currentAmPm === 'PM' && hourNum !== 12) {
 			return hourNum + 12 <= now.getHours();
 		}
 		return hourNum < now.getHours() || (hourNum === 12 && now.getHours() === 0);
@@ -135,21 +135,21 @@ export default function DateTimePicker({
 		if (!date) return false;
 		const now = new Date();
 		if (!isSameDay(date, now)) return false;
-		const currentAmPm = now.getHours() >= 12 ? "PM" : "AM";
-		return ampm === "AM" && currentAmPm === "PM";
+		const currentAmPm = now.getHours() >= 12 ? 'PM' : 'AM';
+		return ampm === 'AM' && currentAmPm === 'PM';
 	};
 
 	// Convert 24-hour time to 12-hour time
 	const getCurrentHour = () => {
 		if (!date) return undefined;
 		const hour = date.getHours();
-		return (hour % 12 || 12).toString().padStart(2, "0");
+		return (hour % 12 || 12).toString().padStart(2, '0');
 	};
 
 	// Determine current AM/PM
 	const getCurrentAmPm = () => {
 		if (!date) return undefined;
-		return date.getHours() >= 12 ? "PM" : "AM";
+		return date.getHours() >= 12 ? 'PM' : 'AM';
 	};
 
 	return (
@@ -158,13 +158,14 @@ export default function DateTimePicker({
 				<button
 					type='button'
 					className={cn(
-						"w-full py-[0.9rem] inline-flex items-center justify-between rounded-md border border-input px-3  text-sm ring-offset-background transition-colors hover:text-accent-foreground focus-visible:outline-none  ring-ring bg-transparent hover:ring-1 focus:ring-1 focus-within:ring-1 text-left font-normal",
-						!date && "text-muted-foreground",
+						'inline-flex w-full items-center justify-between rounded-md border border-input bg-transparent px-3 py-[0.9rem] text-left text-sm font-normal ring-ring ring-offset-background transition-colors focus-within:ring-1 hover:text-accent-foreground hover:ring-1 focus:ring-1 focus-visible:outline-none',
+						!date && 'text-muted-foreground',
 						className
 					)}
 					onClick={() => date ?? setDate(roundDatetoStepsof(10))}
-					aria-label='Pick date and time'>
-					{date ? format(date, "PPP p") : <span>Pick date and time</span>}
+					aria-label='Pick date and time'
+				>
+					{date ? format(date, 'PPP p') : <span>Pick date and time</span>}
 					<CalendarIcon className='mr-2 h-4 w-4' />
 				</button>
 			</PopoverTrigger>
@@ -176,10 +177,11 @@ export default function DateTimePicker({
 					initialFocus
 					disabled={(date) => date < startOfToday()}
 				/>
-				<div className='border-t p-3 flex gap-2'>
+				<div className='flex gap-2 border-t p-3'>
 					<Select
 						value={getCurrentHour()}
-						onValueChange={(value) => handleTimeChange("hour", value)}>
+						onValueChange={(value) => handleTimeChange('hour', value)}
+					>
 						<SelectTrigger className='w-[80px]'>
 							<SelectValue placeholder='Hour' />
 						</SelectTrigger>
@@ -188,7 +190,8 @@ export default function DateTimePicker({
 								<SelectItem
 									key={hour}
 									value={hour}
-									disabled={isHourDisabled(hour)}>
+									disabled={isHourDisabled(hour)}
+								>
 									{hour}
 								</SelectItem>
 							))}
@@ -196,9 +199,10 @@ export default function DateTimePicker({
 					</Select>
 					<Select
 						value={
-							date ? date.getMinutes().toString().padStart(2, "0") : undefined
+							date ? date.getMinutes().toString().padStart(2, '0') : undefined
 						}
-						onValueChange={(value) => handleTimeChange("minute", value)}>
+						onValueChange={(value) => handleTimeChange('minute', value)}
+					>
 						<SelectTrigger className='w-[80px]'>
 							<SelectValue placeholder='Min' />
 						</SelectTrigger>
@@ -207,7 +211,8 @@ export default function DateTimePicker({
 								<SelectItem
 									key={minute}
 									value={minute}
-									disabled={isMinuteDisabled(minute)}>
+									disabled={isMinuteDisabled(minute)}
+								>
 									{minute}
 								</SelectItem>
 							))}
@@ -215,7 +220,8 @@ export default function DateTimePicker({
 					</Select>
 					<Select
 						value={getCurrentAmPm()}
-						onValueChange={(value) => handleTimeChange("ampm", value)}>
+						onValueChange={(value) => handleTimeChange('ampm', value)}
+					>
 						<SelectTrigger className='w-[80px]'>
 							<SelectValue placeholder='AM/PM' />
 						</SelectTrigger>
@@ -224,7 +230,8 @@ export default function DateTimePicker({
 								<SelectItem
 									key={ampm}
 									value={ampm}
-									disabled={isAmPmDisabled(ampm)}>
+									disabled={isAmPmDisabled(ampm)}
+								>
 									{ampm}
 								</SelectItem>
 							))}

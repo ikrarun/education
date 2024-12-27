@@ -1,24 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-body {
-	overscroll-behavior-x: none;
-	overscroll-behavior-y: contain;
-}
-
-.clip-half {
-	clip-path: inset(0 45% 0 0); /* Cuts the star in half vertically */
-}
-
-:root {
-	-ms-overflow-style: none; /* Internet Explorer 10+ */
-	scrollbar-width: none; /* Firefox */
-}
-:root::-webkit-scrollbar {
-	display: none; /* Safari and Chrome */
-}
-
+ 
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -82,35 +65,12 @@ body {
     --ring: 217 100% 45%;
   }
 }
-
+ 
 @layer base {
-	* {
-		@apply border-border;
-	}
-	body {
-		@apply bg-background text-foreground;
-	}
-}
-
-#titlebar {
-	position: fixed;
-	left: env(titlebar-area-x, 0);
-	top: env(titlebar-area-y, 0);
-	height: env(titlebar-area-height, 50px);
-	width: env(titlebar-area-width, 100%);
-	-webkit-app-region: drag;
-}
-
-#navbar {
-	display: inline-flex;
-}
-
-/* Hide navbar when in window-controls-overlay mode */
-@media (display-mode: window-controls-overlay) {
-	#titlebar {
-		display: none;
-	}
-	#navbar {
-		-webkit-app-region: drag;
-	}
-}
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+} 

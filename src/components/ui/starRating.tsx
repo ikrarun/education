@@ -1,5 +1,5 @@
-import { Star } from "lucide-react";
-import React from "react";
+import { Star } from 'lucide-react';
+import React from 'react';
 
 export default function StarRating({ rating }: { rating: number }) {
 	// Ensure rating is between 0 and 5
@@ -10,23 +10,23 @@ export default function StarRating({ rating }: { rating: number }) {
 			{Array.from({ length: 5 }, (_, index) => {
 				const fillType =
 					index < Math.floor(validRating)
-						? "full" // Full star
+						? 'full' // Full star
 						: index < validRating
-						? "half" // Half star
-						: "none"; // Empty star
+							? 'half' // Half star
+							: 'none'; // Empty star
 
 				return (
-					<div key={index} className='relative h-5 w-5 mr-1'>
+					<div key={index} className='relative mr-1 h-5 w-5'>
 						<Star
-							fill={fillType === "full" ? "rgb(234 179 8)" : "none"}
-							className={`h-5 w-5 absolute top-0 left-0 ${
-								fillType === "full" ? "text-yellow-500" : "text-gray-400"
+							fill={fillType === 'full' ? 'rgb(234 179 8)' : 'none'}
+							className={`absolute left-0 top-0 h-5 w-5 ${
+								fillType === 'full' ? 'text-yellow-500' : 'text-gray-400'
 							}`}
 						/>
-						{fillType === "half" && (
+						{fillType === 'half' && (
 							<Star
 								fill='rgb(234 179 8)'
-								className='h-5 w-5 absolute top-0 left-0 text-yellow-500 clip-half'
+								className='clip-half absolute left-0 top-0 h-5 w-5 text-yellow-500'
 							/>
 						)}
 					</div>

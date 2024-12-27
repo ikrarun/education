@@ -1,52 +1,50 @@
 {
-  "compilerOptions": {
-    "target": "ES2017",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
-    "allowJs": true,
-    "skipLibCheck": true,
-    "strict": true,
-    "noEmit": true,
-    "esModuleInterop": true,
-    "module": "esnext",
-    "moduleResolution": "bundler",
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "jsx": "preserve",
-    "incremental": true,
-    "plugins": [
-      {
-        "name": "next"
-      }
-    ],
-    "paths": {
-      "@/*": [
-        "./src/*",
-        "./src/components/*"
-      ]
-    }
-  },
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    ".next/types/**/*.ts"
-,
-"src/app/not-found.tsx",
-"src/app/login/page.tsx",
-"src/app/profile/page.tsx",
-"src/app/layout.tsx",
-"src/app/global-error.tsx",
-"src/app/template.tsx",
-"src/app/(root)/featured_section.tsx",
-"src/app/(root)/motionButton.tsx",
-"src/app/(root)/page.tsx",
-"src/app/(root)/testimonial.tsx"
-],
-  "exclude": [
-    "node_modules"
-  ]
+	"compilerOptions": {
+		"target": "ES2017",
+		"lib": [
+			"dom",
+			"dom.iterable",
+			"esnext"
+		],
+		"allowJs": true,
+		"skipLibCheck": true,
+		"strict": true,
+		"noEmit": true,
+		"esModuleInterop": true,
+		"module": "esnext",
+		"moduleResolution": "bundler",
+		"resolveJsonModule": true,
+		"isolatedModules": true,
+		"jsx": "preserve",
+		"incremental": true,
+		"plugins": [
+			{
+				"name": "next"
+			}
+		],
+		"paths": {
+			"@/*": [
+				"./src/*",
+				"./src/components/*"
+			]
+		}
+	},
+	"include": [
+		"next-env.d.ts",
+		"**/*.ts",
+		"**/*.tsx",
+		".next/types/**/*.ts",
+		"src/app/not-found.tsx",
+		"src/app/(protected)/login/src/app/(protected)/profile/page.tsxile/page.tsx",
+		"src/app/layout.tsx",
+		"src/app/global-error.tsx",
+		"src/app/template.tsx",
+		"src/app/(root)/salient_features.tsx",
+		"src/app/(root)/motionButton.tsx",
+		"src/app/(root)/page.tsx",
+		"src/app/(root)/testimonial.tsx"
+	],
+	"exclude": [
+		"node_modules"
+	]
 }
