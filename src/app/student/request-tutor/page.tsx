@@ -1,6 +1,5 @@
 'use client';
 import { MultiSelect, MultiSelectHandle } from '@/components/multi-select';
-import { PhoneInput } from '@/components/phone-input';
 import {
 	Card,
 	CardContent,
@@ -10,6 +9,7 @@ import {
 	CardTitle,
 } from '@/components/ui/card';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { AnimatePresence, motion } from 'motion/react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 const subjectsList = [
 	{ value: 'mathematics', label: 'Mathematics' },
@@ -22,11 +22,11 @@ const subjectsList = [
 ];
 
 import DateTimePicker from '@/components/date-time-picker';
+import { PhoneInput } from '@/components/phone-input';
 import { BetterButton } from '@/components/ui/betterbutton';
 import { Input } from '@/components/ui/input';
 import { formSchema } from '@/lib/schemas'; // Assuming you have defined the type
-import { Send } from 'lucide-react';
-import { useRouter } from 'next/navigation';
+import { ArrowLeft, ArrowRight, Send } from 'lucide-react';
 import { useRef, useState } from 'react';
 import { toast } from 'sonner';
 import { z } from 'zod';
@@ -39,7 +39,8 @@ export default function RequestTutor() {
 		formState: { errors },
 		reset,
 		watch,
-		setValue, // Added setValue
+		setValue,
+		trigger,
 	} = useForm<z.infer<typeof formSchema>>({
 		resolver: zodResolver(formSchema),
 		defaultValues: {
@@ -52,71 +53,45 @@ export default function RequestTutor() {
 
 	const multiRef = useRef<MultiSelectHandle>(null);
 	const [isPending, setIsPending] = useState(false);
-	const router = useRouter();
+	const [step, setStep] = useState(0);
+	const totalSteps = 5;
+	const [isSubmitted, setIsSubmitted] = useState(false);
 
-	const onSubmit: SubmitHandler<z.infer<typeof formSchema>> = async (data) => {
-		try {
-			setIsPending(true);
-
-			// Perform your form submission logic here
-			console.log(data);
-
-			// Example: Simulate API call
-			// const response = await handleFormSubmit(data);
-
-			// Show success message
-
-			const response = await handleFormSubmit(data);
-			toast.success(response);
-			multiRef.current?.handleClear();
-			reset();
-			router.refresh();
-		} catch (error) {
-			console.error('Submission error:', error);
-			alert('Failed to submit the form. Please try again.');
-		} finally {
-			setIsPending(false);
-		}
-	};
-
-	return (
-		<main className='h-full w-full grow p-4 px-3'>
-			
-			<div className='relative mx-auto h-fit w-full max-w-3xl rounded-xl sm:mt-5 md:mt-20 md:min-w-[48rem]'>
-				<Card className='container mx-auto h-full w-full max-w-[900px] bg-primary/5 drop-shadow-2xl backdrop-blur-3xl'>
-					<CardHeader>
-						<CardTitle>Request a Tutor</CardTitle>
-						<CardDescription>
-							Fill out the form below to request a tutor
-						</CardDescription>
-					</CardHeader>
-					<CardContent className='flex flex-col space-y-2'>
-						<form
-							onSubmit={handleSubmit(onSubmit)}
-							className='grid grid-cols-1 gap-x-3 gap-y-4 md:grid-cols-2'
-						>
-							<div className='space-y-1'>
-								<Input
-									type='text'
-									placeholder='Name'
-									tabIndex={1}
-									autoComplete='off'
-									{...register('name')}
-									disabled={isPending}
-									className='col-span-1'
-								/>
-								{errors.name && (
-									<p className='pl-2 text-xs text-red-500'>
-										{errors.name.message}
-									</p>
-								)}
-								<p className='pl-2 text-xs text-muted-foreground'>
-									Eg: Kr Arun
-								</p>
-							</div>
-
-							<div className='space-y-1'>
-								<PhoneInput
+	const formFields = [
+		{
+			title: "What's your name?",
+			description: "Let's start with your name",
+			component: (
+				<motion.div
+					initial={{ opacity: 0, y: 20 }}
+					animate={{ opacity: 1, y: 0 }}
+					exit={{ opacity: 0, y: -20 }}
+					className="space-y-4"
+				>
+					<Input
+						type="text"
+						placeholder="Enter your name"
+						{...register('name')}
+						disabled={isPending}
+						className="max-w-full text-lg"
+					/>
+					{errors.name && (
+						<p className="text-sm text-red-500">{errors.name.message}</p>
+					)}
+				</motion.div>
+			),
+		},
+		{
+			title: "What's your phone number?",
+			description: "We'll use this to contact you",
+			component: (
+				<motion.div
+					initial={{ opacity: 0, y: 20 }}
+					animate={{ opacity: 1, y: 0 }}
+					exit={{ opacity: 0, y: -20 }}
+					className="space-y-4"
+				>
+					<PhoneInput
 									countries={['IN']}
 									id='phone'
 									disabled={isPending}
@@ -131,18 +106,70 @@ export default function RequestTutor() {
 									className='col-span-1'
 									placeholder='Enter a phone number'
 								/>
-								{errors.phone && (
-									<p className='pl-2 text-xs text-red-500'>
-										{errors.phone.message}
-									</p>
-								)}
-								<p className='pl-2 text-xs text-muted-foreground'>
-									Eg: 1234567890
-								</p>
-							</div>
-
-							<div className='space-y-1'>
-								<DateTimePicker
+					{errors.phone && (
+						<p className="text-sm text-red-500">{errors.phone.message}</p>
+					)}
+				</motion.div>
+			),
+		},
+		
+		{
+			title: "What subjects do you need help with?",
+			description: "Select one or more subjects",
+			component: (
+				<motion.div
+					initial={{ opacity: 0, y: 20 }}
+					animate={{ opacity: 1, y: 0 }}
+					exit={{ opacity: 0, y: -20 }}
+					className="space-y-4"
+				>
+					<MultiSelect
+						options={subjectsList}
+						{...register('subject')}
+						maxCount={20}
+						onValueChange={(value) => setValue('subject', value)}
+						ref={multiRef}
+					/>
+					{errors.subject && (
+						<p className="text-sm text-red-500">{errors.subject.message}</p>
+					)}
+				</motion.div>
+			),
+		},
+		{
+			title: "Where are you located?",
+			description: "Help us find tutors in your area",
+			component: (
+				<motion.div
+					initial={{ opacity: 0, y: 20 }}
+					animate={{ opacity: 1, y: 0 }}
+					exit={{ opacity: 0, y: -20 }}
+					className="space-y-4"
+				>
+					<Input
+						type="text"
+						placeholder="Enter your location"
+						{...register('location')}
+						disabled={isPending}
+						className="max-w-full text-lg"
+					/>
+					{errors.location && (
+						<p className="text-sm text-red-500">{errors.location.message}</p>
+					)}
+				</motion.div>
+			),
+		},
+		{
+			title: "When we can contact you?",
+			description: "We'll contact you on this date and time",
+			component: (
+				<motion.div
+					initial={{ opacity: 0, y: 20 }}
+					animate={{ opacity: 1, y: 0 }}
+					exit={{ opacity: 0, y: -20 }}
+					className="space-y-4"
+				>
+					<DateTimePicker
 									id='date'
 									date={watch('date')}
 									setDate={(date) =>
@@ -150,80 +177,144 @@ export default function RequestTutor() {
 									}
 									className='col-span-1'
 								/>
-								{errors.date && (
-									<p className='pl-2 text-xs text-red-500'>
-										{errors.date.message}
-									</p>
-								)}
-								<p className='pl-2 text-xs text-muted-foreground'>
-									Select appropriate time, your tutor will contact you
-								</p>
-							</div>
+					{errors.date && (
+						<p className="text-sm text-red-500">{errors.date.message}</p>
+					)}
+				</motion.div>
+			),
+		},
+	];
 
-							<div className='space-y-1'>
-								<Input
-									type='text'
-									placeholder='Address'
-									autoComplete='off'
-									tabIndex={3}
-									{...register('location')}
-									disabled={isPending}
-									className='col-span-1'
-								/>
-								{errors.location && (
-									<p className='pl-2 text-xs text-red-500'>
-										{errors.location.message}
-									</p>
-								)}
-								<p className='pl-2 text-xs text-muted-foreground'>
-									Eg: Mukharjee Nagar, Delhi
-								</p>
-							</div>
+	const handleNext = async () => {
+		const fields: Record<number, keyof z.infer<typeof formSchema>> = {
+			0: 'name',
+			1: 'phone',
+			2: 'subject',
+			3: 'location',
+			4: 'date',
+		};
 
-							<div className='space-y-1'>
-								<MultiSelect
-									options={subjectsList}
-									className='col-span-1'
-									placeholder='Select subjects'
-									ref={multiRef}
-									tabIndex={4}
-									onValueChange={(value) => setValue('subject', value)}
-									value={watch('subject')}
-								/>
+		const isValid = await trigger(fields[step]);
+		if (isValid) {
+			setStep(step + 1);
+		}
+	};
 
-								{errors.subject && (
-									<p className='pl-2 text-xs text-red-500'>
-										{errors.subject.message}
-									</p>
-								)}
-								<p className='pl-2 text-xs text-muted-foreground'>
-									You can select multiple subjects
-								</p>
-							</div>
+	const onSubmit: SubmitHandler<z.infer<typeof formSchema>> = async (data) => {
+		try {
+			setIsPending(true);
+			const response = await handleFormSubmit(data);
+			toast.success(response);
+			multiRef.current?.handleClear();
+			reset();
+			setIsSubmitted(true);
+		} catch (error) {
+			console.error('Submission error:', error);
+			toast.error('Failed to submit the form. Please try again.');
+		} finally {
+			setIsPending(false);
+		}
+	};
 
+	return (
+		<main className="h-full w-full flex items-center justify-center p-4">
+			<Card className="w-full max-w-3xl bg-primary/5 backdrop-blur-3xl">
+				{isSubmitted ? (
+					<motion.div
+						initial={{ opacity: 0, scale: 0.95 }}
+						animate={{ opacity: 1, scale: 1 }}
+						className="p-8 text-center space-y-4"
+					>
+						<CardHeader>
+							<CardTitle className="text-3xl">Thank You!</CardTitle>
+							<CardDescription className="text-xl">
+								We&apos;ve received your request and will contact you soon.
+							</CardDescription>
+						</CardHeader>
+						<CardContent>
 							<BetterButton
-								disabled={isPending}
-								tabIndex={5}
-								className='col-span-1 mt-4 w-fit shadow shadow-amber-500/50 md:col-span-2'
-								type='submit'
+								href='/'
 							>
-								<Send className='mr-2 h-4 w-4' />
-								{isPending ? 'Submitting...' : 'Submit'}
+								Go To Dashboard
 							</BetterButton>
-						</form>
-					</CardContent>
-					<CardFooter>
-						<CardDescription>
-							It might take a while for the tutor to respond to your request.
-							{errors.root && (
-								<p className='mt-2 text-xs text-red-500'>
-									{errors.root.message}
-								</p>
-							)}
-						</CardDescription>
-					</CardFooter>
-				</Card>
-			</div>
+						</CardContent>
+					</motion.div>
+				) : (
+					<>
+						<CardHeader>
+							<motion.div
+								key={step}
+								initial={{ opacity: 0, x: 20 }}
+								animate={{ opacity: 1, x: 0 }}
+								exit={{ opacity: 0, x: -20 }}
+							>
+								<CardTitle className="text-3xl">{formFields[step].title}</CardTitle>
+								<CardDescription>{formFields[step].description}</CardDescription>
+							</motion.div>
+						</CardHeader>
+						
+						<CardContent>
+							<form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
+								<AnimatePresence mode="wait">
+									{formFields[step].component}
+								</AnimatePresence>
+
+								<motion.div className="flex justify-between pt-8">
+									{step > 0 && (
+										<BetterButton
+											type="button"
+											variant="outline"
+											onClick={() => setStep(step - 1)}
+										>
+											<ArrowLeft className="mr-2 h-4 w-4" />
+											Back
+										</BetterButton>
+									)}
+									
+									{step < totalSteps - 1 ? (
+										<BetterButton
+											type="button"
+											onClick={handleNext}
+											className="ml-auto focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2"
+										>
+											Next
+											<ArrowRight className="ml-2 h-4 w-4" />
+										</BetterButton>
+									) : (
+										<BetterButton
+											type="submit"
+											disabled={isPending}
+											className="ml-auto"
+										>
+											<Send className="mr-2 h-4 w-4" />
+											{isPending ? 'Submitting...' : 'Submit'}
+										</BetterButton>
+									)}
+								</motion.div>
+							</form>
+						</CardContent>
+
+						<CardFooter>
+							<div className="w-full">
+								<div className="flex gap-1 justify-center">
+									{Array.from({ length: totalSteps }).map((_, i) => (
+										<motion.div
+											key={i}
+											className={`h-1 rounded-full ${
+												i <= step ? 'bg-primary' : 'bg-muted'
+											}`}
+											style={{ width: `${100 / totalSteps}%` }}
+											initial={{ scaleX: 0 }}
+											animate={{ scaleX: 1 }}
+											transition={{ duration: 0.3 }}
+										/>
+									))}
+								</div>
+							</div>
+						</CardFooter>
+					</>
+				)}
+			</Card>
 		</main>
 	);
 }

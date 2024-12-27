@@ -3,13 +3,15 @@
 import { ArrowUpRight } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
-import logo from './logo.svg';
-import ThemeToggler from '../ui/themeToggler';
-import { Button } from '../ui/button';
 import { useRouter } from 'next/navigation';
+import { Button } from '../ui/button';
+import ThemeToggler from '../ui/themeToggler';
+import logo from './logo.svg';
+import { Untabbable } from 'react-untabbable';
 interface NavbarProps {
 	className?: string;
 }
+
 
 function Navigationbar({ className }: NavbarProps) {
 	const router = useRouter();
@@ -24,6 +26,8 @@ function Navigationbar({ className }: NavbarProps) {
 		'inline-flex font-normal justify-center items-center gap-2';
 	
 	return (
+		<Untabbable>
+
 		<nav id='navbar' tabIndex={-1} className={navbarClasses}>
 			<div className={containerClasses}>
 				<Link className={logoClasses} href='/'>
@@ -40,16 +44,17 @@ function Navigationbar({ className }: NavbarProps) {
 					<Button
 						variant={'outline'}
 						onClick={() => {
-							router.push('/about');
+							router.push('/donate');
 						}}
 					>
-						About
+						Support
 						<ArrowUpRight />
 					</Button>
 					<ThemeToggler  />
 				</div>
 			</div>
 		</nav>
+		</Untabbable>
 	);
 }
 

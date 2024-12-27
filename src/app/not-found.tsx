@@ -1,7 +1,7 @@
 import { buttonVariants } from '@/components/ui/betterbutton';
 import Image from 'next/image';
 import Link from 'next/link';
-import logo from '@/assets/logo.svg';
+import logo from '@/components/providers/logo.svg';
 export default function NotFound() {
 	return (
 		<div className='flex h-full flex-col items-center justify-center'>
