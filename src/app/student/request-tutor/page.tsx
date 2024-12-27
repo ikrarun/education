@@ -1,7 +1,6 @@
 'use client';
+import { MultiSelect, MultiSelectHandle } from '@/components/multi-select';
 import { PhoneInput } from '@/components/phone-input';
-import { useForm, SubmitHandler } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
 import {
 	Card,
 	CardContent,
@@ -10,7 +9,8 @@ import {
 	CardHeader,
 	CardTitle,
 } from '@/components/ui/card';
-import { MultiSelect, MultiSelectHandle } from '@/components/multi-select';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { SubmitHandler, useForm } from 'react-hook-form';
 const subjectsList = [
 	{ value: 'mathematics', label: 'Mathematics' },
 	{ value: 'science', label: 'Science' },
@@ -21,18 +21,18 @@ const subjectsList = [
 	{ value: 'music', label: 'Music' },
 ];
 
-import { Input } from '@/components/ui/input';
 import DateTimePicker from '@/components/date-time-picker';
 import { BetterButton } from '@/components/ui/betterbutton';
-import { Send } from 'lucide-react';
-import { useRef, useState } from 'react';
+import { Input } from '@/components/ui/input';
 import { formSchema } from '@/lib/schemas'; // Assuming you have defined the type
+import { Send } from 'lucide-react';
+import { useRouter } from 'next/navigation';
+import { useRef, useState } from 'react';
+import { toast } from 'sonner';
 import { z } from 'zod';
 import { handleFormSubmit } from './action';
-import { toast } from 'sonner';
-import { useRouter } from 'next/navigation';
 
-export default function Detail() {
+export default function RequestTutor() {
 	const {
 		register,
 		handleSubmit,
@@ -81,6 +81,7 @@ export default function Detail() {
 
 	return (
 		<main className='h-full w-full grow p-4 px-3'>
+			
 			<div className='relative mx-auto h-fit w-full max-w-3xl rounded-xl sm:mt-5 md:mt-20 md:min-w-[48rem]'>
 				<Card className='container mx-auto h-full w-full max-w-[900px] bg-primary/5 drop-shadow-2xl backdrop-blur-3xl'>
 					<CardHeader>

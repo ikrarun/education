@@ -1,14 +1,19 @@
+'use client';
+
 import { ArrowUpRight } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { BetterButton } from '../ui/betterbutton';
 import logo from './logo.svg';
+import ThemeToggler from '../ui/themeToggler';
+import { Button } from '../ui/button';
+import { useRouter } from 'next/navigation';
 interface NavbarProps {
 	className?: string;
 }
 
 function Navigationbar({ className }: NavbarProps) {
-	const navbarClasses = `sticky top-0 bg-white text-black backdrop-blur-3xl w-full z-50 border-b-[0.01em] ${
+	const router = useRouter();
+	const navbarClasses = `sticky top-0  backdrop-blur-3xl w-full z-50 border-b-[0.01em] ${
 		className || ''
 	}`;
 	const containerClasses =
@@ -17,9 +22,7 @@ function Navigationbar({ className }: NavbarProps) {
 		'inline-flex rounded-lg px-4 py-2 font-bold gap-2 items-center';
 	const buttonContainerClasses =
 		'inline-flex font-normal justify-center items-center gap-2';
-	const buttonClasses =
-		'hover:bg-black/30 hover:text-white border-white/40 rounded-xl pl-3 pr-2';
-
+	
 	return (
 		<nav id='navbar' tabIndex={-1} className={navbarClasses}>
 			<div className={containerClasses}>
@@ -34,15 +37,16 @@ function Navigationbar({ className }: NavbarProps) {
 					<h1 className='text-xl font-normal'>EduKation</h1>
 				</Link>
 				<div className={buttonContainerClasses}>
-					<BetterButton
-						variant={'transparent_outline'}
-						href='/about'
-						className={buttonClasses}
+					<Button
+						variant={'outline'}
+						onClick={() => {
+							router.push('/about');
+						}}
 					>
 						About
 						<ArrowUpRight />
-					</BetterButton>
-					{/* <ThemeToggler className='hover:bg-black/30 border-white/40 hover:text-white' /> */}
+					</Button>
+					<ThemeToggler  />
 				</div>
 			</div>
 		</nav>

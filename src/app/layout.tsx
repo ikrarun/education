@@ -332,7 +332,7 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang='en' suppressHydrationWarning>
-			<body className={`${localFont.className} bg flex select-none flex-col`}>
+			<body className={`${localFont.className} bg flex flex-col`}>
 				<ThemeProvider
 					attribute='class'
 					defaultTheme='light'
