@@ -319,7 +319,7 @@ export const viewport: Viewport = {
 		},
 		{
 			media: '(prefers-color-scheme: light)',
-			color: '#ffc107',
+			color: '#0058e6',
 		},
 	],
 	maximumScale: 1,
