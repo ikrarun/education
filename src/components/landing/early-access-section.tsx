@@ -7,7 +7,7 @@ export default function EarlyAccessSection() {
     <section className='w-full py-12'>
       <Card className='relative overflow-hidden bg-gradient-to-br from-primary/10 via-primary/5 to-background p-8'>
         {/* Background Elements */}
-        <div className='absolute top-0 right-0 -z-10 opacity-20'>
+        <div className='absolute top-0 right-0 opacity-20'>
           <StarIcon className='h-32 w-32' />
         </div>
         

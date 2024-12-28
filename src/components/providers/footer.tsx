@@ -22,9 +22,9 @@ function Footer() {
 	];
 
 	return (
-		<footer tabIndex={-1} className='h-fit w-full'>
-			<Separator className='mt-2 bg-black/25 w-full' />
-			<div className='flex w-full bg-primary/10 drop-shadow-2xl flex-col items-center justify-center'>
+		<footer className='h-fit mt-24 w-full'>
+			<Separator className='mt-2 bg-secondary-foreground/20 w-full' />
+			<div className='flex w-full bg-background drop-shadow-2xl flex-col items-center justify-center'>
 				<div className='mx-auto flex h-fit w-full max-w-[900px] flex-col items-center overflow-clip rounded-lg p-4 outline-none'>
 				<div className='mx-auto flex w-full max-w-2xl flex-col justify-between gap-4 md:flex-row md:gap-0'>
 					{links.map((link, index) => (
@@ -39,7 +39,7 @@ function Footer() {
 					))}
 				</div>
 				</div>
-			<Separator className='w-full bg-black/25' />
+			<Separator className='w-full bg-secondary-foreground/20' />
 			<p className='w-full p-2 text-center text-sm md:text-center'>
 				© {new Date().getFullYear()} EduKation. All rights reserved.
 			</p>

@@ -29,7 +29,7 @@ export default function FinalCTA() {
             href='/about'
             variant='outline'
             size='lg'
-            className='hover:scale-105 bg-transparent border-white/20 text-white hover:bg-white/10 group'
+            className='hover:scale-105 bg-transparent border-white/20 text-white hover:text-white hover:bg-white/10 group'
           >
             <span className='flex items-center gap-2'>
               Learn More
@@ -37,10 +37,7 @@ export default function FinalCTA() {
             </span>
           </BetterButton>
         </div>
-
-        <div className='text-sm text-primary-foreground/80'>
-          🚀 Currently in development - Launching Soon!
-        </div>
+       
       </div>
     </div>
   );

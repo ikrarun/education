@@ -47,7 +47,7 @@ export default function BenefitsSection() {
     <section className='relative w-full py-16 overflow-hidden'>
       <div className='container mx-auto px-4'>
         {/* Background Elements */}
-        <div className='absolute inset-0 -z-10'>
+        <div className='absolute inset-0'>
           <div className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-primary/5 rounded-full blur-3xl' />
         </div>
 

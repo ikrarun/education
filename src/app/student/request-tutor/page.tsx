@@ -66,17 +66,17 @@ export default function RequestTutor() {
 					initial={{ opacity: 0, y: 20 }}
 					animate={{ opacity: 1, y: 0 }}
 					exit={{ opacity: 0, y: -20 }}
-					className="space-y-4"
+					className='space-y-4'
 				>
 					<Input
-						type="text"
-						placeholder="Enter your name"
+						type='text'
+						placeholder='Enter your name'
 						{...register('name')}
 						disabled={isPending}
-						className="max-w-full text-lg"
+						className='max-w-full text-lg'
 					/>
 					{errors.name && (
-						<p className="text-sm text-red-500">{errors.name.message}</p>
+						<p className='text-sm text-red-500'>{errors.name.message}</p>
 					)}
 				</motion.div>
 			),
@@ -89,39 +89,39 @@ export default function RequestTutor() {
 					initial={{ opacity: 0, y: 20 }}
 					animate={{ opacity: 1, y: 0 }}
 					exit={{ opacity: 0, y: -20 }}
-					className="space-y-4"
+					className='space-y-4'
 				>
 					<PhoneInput
-									countries={['IN']}
-									id='phone'
-									disabled={isPending}
-									onChange={(value) => setValue('phone', value)}
-									maxLength={11}
-									value={watch('phone')}
-									tabIndex={2}
-									countryCallingCodeEditable={false}
-									defaultCountry='IN'
-									autoComplete='off'
-									international={false}
-									className='col-span-1'
-									placeholder='Enter a phone number'
-								/>
+						countries={['IN']}
+						id='phone'
+						disabled={isPending}
+						onChange={(value) => setValue('phone', value)}
+						maxLength={11}
+						value={watch('phone')}
+						tabIndex={2}
+						countryCallingCodeEditable={false}
+						defaultCountry='IN'
+						autoComplete='off'
+						international={false}
+						className='col-span-1'
+						placeholder='Enter a phone number'
+					/>
 					{errors.phone && (
-						<p className="text-sm text-red-500">{errors.phone.message}</p>
+						<p className='text-sm text-red-500'>{errors.phone.message}</p>
 					)}
 				</motion.div>
 			),
 		},
-		
+
 		{
-			title: "What subjects do you need help with?",
-			description: "Select one or more subjects",
+			title: 'What subjects do you need help with?',
+			description: 'Select one or more subjects',
 			component: (
 				<motion.div
 					initial={{ opacity: 0, y: 20 }}
 					animate={{ opacity: 1, y: 0 }}
 					exit={{ opacity: 0, y: -20 }}
-					className="space-y-4"
+					className='space-y-4'
 				>
 					<MultiSelect
 						options={subjectsList}
@@ -131,54 +131,54 @@ export default function RequestTutor() {
 						ref={multiRef}
 					/>
 					{errors.subject && (
-						<p className="text-sm text-red-500">{errors.subject.message}</p>
+						<p className='text-sm text-red-500'>{errors.subject.message}</p>
 					)}
 				</motion.div>
 			),
 		},
 		{
-			title: "Where are you located?",
-			description: "Help us find tutors in your area",
+			title: 'Where are you located?',
+			description: 'Help us find tutors in your area',
 			component: (
 				<motion.div
 					initial={{ opacity: 0, y: 20 }}
 					animate={{ opacity: 1, y: 0 }}
 					exit={{ opacity: 0, y: -20 }}
-					className="space-y-4"
+					className='space-y-4'
 				>
 					<Input
-						type="text"
-						placeholder="Enter your location"
+						type='text'
+						placeholder='Enter your location'
 						{...register('location')}
 						disabled={isPending}
-						className="max-w-full text-lg"
+						className='max-w-full text-lg'
 					/>
 					{errors.location && (
-						<p className="text-sm text-red-500">{errors.location.message}</p>
+						<p className='text-sm text-red-500'>{errors.location.message}</p>
 					)}
 				</motion.div>
 			),
 		},
 		{
-			title: "When we can contact you?",
+			title: 'When we can contact you?',
 			description: "We'll contact you on this date and time",
 			component: (
 				<motion.div
 					initial={{ opacity: 0, y: 20 }}
 					animate={{ opacity: 1, y: 0 }}
 					exit={{ opacity: 0, y: -20 }}
-					className="space-y-4"
+					className='space-y-4'
 				>
 					<DateTimePicker
-									id='date'
-									date={watch('date')}
-									setDate={(date) =>
-										setValue('date', date!, { shouldValidate: true })
-									}
-									className='col-span-1'
-								/>
+						id='date'
+						date={watch('date')}
+						setDate={(date) =>
+							setValue('date', date!, { shouldValidate: true })
+						}
+						className='col-span-1'
+					/>
 					{errors.date && (
-						<p className="text-sm text-red-500">{errors.date.message}</p>
+						<p className='text-sm text-red-500'>{errors.date.message}</p>
 					)}
 				</motion.div>
 			),
@@ -213,6 +213,17 @@ export default function RequestTutor() {
 			toast.error('Failed to submit the form. Please try again.');
 		} finally {
 			setIsPending(false);
+		}
+	};
+
+	const handleKeyPress = (e: React.KeyboardEvent) => {
+		if (e.key === 'Enter') {
+			e.preventDefault();
+			if (step < totalSteps - 1) {
+				handleNext();
+			} else {
+				handleSubmit(onSubmit)();
+			}
 		}
 	};
 
@@ -254,7 +265,11 @@ export default function RequestTutor() {
 						</CardHeader>
 						
 						<CardContent>
-							<form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
+							<form 
+								onSubmit={handleSubmit(onSubmit)} 
+								className="space-y-8"
+								onKeyDown={handleKeyPress}
+							>
 								<AnimatePresence mode="wait">
 									{formFields[step].component}
 								</AnimatePresence>

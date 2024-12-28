@@ -1,173 +1,177 @@
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import {
-	BookOpen,
-	Briefcase,
-	Camera,
-	Code2,
-	Gamepad,
-	Github,
-	Heart,
-	Laptop,
-	Mail,
-	Music,
-	Rocket,
-	Twitter
-} from "lucide-react";
-import Image from "next/image";
-import Link from "next/link";
-import logo from "@/components/providers/logo.svg";
+	BookOpenIcon,
+	EyeIcon,
+	GithubIcon,
+	MailIcon,
+	RocketIcon,
+	TargetIcon,
+	TwitterIcon,
+} from 'lucide-react';
+import * as motion from 'motion/react-client';
+import Link from 'next/link';
 
 export default function AboutPage() {
 	return (
-		<div className="relative min-h-screen w-full overflow-hidden bg-gradient-to-b from-background to-background/50">
-			{/* Gradient Effects */}
-			<div className="absolute inset-0 overflow-hidden -z-10">
-				<div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-purple-500/20 rounded-full blur-[128px]" />
-				<div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-blue-500/20 rounded-full blur-[128px]" />
-			</div>
-
-			<div className="container px-4 py-12 mx-auto max-w-4xl">
+		<div className='relative min-h-screen w-full overflow-hidden bg-gradient-to-b from-background to-background/50'>
+			<div className='container mx-auto max-w-4xl px-4 py-12'>
 				{/* Hero Section */}
-				<div className="flex flex-col items-center justify-center text-center mb-16">
-					<div className="relative w-32 h-32 mb-8">
-						<div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full blur-[20px] opacity-50" />
-						<Image
-							src={logo}
-							alt="Profile"
-							fill
-							className="rounded-full object-cover border-4 border-background"
-						/>
-					</div>
-					<h1 className="text-4xl md:text-5xl font-bold mb-4 text-primary ">
+				<div className='mb-20 flex flex-col items-center justify-center text-center'>
+					<h1 className='mb-6 text-4xl font-bold text-foreground md:text-5xl'>
 						Hi, I&apos;m Kr. Arun
 					</h1>
-					<p className="text-lg text-muted-foreground max-w-2xl">
-						Full-stack developer passionate about creating meaningful digital experiences
-						and turning ideas into reality through code.
+					<p className='max-w-2xl text-lg text-muted-foreground'>
+						Full-stack developer passionate about creating meaningful digital
+						experiences and turning ideas into reality through code.
 					</p>
 				</div>
 
-				{/* Main Content */}
-				<Tabs defaultValue="about" className="mb-16">
-					<TabsList className="w-full gap-2 flex h-12 items-center justify-center rounded-lg bg-gradient-to-br from-card/50 to-card p-1 mb-8">
-						<TabsTrigger 
-							value="about"
-							className="w-full ring-1 ring-inherit rounded-md px-3 py-2 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-sm"
-						>
-							<div className="flex items-center justify-center gap-2">
-								<Code2 className="h-4 w-4" />
-								<span>About Me</span>
-							</div>
-						</TabsTrigger>
-						<TabsTrigger 
-							value="journey"
-							className="w-full ring-1 ring-inherit rounded-md px-3 py-2 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-sm"
-						>
-							<div className="flex items-center justify-center gap-2">
-								<Rocket className="h-4 w-4" />
-								<span>Journey</span>
-							</div>
-						</TabsTrigger>
-						<TabsTrigger 
-							value="interests"
-							className="w-full ring-1 ring-inherit rounded-md px-3 py-2 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-sm"
-						>
-							<div className="flex items-center justify-center gap-2">
-								<Heart className="h-4 w-4" />
-								<span>Interests</span>
-							</div>
-						</TabsTrigger>
-					</TabsList>
+				{/* Why i started this project and what i want to achieve  */}
+				<div className='mb-12 flex flex-col items-center justify-center text-center'>
+					<h2 className='mb-8 text-3xl font-bold text-foreground md:text-4xl'>
+						Why I Started This Project
+					</h2>
+				</div>
+				<div className='grid gap-6 md:grid-cols-2'>
+					<motion.div
+						initial={{ opacity: 0, x: -20 }}
+						whileInView={{ opacity: 1, x: 0 }}
+						transition={{ duration: 0.5 }}
+						viewport={{ once: true }}
+						className='space-y-6 text-left'
+					>
+						<Card className='h-fit border-0 bg-green-500/40'>
+							<CardHeader className='flex w-full flex-row items-center gap-3'>
+								<div className='flex h-full items-center justify-center gap-2'>
+									<span className='flex bg-red-200 p-1 h-full items-center justify-center rounded-full'>
+										<EyeIcon className='text-red-500' size={32} />
+									</span>
+									<h3 className='text-center text-2xl font-semibold'>
+										The Vision
+									</h3>
+								</div>
+							</CardHeader>
+							<CardContent>
+								<p>
+									I started EduKation with a simple yet powerful vision: to make
+									quality education accessible to everyone. Growing up, I
+									witnessed how limited access to good education could impact
+									lives. This platform is my way of bridging that gap.
+								</p>
+							</CardContent>
+						</Card>
+					</motion.div>
 
-					<TabsContent value="about" className="mt-6 space-y-6 focus-visible:outline-none">
-						<div className="space-y-4">
-							<Card className="border-2 border-border/50 bg-gradient-to-br from-card/50 to-card hover:border-primary/50 transition-colors">
-								<CardContent className="p-6">
-									<p className="text-lg leading-relaxed text-muted-foreground">
-										I&apos;m a self-taught developer with a passion for building web applications
-										that solve real-world problems. With 5 years of experience in full-stack
-										development, I specialize in React, Node.js, and modern web technologies.
-									</p>
-								</CardContent>
-							</Card>
+					<motion.div
+						initial={{ opacity: 0, x: 20 }}
+						whileInView={{ opacity: 1, x: 0 }}
+						transition={{ duration: 0.5, delay: 0.2 }}
+						viewport={{ once: true }}
+						className='space-y-6 text-left'
+					>
+						<Card className='h-fit border-0 bg-blue-500/40'>
+							<CardHeader className='flex w-full flex-row items-center gap-3'>
+								<div className='flex h-full items-center justify-center gap-2'>
+									<span className='flex bg-amber-200 p-1 h-full items-center justify-center rounded-full'>
+										<TargetIcon className='text-amber-500' size={32} />
+									</span>
+									<h3 className='text-center text-2xl font-semibold'>
+										The Mission
+									</h3>
+								</div>
+							</CardHeader>
+							<CardContent>
+								<p>
+									Our mission is to create a global community where knowledge
+									flows freely between those who want to learn and those who
+									want to teach. By leveraging technology, we&apos;re making
+									education more personalized, accessible, and effective.
+								</p>
+							</CardContent>
+						</Card>
+					</motion.div>
 
-							<div className="grid md:grid-cols-2 gap-4">
-								{techStack.map((tech, index) => (
-									<Card key={index} className="group border-2 border-border/50 hover:border-primary/50 transition-all duration-300 bg-gradient-to-br from-card/50 to-card">
-										<CardContent className="p-6">
-											<div className="flex items-start gap-4">
-												<div className="rounded-lg p-3 bg-primary/10 group-hover:bg-primary/20 transition-colors">
-													{tech.icon}
-												</div>
-												<div>
-													<h3 className="font-semibold mb-2">{tech.title}</h3>
-													<p className="text-muted-foreground">{tech.description}</p>
-												</div>
-											</div>
-										</CardContent>
-									</Card>
-								))}
-							</div>
-						</div>
-					</TabsContent>
+					<motion.div
+						initial={{ opacity: 0, x: -20 }}
+						whileInView={{ opacity: 1, x: 0 }}
+						transition={{ duration: 0.5, delay: 0.4 }}
+						viewport={{ once: true }}
+						className='space-y-6 text-left'
+					>
+						<Card className='h-fit border-0 bg-purple-500/40'>
+							<CardHeader className='flex w-full flex-row items-center gap-3'>
+								<div className='flex h-full items-center justify-center gap-2'>
+									<span className='flex bg-purple-200 p-1 h-full items-center justify-center rounded-full'>
+										<BookOpenIcon className='text-purple-500' size={32} />
+									</span>
+								</div>
+								<h3 className='text-center text-2xl font-semibold'>The Goal</h3>
+							</CardHeader>
+							<CardContent>
+								<p>
+									We aim to empower millions of learners worldwide by connecting
+									them with passionate educators. Our goal is to become the
+									go-to platform for meaningful educational connections,
+									fostering a world where learning knows no boundaries.
+								</p>
+							</CardContent>
+						</Card>
+					</motion.div>
 
-					<TabsContent value="journey" className="mt-6 focus-visible:outline-none">
-						<div className="space-y-6">
-							{journey.map((item, index) => (
-								<Card key={index} className="overflow-hidden border-0 bg-gradient-to-br from-card/50 to-card">
-									<CardContent className="p-6">
-										<div className="flex items-start gap-4">
-											<div className="rounded-full p-3 bg-primary/10">
-												{item.icon}
-											</div>
-											<div>
-												<div className="flex items-center gap-2 mb-1">
-													<h3 className="font-semibold">{item.title}</h3>
-													<span className="text-sm text-muted-foreground">• {item.period}</span>
-												</div>
-												<p className="text-muted-foreground">{item.description}</p>
-											</div>
-										</div>
-									</CardContent>
-								</Card>
-							))}
-						</div>
-					</TabsContent>
-
-					<TabsContent value="interests" className="mt-6 focus-visible:outline-none">
-						<div className="grid md:grid-cols-3 gap-6">
-							{interests.map((interest, index) => (
-								<Card key={index} className="group hover:-translate-y-1 transition-all duration-300 bg-gradient-to-br from-card/50 to-card border-0">
-									<CardContent className="p-6 text-center">
-										<div className="rounded-lg p-3 bg-primary/10 inline-block mb-4 group-hover:bg-primary/20 transition-colors">
-											{interest.icon}
-										</div>
-										<h3 className="font-semibold mb-2">{interest.title}</h3>
-										<p className="text-muted-foreground text-sm">{interest.description}</p>
-									</CardContent>
-								</Card>
-							))}
-						</div>
-					</TabsContent>
-				</Tabs>
+					<motion.div
+						initial={{ opacity: 0, x: 20 }}
+						whileInView={{ opacity: 1, x: 0 }}
+						transition={{ duration: 0.5, delay: 0.6 }}
+						viewport={{ once: true }}
+						className='space-y-6 text-left'
+					>
+						<Card className='h-fit border-0 bg-orange-500/40'>
+							<CardHeader className='flex w-full flex-row items-center gap-3'>
+								<div className='flex h-full items-center justify-center gap-2'>
+									<span className='flex bg-orange-200 p-1 h-full items-center justify-center rounded-full'>
+										<RocketIcon className='text-orange-500' size={32} />
+									</span>
+								</div>
+								<h3 className='text-center text-2xl font-semibold'>The Future</h3>
+							</CardHeader>
+							<CardContent>
+								<p>
+									Looking ahead, we&apos;re committed to continuously innovating
+									and improving our platform. We&apos;re working on integrating
+									advanced AI features, expanding our subject offerings, and
+									building tools that make the learning experience even more
+									engaging and effective.
+								</p>
+							</CardContent>
+						</Card>
+					</motion.div>
+				</div>
 
 				{/* Connect Section */}
-				<section className="text-center">
-					<Card className="border-0 bg-gradient-to-br from-blue-500/10 to-purple-500/10">
-						<CardContent className="p-12">
-							<h2 className="text-3xl font-bold mb-4">Let&apos;s Connect</h2>
-							<p className="text-muted-foreground mb-8 max-w-2xl mx-auto">
-								Whether you want to discuss a project or just say hi, I&apos;m always open to new
-								connections and opportunities.
+				<section className='mt-20 text-center'>
+					<Card className='border'>
+						<CardContent className='p-12'>
+							<h2 className='mb-6 text-3xl font-bold text-foreground'>
+								Let&apos;s Connect
+							</h2>
+							<p className='mx-auto mb-8 max-w-2xl text-muted-foreground'>
+								Whether you want to discuss a project or just say hi, I&apos;m
+								always open to new connections and opportunities.
 							</p>
-							<div className="flex justify-center gap-4">
+							<div className='flex flex-wrap justify-center gap-4'>
 								{socialLinks.map((social, index) => (
-									<Button key={index} variant="outline" asChild className="group">
-										<Link href={social.url} target="_blank">
-											{social.icon}
-											<span className="ml-2">{social.label}</span>
+									<Button
+										key={index}
+										variant='outline'
+										asChild
+										className='group bg-background/60 hover:bg-background/80'
+									>
+										<Link href={social.url} target='_blank'>
+											<div className='text-primary'>{social.icon}</div>
+											<span className='ml-2 text-foreground'>
+												{social.label}
+											</span>
 										</Link>
 									</Button>
 								))}
@@ -180,77 +184,20 @@ export default function AboutPage() {
 	);
 }
 
-const techStack = [
-	{
-		icon: <Laptop className="h-5 w-5 text-primary" />,
-		title: "Frontend Development",
-		description: "React, Next.js, TypeScript, Tailwind CSS"
-	},
-	{
-		icon: <Code2 className="h-5 w-5 text-primary" />,
-		title: "Backend Development",
-		description: "Node.js, Express, PostgreSQL, MongoDB"
-	},
-];
-
-const journey = [
-	{
-		icon: <Briefcase className="h-5 w-5 text-primary" />,
-		title: "Freelance Developer",
-		period: "2023 - Present",
-		description: "Building custom web solutions for clients worldwide."
-	},
-	{
-		icon: <Rocket className="h-5 w-5 text-primary" />,
-		title: "First Major Project",
-		period: "2022",
-		description: "Launched my first full-stack application."
-	},
-	{
-		icon: <BookOpen className="h-5 w-5 text-primary" />,
-		title: "Started Coding",
-		period: "2021",
-		description: "Began my self-taught programming journey."
-	},
-];
-
-const interests = [
-	{
-		icon: <Code2 className="h-5 w-5 text-primary" />,
-		title: "Coding",
-		description: "Building and experimenting with new technologies"
-	},
-	{
-		icon: <Music className="h-5 w-5 text-primary" />,
-		title: "Music",
-		description: "Playing guitar and discovering new genres"
-	},
-	{
-		icon: <Camera className="h-5 w-5 text-primary" />,
-		title: "Photography",
-		description: "Capturing moments and editing photos"
-	},
-	{
-		icon: <Gamepad className="h-5 w-5 text-primary" />,
-		title: "Gaming",
-		description: "Enjoying story-driven games and indies"
-	},
-];
-
 const socialLinks = [
 	{
-		icon: <Github className="h-5 w-5" />,
-		label: "GitHub",
-		url: "https://github.com/yourusername"
+		icon: <GithubIcon className='h-5 w-5' />,
+		label: 'GitHub',
+		url: 'https://github.com/ikrarun',
 	},
 	{
-		icon: <Twitter className="h-5 w-5" />,
-		label: "Twitter",
-		url: "https://twitter.com/yourusername"
+		icon: <TwitterIcon className='h-5 w-5' />,
+		label: 'Twitter',
+		url: 'https://twitter.com/yebuddhakadesh',
 	},
 	{
-		icon: <Mail className="h-5 w-5" />,
-		label: "Email",
-		url: "mailto:your@email.com"
+		icon: <MailIcon className='h-5 w-5' />,
+		label: 'Email',
+		url: 'mailto:iamkrarun@gmail.com',
 	},
 ];

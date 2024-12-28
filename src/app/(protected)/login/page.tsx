@@ -1,6 +1,5 @@
 'use client';
 
-import Link from 'next/link';
 import {
 	Card,
 	CardContent,
@@ -9,12 +8,13 @@ import {
 	CardHeader,
 	CardTitle,
 } from '@/components/ui/card';
-import { motion } from 'motion/react';
-import { FcGoogle } from 'react-icons/fc';
-import { BsFacebook, BsTwitterX } from 'react-icons/bs';
-import { useRouter } from 'next/navigation';
 import { Loader2 } from 'lucide-react';
+import { motion } from 'motion/react';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import { BsGithub, BsTwitterX } from 'react-icons/bs';
+import { FcGoogle } from 'react-icons/fc';
 
 export default function Component() {
 	const router = useRouter();
@@ -29,36 +29,35 @@ export default function Component() {
 	};
 
 	return (
-		<main className='flex h-full grow flex-col items-center justify-center bg-gradient-to-b from-background to-muted/50'>
-			<Card className='mx-auto my-auto max-w-sm space-y-2 border-muted/20 p-4 shadow-lg backdrop-blur-sm'>
-				<CardHeader className='space-y-4 text-center'>
-					<CardTitle className='bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-3xl font-bold text-transparent'>
-						Welcome Back
+		<main className='flex h-full grow items-center justify-center bg-background'>
+			<Card className='w-full max-w-md border-none bg-white/80 p-8 shadow-none'>
+				<CardHeader className='space-y-2 text-left pb-8'>
+					<CardTitle className='text-2xl font-semibold text-gray-900'>
+						Hey there!
 					</CardTitle>
-					<CardDescription className='text-gray-500 dark:text-gray-400'>
-						Choose your preferred login method to continue
+					<CardDescription>
+						Sign in with preferred account
 					</CardDescription>
 				</CardHeader>
-				<CardContent className='my-4 space-y-4'>
+				<CardContent className="space-y-6">
 					{[
 						{
 							id: 'google',
 							icon: FcGoogle,
 							text: 'Continue with Google',
-							className: 'hover:bg-gray-50 dark:hover:bg-gray-800',
-						},
-						{
-							id: 'facebook',
-							icon: BsFacebook,
-							text: 'Continue with Facebook',
-							iconColor: 'text-blue-800',
-							className: 'hover:bg-blue-50 dark:hover:bg-blue-950/30',
+							className: 'bg-white hover:bg-gray-50',
 						},
 						{
 							id: 'twitter',
 							icon: BsTwitterX,
 							text: 'Continue with Twitter',
-							className: 'hover:bg-gray-50 dark:hover:bg-gray-800',
+							className: 'bg-white hover:bg-gray-50',
+						},
+						{
+							id: 'github',
+							icon: BsGithub,
+							text: 'Continue with GitHub',
+							className: 'bg-white hover:bg-gray-50',
 						},
 					].map((button, index) => (
 						<motion.button
@@ -76,37 +75,26 @@ export default function Component() {
 								ease: 'easeInOut',
 								delay: index * 0.1,
 							}}
-							className={`inline-flex w-full items-center justify-center rounded-lg border border-border p-3 outline-none transition-colors duration-200 ${button.className} ${isLoading !== null && 'cursor-not-allowed opacity-50'}`}
+							className={`inline-flex w-full items-center justify-center rounded-xl border border-gray-200 p-4 font-medium ${button.className} ${
+								isLoading !== null && 'cursor-not-allowed opacity-50'
+							}`}
 						>
 							{isLoading === button.id ? (
 								<Loader2 className='mr-3 h-5 w-5 animate-spin' />
 							) : (
-								<button.icon
-									className={`mr-3 h-5 w-5 ${button.iconColor || ''}`}
-								/>
+								<button.icon className="mr-3 h-5 w-5" />
 							)}
 							<span className='font-medium'>{button.text}</span>
 						</motion.button>
 					))}
 				</CardContent>
-				<CardFooter className='flex flex-col space-y-4 text-center'>
-					<div className='relative w-full'>
-						<div className='absolute inset-0 flex items-center'>
-							<span className='w-full border-t' />
-						</div>
-						<div className='relative flex justify-center text-xs uppercase'>
-							<span className='bg-background px-2 text-muted-foreground'>
-								Or
-							</span>
-						</div>
+				<CardFooter className='flex justify-center	 pt-6'>
+					<div className='text-sm'>
+							Can&apos;t access your account?{' '}
+							<Link href='mailto:support@edukation.com' className='text-blue-600 hover:text-blue-700'>
+								Contact support
+							</Link>
 					</div>
-					<Link
-						href='/report'
-						className='text-sm text-muted-foreground transition-colors duration-200 hover:text-primary'
-						prefetch={false}
-					>
-						Having trouble logging in?
-					</Link>
 				</CardFooter>
 			</Card>
 		</main>
