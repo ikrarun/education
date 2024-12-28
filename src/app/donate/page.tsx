@@ -5,6 +5,8 @@ import { Coffee } from "lucide-react";
 import Link from "next/link";
 import QRCode from "react-qr-code";
 
+const support_link = 'https://payments.cashfree.com/forms/donateEduKation';
+
 export default function DonatePage() {
   return (
     <div className="relative h-full grow w-full overflow-hidden bg-gradient-to-b from-background to-background/50">
@@ -28,7 +30,7 @@ export default function DonatePage() {
         <div className="grid md:grid-cols-2 gap-8">
           <Card className="border-2 border-border/50 bg-gradient-to-br from-card/50 to-card hover:border-primary/50 transition-colors">
             <CardContent className="p-6 flex flex-col items-center">
-              <QRCode value="https://payments-test.cashfree.com/forms/supportkr" className="h-48 w-48 mb-6 text-primary" />
+              <QRCode value={support_link} className="h-48 w-48 mb-6 text-primary" />
               <h2 className="text-2xl font-semibold mb-2">Scan QR Code</h2>
               <p className="text-muted-foreground text-center mb-4">
                 Scan this QR code with your phone to donate directly
@@ -44,7 +46,7 @@ export default function DonatePage() {
                 Your support helps me create more awesome open-source projects!
               </p>
               <Button asChild size="lg" className="w-full">
-                <Link href="https://payments-test.cashfree.com/forms/supportkr" target="_blank">
+                <Link href={support_link} target="_blank">
                   Support My Work
                 </Link>
               </Button>
