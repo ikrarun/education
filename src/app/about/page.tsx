@@ -41,11 +41,11 @@ export default function AboutPage() {
 						viewport={{ once: true }}
 						className='space-y-6 text-left'
 					>
-						<Card className='h-fit border-0 bg-green-500/40'>
+						<Card className='h-fit border-0 bg-red-500/50'>
 							<CardHeader className='flex w-full flex-row items-center gap-3'>
 								<div className='flex h-full items-center justify-center gap-2'>
-									<span className='flex bg-red-200 p-1 h-full items-center justify-center rounded-full'>
-										<EyeIcon className='text-red-500' size={32} />
+									<span className='flex bg-red-500 p-1 h-full items-center justify-center rounded-xl'>
+										<EyeIcon className='text-white' size={32} />
 									</span>
 									<h3 className='text-center text-2xl font-semibold'>
 										The Vision
@@ -70,11 +70,11 @@ export default function AboutPage() {
 						viewport={{ once: true }}
 						className='space-y-6 text-left'
 					>
-						<Card className='h-fit border-0 bg-blue-500/40'>
+						<Card className='h-fit border-0 bg-amber-500/50'>
 							<CardHeader className='flex w-full flex-row items-center gap-3'>
 								<div className='flex h-full items-center justify-center gap-2'>
-									<span className='flex bg-amber-200 p-1 h-full items-center justify-center rounded-full'>
-										<TargetIcon className='text-amber-500' size={32} />
+									<span className='flex bg-amber-500 p-1 h-full items-center justify-center rounded-xl'>
+										<TargetIcon className='text-white' size={32} />
 									</span>
 									<h3 className='text-center text-2xl font-semibold'>
 										The Mission
@@ -99,11 +99,11 @@ export default function AboutPage() {
 						viewport={{ once: true }}
 						className='space-y-6 text-left'
 					>
-						<Card className='h-fit border-0 bg-purple-500/40'>
+						<Card className='h-fit border-0 bg-purple-500/50'>
 							<CardHeader className='flex w-full flex-row items-center gap-3'>
 								<div className='flex h-full items-center justify-center gap-2'>
-									<span className='flex bg-purple-200 p-1 h-full items-center justify-center rounded-full'>
-										<BookOpenIcon className='text-purple-500' size={32} />
+									<span className='flex bg-purple-500 p-2 h-full items-center justify-center rounded-xl'>
+										<BookOpenIcon className='text-white' size={28} />
 									</span>
 								</div>
 								<h3 className='text-center text-2xl font-semibold'>The Goal</h3>
@@ -126,11 +126,11 @@ export default function AboutPage() {
 						viewport={{ once: true }}
 						className='space-y-6 text-left'
 					>
-						<Card className='h-fit border-0 bg-orange-500/40'>
+						<Card className='h-fit border-0 bg-orange-500/50'>
 							<CardHeader className='flex w-full flex-row items-center gap-3'>
 								<div className='flex h-full items-center justify-center gap-2'>
-									<span className='flex bg-orange-200 p-1 h-full items-center justify-center rounded-full'>
-										<RocketIcon className='text-orange-500' size={32} />
+									<span className='flex bg-orange-500 p-2 h-full items-center justify-center rounded-xl'>
+										<RocketIcon className='text-white' size={28} />
 									</span>
 								</div>
 								<h3 className='text-center text-2xl font-semibold'>The Future</h3>

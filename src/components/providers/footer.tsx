@@ -22,7 +22,7 @@ function Footer() {
 	];
 
 	return (
-		<footer className='h-fit mt-24 w-full'>
+		<footer className='h-fit mt-12 sm:mt-24 w-full'>
 			<Separator className='mt-2 bg-secondary-foreground/20 w-full' />
 			<div className='flex w-full bg-background drop-shadow-2xl flex-col items-center justify-center'>
 				<div className='mx-auto flex h-fit w-full max-w-[900px] flex-col items-center overflow-clip rounded-lg p-4 outline-none'>
