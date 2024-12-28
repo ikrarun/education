@@ -1,5 +1,5 @@
 'use client';
-
+import { signIn } from 'next-auth/react';
 import {
 	Card,
 	CardContent,
@@ -23,7 +23,7 @@ export default function Component() {
 	const handleLogin = async (provider: string) => {
 		setIsLoading(provider);
 		// Simulate login delay
-		await new Promise((resolve) => setTimeout(resolve, 800));
+		await signIn(provider);
 		// Add your login logic here
 		router.push('/profile');
 	};
@@ -31,15 +31,13 @@ export default function Component() {
 	return (
 		<main className='flex h-full grow items-center justify-center bg-background'>
 			<Card className='w-full max-w-md p-8 shadow-none'>
-				<CardHeader className='space-y-2 text-left pb-8'>
+				<CardHeader className='space-y-2 pb-8 text-left'>
 					<CardTitle className='text-2xl font-semibold text-foreground'>
 						Hey there!
 					</CardTitle>
-					<CardDescription>
-						Sign in with preferred account
-					</CardDescription>
+					<CardDescription>Sign in with preferred account</CardDescription>
 				</CardHeader>
-				<CardContent className="space-y-6">
+				<CardContent className='space-y-6'>
 					{[
 						{
 							id: 'google',
@@ -82,18 +80,21 @@ export default function Component() {
 							{isLoading === button.id ? (
 								<Loader2 className='mr-3 h-5 w-5 animate-spin' />
 							) : (
-								<button.icon className="mr-3 h-5 w-5" />
+								<button.icon className='mr-3 h-5 w-5' />
 							)}
 							<span className='font-medium'>{button.text}</span>
 						</motion.button>
 					))}
 				</CardContent>
-				<CardFooter className='flex justify-center	 pt-6'>
+				<CardFooter className='flex justify-center pt-6'>
 					<div className='text-sm'>
-							Can&apos;t access your account?{' '}
-							<Link href='mailto:support@edukation.com' className='text-blue-600 hover:text-blue-700'>
-								Contact support
-							</Link>
+						Can&apos;t access your account?{' '}
+						<Link
+							href='mailto:support@edukation.com'
+							className='text-blue-600 hover:text-blue-700'
+						>
+							Contact support
+						</Link>
 					</div>
 				</CardFooter>
 			</Card>

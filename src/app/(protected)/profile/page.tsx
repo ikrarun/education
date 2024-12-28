@@ -1,13 +1,32 @@
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import { buttonVariants } from '@/components/ui/betterbutton';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import {
+	Card,
+	CardContent,
+	CardDescription,
+	CardFooter,
+	CardHeader,
+	CardTitle,
+} from '@/components/ui/card';
 import Copybutton from '@/components/ui/copybutton';
 import { Separator } from '@/components/ui/separator';
 import { cn } from '@/lib/utils';
-import { Briefcase, Calendar, Circle, CircleCheck, Home, Mail, MapPin} from 'lucide-react';
+import {
+	Briefcase,
+	Calendar,
+	Circle,
+	CircleCheck,
+	Home,
+	Mail,
+	MapPin,
+} from 'lucide-react';
 import Link from 'next/link';
+import { auth } from '@/lib/auth';
+import { redirect } from 'next/navigation';
 
+import Tos from './tos';
+import { SignOut } from './signOut';
 interface SubscriptionStatus {
 	isPro: boolean;
 	validUntil: string;
@@ -94,12 +113,8 @@ const ContactInfo = () => (
 			>
 				Settings
 			</Link>
-			<Link
-				href={'/'}
-				className={`${buttonVariants({ variant: 'destructive' })} flex-1`}
-			>
-				Logout
-			</Link>
+
+			<SignOut />
 		</div>
 	</div>
 );
@@ -135,9 +150,15 @@ const InsightsCard = () => (
 	</Card>
 );
 
-export default function Profile() {
+export default async function Profile() {
+	const session = await auth();
+	if (!session?.user) {
+		return redirect('/login');
+	}
+	console.log(session.user.name);
 	return (
 		<main className='items-top justify-top flex h-full min-h-[90vh] w-full grow flex-col-reverse gap-2 p-2 md:flex-row md:p-0'>
+			<Tos session={session} />
 			<Card className='mx-auto flex w-full max-w-full flex-col gap-2 p-2 md:w-fit md:max-w-xs'>
 				<ProfileHeader />
 				<CardContent className='flex h-full grow flex-col justify-between'>

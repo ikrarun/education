@@ -228,26 +228,28 @@ export default function RequestTutor() {
 	};
 
 	return (
-		<main className="h-full w-full flex items-center justify-center p-4">
-			<Card className="w-full max-w-3xl bg-primary/5 backdrop-blur-3xl">
+		<main className='flex h-full w-full max-w-3xl flex-col items-center justify-center gap-8 p-4'>
+			<div className='mb-8 flex flex-col items-center justify-center gap-3'>
+				<h1 className='text-5xl font-bold'>Request Tutor</h1>
+				<p className='text-muted-foreground'>
+					Fill out the form below to request a tutor for yourself or your child.
+				</p>
+			</div>
+			<Card className='w-full max-w-3xl backdrop-blur-3xl'>
 				{isSubmitted ? (
 					<motion.div
 						initial={{ opacity: 0, scale: 0.95 }}
 						animate={{ opacity: 1, scale: 1 }}
-						className="p-8 text-center space-y-4"
+						className='space-y-4 p-8 text-center'
 					>
 						<CardHeader>
-							<CardTitle className="text-3xl">Thank You!</CardTitle>
-							<CardDescription className="text-xl">
+							<CardTitle className='text-3xl'>Thank You!</CardTitle>
+							<CardDescription className='text-xl'>
 								We&apos;ve received your request and will contact you soon.
 							</CardDescription>
 						</CardHeader>
 						<CardContent>
-							<BetterButton
-								href='/'
-							>
-								Go To Dashboard
-							</BetterButton>
+							<BetterButton href='/'>Go To Dashboard</BetterButton>
 						</CardContent>
 					</motion.div>
 				) : (
@@ -259,49 +261,53 @@ export default function RequestTutor() {
 								animate={{ opacity: 1, x: 0 }}
 								exit={{ opacity: 0, x: -20 }}
 							>
-								<CardTitle className="text-3xl">{formFields[step].title}</CardTitle>
-								<CardDescription>{formFields[step].description}</CardDescription>
+								<CardTitle className='text-3xl'>
+									{formFields[step].title}
+								</CardTitle>
+								<CardDescription>
+									{formFields[step].description}
+								</CardDescription>
 							</motion.div>
 						</CardHeader>
-						
+
 						<CardContent>
-							<form 
-								onSubmit={handleSubmit(onSubmit)} 
-								className="space-y-8"
+							<form
+								onSubmit={handleSubmit(onSubmit)}
+								className='space-y-8'
 								onKeyDown={handleKeyPress}
 							>
-								<AnimatePresence mode="wait">
+								<AnimatePresence mode='wait'>
 									{formFields[step].component}
 								</AnimatePresence>
 
-								<motion.div className="flex justify-between pt-8">
+								<motion.div className='flex justify-between pt-8'>
 									{step > 0 && (
 										<BetterButton
-											type="button"
-											variant="outline"
+											type='button'
+											variant='outline'
 											onClick={() => setStep(step - 1)}
 										>
-											<ArrowLeft className="mr-2 h-4 w-4" />
+											<ArrowLeft className='mr-2 h-4 w-4' />
 											Back
 										</BetterButton>
 									)}
-									
+
 									{step < totalSteps - 1 ? (
 										<BetterButton
-											type="button"
+											type='button'
 											onClick={handleNext}
-											className="ml-auto focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2"
+											className='ml-auto focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary'
 										>
 											Next
-											<ArrowRight className="ml-2 h-4 w-4" />
+											<ArrowRight className='ml-2 h-4 w-4' />
 										</BetterButton>
 									) : (
 										<BetterButton
-											type="submit"
+											type='submit'
 											disabled={isPending}
-											className="ml-auto"
+											className='ml-auto'
 										>
-											<Send className="mr-2 h-4 w-4" />
+											<Send className='mr-2 h-4 w-4' />
 											{isPending ? 'Submitting...' : 'Submit'}
 										</BetterButton>
 									)}
@@ -310,13 +316,13 @@ export default function RequestTutor() {
 						</CardContent>
 
 						<CardFooter>
-							<div className="w-full">
-								<div className="flex gap-1 justify-center">
+							<div className='w-full'>
+								<div className='flex justify-center gap-1'>
 									{Array.from({ length: totalSteps }).map((_, i) => (
 										<motion.div
 											key={i}
 											className={`h-1 rounded-full ${
-												i <= step ? 'bg-primary' : 'bg-muted'
+												i <= step ? 'bg-primary dark:bg-secondary-foreground' : 'bg-muted'
 											}`}
 											style={{ width: `${100 / totalSteps}%` }}
 											initial={{ scaleX: 0 }}

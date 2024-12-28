@@ -1,6 +1,5 @@
 import { Badge } from '@/components/ui/badge';
 import { BetterButton } from '@/components/ui/betterbutton';
-import { Button } from '@/components/ui/button';
 import {
 	Card,
 	CardContent,
@@ -28,7 +27,7 @@ import {
 import { FcApproval, FcGraduationCap } from 'react-icons/fc';
 
 const ListItem = ({ text }: { text: string }) => (
-	<li className='flex items-center gap-3 p-2'>
+	<li className='flex cursor-pointer items-center gap-3 p-2'>
 		<span className='flex h-6 w-6 items-center justify-center rounded-full bg-primary/10 text-primary'>
 			<Check className='h-3.5 w-3.5' strokeWidth={3} />
 		</span>
@@ -143,7 +142,11 @@ const StudentPage = () => {
 								</div>
 							</CardContent>
 							<CardFooter>
-								<BetterButton href='/login' className='w-full' variant='outline'>
+								<BetterButton
+									href='/student/request-tutor'
+									className='w-full'
+									variant='outline'
+								>
 									Start Free
 								</BetterButton>
 							</CardFooter>
@@ -265,12 +268,13 @@ const StudentPage = () => {
 						protection. We handle all payments, communications, and potential
 						issues, letting you focus solely on your learning journey.
 					</p>
-					<Button
+					<BetterButton
+						href='/login'
 						className='mt-6 bg-gradient-to-r from-blue-600 to-indigo-600 text-white hover:from-blue-700 hover:to-indigo-700'
 						size='lg'
 					>
 						<Shield className='mr-2 h-4 w-4' /> Get Protected Now
-					</Button>
+					</BetterButton>
 				</div>
 			</div>
 

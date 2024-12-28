@@ -17,7 +17,7 @@ const ROLE_BUTTONS = [
 ] as const;
 
 const ListItem = ({ text }: { text: string }) => (
-  <li className='flex items-center gap-3 rounded-md bg-primary/5 p-3 transition-colors hover:bg-primary/10'>
+  <li className='flex items-center cursor-pointer gap-3 rounded-md bg-primary/5 p-3 transition-colors hover:bg-primary/10'>
     <span className='flex h-6 w-6 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-sm'>
       <Check className='h-3.5 w-3.5' strokeWidth={3} />
     </span>
@@ -34,6 +34,7 @@ export default function CallToAction() {
           {ROLE_BUTTONS.map(({ href, Icon, label, variant }) => (
             <BetterButton
               key={href}
+              
               href={href}
               size='lg'
               variant={variant}
