@@ -336,7 +336,7 @@ export default function RootLayout({
 			<body className={`${localFont.className} bg flex flex-col`}>
 				<ThemeProvider
 					attribute='class'
-					defaultTheme='light'
+					defaultTheme='dark'
 					enableSystem
 					disableTransitionOnChange
 				>

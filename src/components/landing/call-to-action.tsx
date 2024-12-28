@@ -50,9 +50,9 @@ export default function CallToAction() {
         {/* Quick Benefits */}
         <div className='flex w-full flex-col gap-4 rounded-lg border bg-card p-6 shadow-sm'>
           <ul className='grid gap-4 md:grid-cols-3'>
-            <ListItem text='100% Free Platform' />
-            <ListItem text='No Hidden Charges' />
-            <ListItem text='Instant Access' />
+            <ListItem text='No Platform Fees' />
+            <ListItem text='Pay for Lessons Only' />
+            <ListItem text='Zero Commission' />
           </ul>
         </div>
       </div>

@@ -30,9 +30,9 @@ export default function Component() {
 
 	return (
 		<main className='flex h-full grow items-center justify-center bg-background'>
-			<Card className='w-full max-w-md border-none bg-white/80 p-8 shadow-none'>
+			<Card className='w-full max-w-md p-8 shadow-none'>
 				<CardHeader className='space-y-2 text-left pb-8'>
-					<CardTitle className='text-2xl font-semibold text-gray-900'>
+					<CardTitle className='text-2xl font-semibold text-foreground'>
 						Hey there!
 					</CardTitle>
 					<CardDescription>
@@ -45,19 +45,19 @@ export default function Component() {
 							id: 'google',
 							icon: FcGoogle,
 							text: 'Continue with Google',
-							className: 'bg-white hover:bg-gray-50',
+							className: 'hover:scale-105	',
 						},
 						{
 							id: 'twitter',
 							icon: BsTwitterX,
 							text: 'Continue with Twitter',
-							className: 'bg-white hover:bg-gray-50',
+							className: 'hover:scale-105',
 						},
 						{
 							id: 'github',
 							icon: BsGithub,
 							text: 'Continue with GitHub',
-							className: 'bg-white hover:bg-gray-50',
+							className: 'hover:scale-105',
 						},
 					].map((button, index) => (
 						<motion.button
