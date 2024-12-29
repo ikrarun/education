@@ -1,5 +1,6 @@
 'use client';
-import { signIn } from 'next-auth/react';
+
+import { signIn, useSession } from 'next-auth/react';
 import {
 	Card,
 	CardContent,
@@ -8,25 +9,23 @@ import {
 	CardHeader,
 	CardTitle,
 } from '@/components/ui/card';
-import { Loader2 } from 'lucide-react';
 import { motion } from 'motion/react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import { useState } from 'react';
 import { BsGithub, BsTwitterX } from 'react-icons/bs';
 import { FcGoogle } from 'react-icons/fc';
+import { redirect } from 'next/navigation';
+
 
 export default function Component() {
-	const router = useRouter();
-	const [isLoading, setIsLoading] = useState<string | null>(null);
+	const session = useSession();
 
-	const handleLogin = async (provider: string) => {
-		setIsLoading(provider);
-		// Simulate login delay
-		await signIn(provider);
-		// Add your login logic here
-		router.push('/profile');
-	};
+	if (session.status === 'authenticated') {
+		redirect('/profile');
+	}
+
+	if (session.status === 'loading') {
+		return <div>Loading...</div>;
+	}
 
 	return (
 		<main className='flex h-full grow items-center justify-center bg-background'>
@@ -59,8 +58,7 @@ export default function Component() {
 						},
 					].map((button, index) => (
 						<motion.button
-							onClick={() => handleLogin(button.id)}
-							disabled={isLoading !== null}
+							onClick={() => signIn(button.id)}
 							key={button.text}
 							custom={index}
 							initial={{ opacity: 0, y: 20 }}
@@ -73,15 +71,9 @@ export default function Component() {
 								ease: 'easeInOut',
 								delay: index * 0.1,
 							}}
-							className={`inline-flex w-full items-center justify-center rounded-xl border border-gray-200 p-4 font-medium ${button.className} ${
-								isLoading !== null && 'cursor-not-allowed opacity-50'
-							}`}
+							className={`inline-flex w-full items-center justify-center rounded-xl border border-gray-200 p-4 font-medium ${button.className}`}
 						>
-							{isLoading === button.id ? (
-								<Loader2 className='mr-3 h-5 w-5 animate-spin' />
-							) : (
-								<button.icon className='mr-3 h-5 w-5' />
-							)}
+							<button.icon className='mr-3 h-5 w-5' />
 							<span className='font-medium'>{button.text}</span>
 						</motion.button>
 					))}

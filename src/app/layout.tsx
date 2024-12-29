@@ -53,6 +53,7 @@ const localFont = Font({
 });
 
 import { ThemeProvider } from '@/components/providers/themeProviders';
+import { SessionProvider } from 'next-auth/react';
 
 const defaultURL =
 	process.env.NODE_ENV === 'development'
@@ -334,14 +335,16 @@ export default function RootLayout({
 	return (
 		<html lang='en' suppressHydrationWarning>
 			<body className={`${localFont.className} bg flex flex-col`}>
-				<ThemeProvider
-					attribute='class'
-					defaultTheme='dark'
-					enableSystem
-					disableTransitionOnChange
+				<SessionProvider>
+					<ThemeProvider
+						attribute='class'
+						defaultTheme='dark'
+						enableSystem
+						disableTransitionOnChange
 				>
-					{children}
-				</ThemeProvider>
+						{children}
+					</ThemeProvider>
+				</SessionProvider>
 			</body>
 		</html>
 	);
