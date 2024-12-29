@@ -22,27 +22,27 @@ function Footer() {
 	];
 
 	return (
-		<footer className='h-fit mt-12 sm:mt-24 w-full'>
-			<Separator className='mt-2 bg-secondary-foreground/20 w-full' />
-			<div className='flex w-full bg-background drop-shadow-2xl flex-col items-center justify-center'>
+		<footer className='mt-12 h-fit w-full sm:mt-24'>
+			<Separator className='mt-2 w-full bg-secondary-foreground/20' />
+			<div className='flex w-full flex-col items-center justify-center bg-background drop-shadow-2xl'>
 				<div className='mx-auto flex h-fit w-full max-w-[900px] flex-col items-center overflow-clip rounded-lg p-4 outline-none'>
-				<div className='mx-auto flex w-full max-w-2xl flex-col justify-between gap-4 md:flex-row md:gap-0'>
-					{links.map((link, index) => (
-						<Link
-							key={index}
-							href={link.href}
-							className='flex pr-2 rounded-sm w-fit items-center justify-center gap-2 underline-offset-4 hover:underline'
+					<div className='mx-auto flex w-full max-w-2xl flex-col justify-between gap-4 md:flex-row md:gap-0'>
+						{links.map((link, index) => (
+							<Link
+								key={index}
+								href={link.href}
+								className='flex w-fit items-center justify-center gap-2 rounded-sm pr-2 underline-offset-4 hover:underline'
 							>
-							<span className='rounded-full p-2'>{link.icon}</span>
-							<h1>{link.text}</h1>
-						</Link>
-					))}
+								<span className='rounded-full p-2'>{link.icon}</span>
+								<h1>{link.text}</h1>
+							</Link>
+						))}
+					</div>
 				</div>
-				</div>
-			<Separator className='w-full bg-secondary-foreground/20' />
-			<p className='w-full p-2 text-center text-sm md:text-center'>
-				© {new Date().getFullYear()} EduKation. All rights reserved.
-			</p>
+				<Separator className='w-full bg-secondary-foreground/20' />
+				<p className='w-full p-2 text-center text-sm md:text-center'>
+					© {new Date().getFullYear()} EduKation. All rights reserved.
+				</p>
 			</div>
 		</footer>
 	);

@@ -322,7 +322,9 @@ export default function RequestTutor() {
 										<motion.div
 											key={i}
 											className={`h-1 rounded-full ${
-												i <= step ? 'bg-primary dark:bg-secondary-foreground' : 'bg-muted'
+												i <= step
+													? 'bg-primary dark:bg-secondary-foreground'
+													: 'bg-muted'
 											}`}
 											style={{ width: `${100 / totalSteps}%` }}
 											initial={{ scaleX: 0 }}

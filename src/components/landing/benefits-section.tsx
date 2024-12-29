@@ -52,7 +52,7 @@ export default function BenefitsSection() {
 				</div>
 
 				{/* Section Header */}
-				<div className='mb-12 relative text-center'>
+				<div className='relative mb-12 text-center'>
 					<h2 className='mb-4 text-3xl font-bold md:text-4xl'>
 						Why Choose EduKation?
 					</h2>
@@ -63,7 +63,7 @@ export default function BenefitsSection() {
 				</div>
 
 				{/* Benefits Grid */}
-				<div className='grid gap-6 z-10 md:grid-cols-2 lg:grid-cols-3'>
+				<div className='z-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3'>
 					{KEY_BENEFITS.map(
 						({ title, description, icon: Icon, gradient }, index) => (
 							<motion.div

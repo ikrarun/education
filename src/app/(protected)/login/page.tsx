@@ -15,7 +15,6 @@ import { BsGithub, BsTwitterX } from 'react-icons/bs';
 import { FcGoogle } from 'react-icons/fc';
 import { redirect } from 'next/navigation';
 
-
 export default function Component() {
 	const session = useSession();
 

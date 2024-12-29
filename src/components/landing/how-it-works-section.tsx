@@ -33,7 +33,7 @@ const STEPS = [
 }[];
 
 export default function HowItWorksSection() {
-  return (
+	return (
 		<section className='relative w-full overflow-hidden py-16'>
 			<div className='container mx-auto px-4'>
 				{/* Background Elements */}
@@ -127,4 +127,4 @@ export default function HowItWorksSection() {
 			</div>
 		</section>
 	);
-} 
+}

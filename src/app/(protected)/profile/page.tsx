@@ -15,18 +15,18 @@ import { Separator } from '@/components/ui/separator';
 import { notImplemented } from '@/lib/types';
 import { cn } from '@/lib/utils';
 import {
-	BadgeCheck,
 	Briefcase,
-	Calendar,
-	Circle,
-	CircleCheck,
 	Home,
 	Mail,
 	MapPin,
+	MenuIcon,
+	Shield,
+	Sparkles,
+	SquareUser,
 } from 'lucide-react';
 import { signOut, useSession } from 'next-auth/react';
 import { redirect } from 'next/navigation';
-
+import { useEffect, useState } from 'react';
 
 interface SubscriptionStatus {
 	isPro: boolean;
@@ -46,56 +46,51 @@ const ProfileHeader = () => (
 );
 
 const ProfileAvatar = ({ avatar }: { avatar: string }) => (
-	<div className='relative'>
-		<Avatar className='h-24 w-24'>
+	<div className='relative mb-6 flex flex-col items-center'>
+		{subscriptionStatus.isPro && (
+			<div className='absolute inset-0 animate-pulse rounded-full bg-gradient-to-r from-yellow-600 via-yellow-800 to-amber-900 opacity-100 shadow-lg blur-sm dark:from-yellow-400 dark:via-yellow-500 dark:to-amber-600 dark:opacity-75 dark:blur-md' />
+		)}
+		<Avatar className='relative h-28 w-28 border-4 border-primary shadow-lg'>
 			<AvatarImage
 				src={avatar || 'https://github.com/shadcn.png'}
 				alt='@shadcn'
 			/>
-			<AvatarFallback>CN</AvatarFallback>
+			<AvatarFallback>JD</AvatarFallback>
 		</Avatar>
-		<Badge
-			className={cn(
-				'absolute -bottom-2 right-0',
-				'duration-500 animate-in fade-in-0'
-			)}
-			variant={subscriptionStatus.isPro ? 'success' : 'secondary'}
-		>
-			<span className='inline-flex items-center gap-1'>
-				{subscriptionStatus.isPro ? (
-					<>
-						Pro
-						<CircleCheck className='h-3 w-3' />
-					</>
-				) : (
-					'Free'
+		{subscriptionStatus.isPro && (
+			<Badge
+				className={cn(
+					'absolute -bottom-3',
+					'animate-fade-in ease-in-out',
+					'rounded-full px-3 py-1 text-center shadow-lg'
 				)}
-			</span>
-		</Badge>
+			>
+				<span className='inline-flex items-center gap-1'>
+					Pro
+					<Sparkles className='h-4 w-4' />
+				</span>
+			</Badge>
+		)}
 	</div>
 );
 
-const UserInfo = ({ name }: { name: string }) => (
-	<div className='mt-6 flex w-full flex-col items-start md:w-fit'>
-		<h1 className='px-2 text-2xl font-bold'>{name}</h1>
-		<div className='mt-1 flex items-center gap-2'>
-			<Badge variant='secondary'>
-				<Briefcase className='mr-1 h-3 w-3' />
-				Full Stack Developer
-			</Badge>
-		</div>
-		<Separator className='my-2 w-full' />
-		<div className='space-y-2 px-2'>
+const UserInfo = ({ name, role }: { name: string; role: string }) => (
+	<div className='mt-6 flex w-full flex-col items-start md:w-full'>
+		<div className='flex flex-col items-start gap-2 px-2'>
+			<h1 className='text-2xl font-bold'>{name}</h1>
 			<h3 className='inline-flex items-center gap-2 text-muted-foreground'>
-				<Calendar className='h-4 w-4' />
-				Active Since 2023{' '}
-				<BadgeCheck
-					fill='#0058e6'
-					className='h-5 w-5 text-primary-foreground'
-				/>
+				<Shield className='h-5 w-5' /> Since 2023
 			</h3>
+		</div>
+		<Separator className='my-4 w-full' />
+		<div className='w-full space-y-3 px-2'>
 			<div className='flex items-center gap-2 text-muted-foreground'>
-				<MapPin className='h-4 w-4' />
+				<Briefcase className='h-5 w-5' />
+				<p className='text-sm'>{role}</p>
+			</div>
+
+			<div className='flex items-center gap-2 text-muted-foreground'>
+				<MapPin className='h-5 w-5' />
 				<p className='text-sm'>India</p>
 			</div>
 		</div>
@@ -135,17 +130,22 @@ const ContactInfo = ({
 				Logout
 			</BetterButton>
 		</div>
-		</div>
+	</div>
 );
 
-const InsightsCard = () => (
-	<Card className='flex w-auto grow flex-col'>
+const InsightsCard = ({ isSidebarOpen }: { isSidebarOpen: boolean }) => (
+	<Card
+		className={cn(
+			'w-auto grow flex-col',
+			isSidebarOpen ? 'hidden md:flex' : 'flex md:flex'
+		)}
+	>
 		<CardHeader className='space-y-2'>
 			<div className='flex items-center justify-between'>
-				<CardTitle className='text-2xl font-medium'>
+				<CardTitle className='text-2xl font-bold'>
 					Thorough Evaluation
 				</CardTitle>
-				<Badge variant='outline' className='px-4'>
+				<Badge variant='outline' className='animate-pulse px-4'>
 					Beta
 				</Badge>
 			</div>
@@ -154,23 +154,37 @@ const InsightsCard = () => (
 			</CardDescription>
 		</CardHeader>
 		<CardContent className='flex grow flex-col items-center justify-center'>
-			<h1 className='relative inline-flex items-center gap-2'>
-				I am working on it
-				<Circle
-					className='absolute -right-3 -top-2 h-3 w-3 animate-pulse transition-all duration-1000 ease-in-out'
-					stroke='green'
-					fill='green'
-				/>
-			</h1>
+			<div className='text-center'>
+				<Sparkles className='h-16 w-16 animate-pulse text-yellow-500' />
+				<h2 className='mt-4 text-xl font-semibold'>
+					Exciting things are coming!
+				</h2>
+				<p className='mt-2 text-muted-foreground'>
+					We&apos;re working hard to bring you valuable insights.
+				</p>
+			</div>
 		</CardContent>
-		<CardFooter className='flex h-fit'>
-			<CardDescription>We will add more soon</CardDescription>
+		<CardFooter className='flex h-fit justify-center'>
+			<CardDescription>Stay tuned for updates</CardDescription>
 		</CardFooter>
 	</Card>
 );
 
 export default function Profile() {
 	const { data: session, status } = useSession();
+
+	const [show, setShow] = useState(false);
+
+	useEffect(() => {
+		window.addEventListener('resize', () => {
+			if (window.innerWidth > 768) {
+				setShow(false);
+			}
+		});
+		return () => {
+			window.removeEventListener('resize', () => {});
+		};
+	}, [show]);
 
 	if (status === 'loading') return <div>Loading...</div>;
 	if (status === 'unauthenticated') return redirect('/login');
@@ -182,37 +196,59 @@ export default function Profile() {
 	console.log(session.user);
 
 	return (
-		<main className='items-top justify-top flex h-full min-h-[90vh] w-full grow flex-col-reverse gap-2 p-2 md:flex-row md:p-0'>
-			<Card className='mx-auto flex w-full max-w-full flex-col gap-2 p-2 md:w-fit md:max-w-xs'>
-				<ProfileHeader />
-				<CardContent className='flex h-full grow flex-col justify-between'>
-					<div className='flex w-full flex-col items-center gap-1 md:w-fit'>
-						<div className='flex w-full flex-col items-center gap-1 self-start md:w-fit'>
-							<ProfileAvatar avatar={session.user.image || ''} />
-							{subscriptionStatus.isPro && (
-								<div className='mt-2'>
-									<Badge variant='outline' className='text-xs'>
-										Valid until{' '}
-										{new Date(
-											subscriptionStatus.validUntil
-										).toLocaleDateString()}
-									</Badge>
-								</div>
-							)}
-							<p className='mt-4 inline-flex items-center gap-2 text-sm text-muted-foreground'>
-								{session.user.id}
-								<Copybutton text={session.user.id || 'User ID'} />
-							</p>
+		<>
+			<span
+				onClick={() => setShow(!show)}
+				className='m-1 mr-3 inline-flex cursor-pointer items-center justify-end gap-2 self-end rounded-sm p-1 outline outline-1 md:hidden'
+			>
+				{show ? <SquareUser size={16} /> : <MenuIcon size={16} />}
+			</span>
+			<main
+				className={
+					'items-top justify-top flex h-full min-h-[88vh] w-full grow flex-col gap-2 p-2 md:min-h-[92vh] md:flex-row md:p-0'
+				}
+			>
+				<Card
+					className={cn(
+						'mx-auto flex w-full max-w-full grow flex-col gap-2 p-2 md:w-fit md:max-w-xs',
+						show
+							? 'h-full md:flex md:h-auto'
+							: 'hidden h-full md:flex md:h-auto'
+					)}
+				>
+					<ProfileHeader />
+					<CardContent className='flex h-full grow flex-col justify-between'>
+						<div className='flex w-full flex-col items-center gap-1 md:w-fit'>
+							<div className='flex w-full flex-col items-center gap-1 self-start md:w-fit'>
+								<ProfileAvatar avatar={session.user.image || ''} />
+								{subscriptionStatus.isPro && (
+									<div className='mt-2'>
+										<Badge variant='outline' className='text-xs'>
+											Valid until{' '}
+											{new Date(
+												subscriptionStatus.validUntil
+											).toLocaleDateString()}
+										</Badge>
+									</div>
+								)}
+								<p className='mt-4 inline-flex items-center gap-2 text-sm text-muted-foreground'>
+									{session.user.id}
+									<Copybutton text={session.user.id || 'User ID'} />
+								</p>
+							</div>
+							<UserInfo
+								name={session.user.name || 'Name'}
+								role={session.user.role}
+							/>
 						</div>
-						<UserInfo name={session.user.name || 'Name'} />
-					</div>
-					<ContactInfo
-						email={session.user.email || 'Email Unavailable'}
-						address={'Remote Address'}
-					/>
-				</CardContent>
-			</Card>
-			<InsightsCard />
-		</main>
+						<ContactInfo
+							email={session.user.email || 'Email Unavailable'}
+							address={'Remote Address'}
+						/>
+					</CardContent>
+				</Card>
+				<InsightsCard isSidebarOpen={show} />
+			</main>
+		</>
 	);
 }

@@ -202,7 +202,6 @@ export default function DateTimePicker({
 						value={
 							date ? date.getMinutes().toString().padStart(2, '0') : undefined
 						}
-						
 						onValueChange={(value) => handleTimeChange('minute', value)}
 					>
 						<SelectTrigger className='w-[80px]'>

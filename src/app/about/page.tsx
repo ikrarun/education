@@ -44,7 +44,7 @@ export default function AboutPage() {
 						<Card className='h-fit border-0 bg-red-500/50'>
 							<CardHeader className='flex w-full flex-row items-center gap-3'>
 								<div className='flex h-full items-center justify-center gap-2'>
-									<span className='flex bg-red-500 p-1 h-full items-center justify-center rounded-xl'>
+									<span className='flex h-full items-center justify-center rounded-xl bg-red-500 p-1'>
 										<EyeIcon className='text-white' size={32} />
 									</span>
 									<h3 className='text-center text-2xl font-semibold'>
@@ -73,7 +73,7 @@ export default function AboutPage() {
 						<Card className='h-fit border-0 bg-amber-500/50'>
 							<CardHeader className='flex w-full flex-row items-center gap-3'>
 								<div className='flex h-full items-center justify-center gap-2'>
-									<span className='flex bg-amber-500 p-1 h-full items-center justify-center rounded-xl'>
+									<span className='flex h-full items-center justify-center rounded-xl bg-amber-500 p-1'>
 										<TargetIcon className='text-white' size={32} />
 									</span>
 									<h3 className='text-center text-2xl font-semibold'>
@@ -102,7 +102,7 @@ export default function AboutPage() {
 						<Card className='h-fit border-0 bg-purple-500/50'>
 							<CardHeader className='flex w-full flex-row items-center gap-3'>
 								<div className='flex h-full items-center justify-center gap-2'>
-									<span className='flex bg-purple-500 p-2 h-full items-center justify-center rounded-xl'>
+									<span className='flex h-full items-center justify-center rounded-xl bg-purple-500 p-2'>
 										<BookOpenIcon className='text-white' size={28} />
 									</span>
 								</div>
@@ -129,11 +129,13 @@ export default function AboutPage() {
 						<Card className='h-fit border-0 bg-orange-500/50'>
 							<CardHeader className='flex w-full flex-row items-center gap-3'>
 								<div className='flex h-full items-center justify-center gap-2'>
-									<span className='flex bg-orange-500 p-2 h-full items-center justify-center rounded-xl'>
+									<span className='flex h-full items-center justify-center rounded-xl bg-orange-500 p-2'>
 										<RocketIcon className='text-white' size={28} />
 									</span>
 								</div>
-								<h3 className='text-center text-2xl font-semibold'>The Future</h3>
+								<h3 className='text-center text-2xl font-semibold'>
+									The Future
+								</h3>
 							</CardHeader>
 							<CardContent>
 								<p>
