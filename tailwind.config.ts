@@ -56,21 +56,21 @@ const config: Config = {
 				md: 'calc(var(--radius) - 2px)',
 				sm: 'calc(var(--radius) - 4px)',
 			},
-			animation: {
-				'fade-in': 'fade-in 0.5s ease-out',
-				'slow-spin': 'spin 8s linear infinite',
-			},
-			keyframes: {
-				'fade-in': {
-					'0%': { opacity: '0', transform: 'translateY(10px)' },
-					'100%': { opacity: '1', transform: 'translateY(0)' },
-				},
-			},
+
 			backgroundImage: {
 				'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
 				'gradient-conic': 'conic-gradient(var(--tw-gradient-stops))',
 				'grid-white':
 					'linear-gradient(to right, #ffffff 1px, transparent 1px), linear-gradient(to bottom, #ffffff 1px, transparent 1px)',
+			},
+			animation: {
+				fadeIn: 'fadeIn 1s ease-in-out forwards',
+			},
+			keyframes: {
+				fadeIn: {
+					'0%': { opacity: '0', transform: 'translateY(20px)' },
+					'100%': { opacity: '1', transform: 'translateY(0)' },
+				},
 			},
 		},
 	},
@@ -81,7 +81,7 @@ const config: Config = {
 		hoverOnlyWhenSupported: true,
 	},
 	// eslint-disable-next-line @typescript-eslint/no-require-imports
-	plugins: [require('tailwindcss-animate')],
+	plugins: [require('tailwindcss-animate'), require('tailwindcss-motion')],
 } satisfies Config;
 
 export default config;

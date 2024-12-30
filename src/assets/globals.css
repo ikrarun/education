@@ -108,26 +108,38 @@ body {
 	display: inline-flex;
 }
 
-
 @keyframes gradientBorder {
-  0% {
-    border-image-source: linear-gradient(45deg, #ff6b6b, #f7a24c, #00c6b1, #ff63b3);
-    border-image-slice: 1;
-  }
-  50% {
-    border-image-source: linear-gradient(135deg, #ff6b6b, #f7a24c, #00c6b1, #ff63b3);
-    border-image-slice: 1;
-  }
-  100% {
-    border-image-source: linear-gradient(45deg, #ff6b6b, #f7a24c, #00c6b1, #ff63b3);
-    border-image-slice: 1;
-  }
+	0% {
+		border-image-source: linear-gradient(
+			45deg,
+			#ff6b6b,
+			#f7a24c,
+			#00c6b1,
+			#ff63b3
+		);
+		border-image-slice: 1;
+	}
+	50% {
+		border-image-source: linear-gradient(
+			135deg,
+			#ff6b6b,
+			#f7a24c,
+			#00c6b1,
+			#ff63b3
+		);
+		border-image-slice: 1;
+	}
+	100% {
+		border-image-source: linear-gradient(
+			45deg,
+			#ff6b6b,
+			#f7a24c,
+			#00c6b1,
+			#ff63b3
+		);
+		border-image-slice: 1;
+	}
 }
-
-
-
-
-
 
 /* Hide navbar when in window-controls-overlay mode */
 @media (display-mode: window-controls-overlay) {

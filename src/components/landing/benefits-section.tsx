@@ -5,24 +5,23 @@ import * as motion from 'motion/react-client';
 
 const KEY_BENEFITS = [
 	{
-		title: '100% Free*',
+		title: '100% Free',
 		description:
-			'Unless you want to upgrade to premium, Quality education accessible to all.',
+			'Access quality education with no platform fees. Premium options available for added features.',
 		icon: Sparkles,
 		gradient: 'from-yellow-600 to-amber-600',
 	},
 
 	{
 		title: 'Flexible Scheduling',
-		description:
-			'Learn or teach anytime, anywhere. Fit education into your lifestyle.',
+		description: 'Learn or teach on your terms, anytime, anywhere',
 		icon: Clock,
 		gradient: 'from-blue-600 to-indigo-600',
 	},
 	{
 		title: 'Diverse Subjects',
 		description:
-			'From academic topics to practical skills, find the knowledge you seek.',
+			'Explore a wide range of subjects, from academic to practical skills',
 		icon: BookOpen,
 		gradient: 'from-purple-600 to-pink-600',
 	},
@@ -35,8 +34,7 @@ const KEY_BENEFITS = [
 	},
 	{
 		title: 'Safe & Secure',
-		description:
-			'No Data Sharing. Your privacy and safety are our top priorities.',
+		description: 'Your privacy and data are our top priorities.',
 		icon: Shield,
 		gradient: 'from-indigo-600 to-violet-600',
 	},
