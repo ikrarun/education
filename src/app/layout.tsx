@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Nunito_Sans as Font  } from "next/font/google";
+import { Raleway as Font  } from "next/font/google";
 import "./globals.css";
 import { buttonVariants } from "@/components/ui/button";
 import Link from "next/link";
