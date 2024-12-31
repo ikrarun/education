@@ -1,10 +1,10 @@
-import donation_illustration from '@/assets/donation_sticker.svg';
-import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
-import { BookOpen, Coffee, Heart, Users } from 'lucide-react';
-import Image from 'next/image';
-import Link from 'next/link';
-const support_link = 'https://payments.cashfree.com/forms/donateEduKation';
+import donation_illustration from "@/components/donation_sticker.svg";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { BookOpen, Coffee, Heart, Users } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+const support_link = "https://payments.cashfree.com/forms/donateEduKation";
 
 export default function DonatePage() {
 	return (
@@ -38,7 +38,7 @@ export default function DonatePage() {
 					<div className='mb-8 flex items-center justify-between'>
 						<Coffee className='h-8 w-8 text-primary' />
 						<div className='text-sm text-muted-foreground'>
-							Need help?{' '}
+							Need help?{" "}
 							<Link href='/contact' className='text-primary hover:underline'>
 								Contact us
 							</Link>
@@ -78,7 +78,7 @@ export default function DonatePage() {
 
 						{/* Footer */}
 						<p className='text-center text-sm text-muted-foreground'>
-							By donating, you agree to our{' '}
+							By donating, you agree to our{" "}
 							<Link href='/terms' className='text-primary hover:underline'>
 								Terms of Service
 							</Link>
@@ -90,19 +90,18 @@ export default function DonatePage() {
 			{/* Vision Cards */}
 			<div className='grid w-full max-w-[1000px] grid-cols-2 gap-4 md:grid-cols-4'>
 				{[
-					{ icon: Users, label: 'Target Students', value: 'Starting Small' },
+					{ icon: Users, label: "Target Students", value: "Starting Small" },
 					{
 						icon: BookOpen,
-						label: 'Learning Focus',
-						value: 'Quality Education',
+						label: "Learning Focus",
+						value: "Quality Education",
 					},
-					{ icon: Heart, label: 'Our Mission', value: 'Equal Access' },
-					{ icon: Coffee, label: 'Current Phase', value: 'Getting Started' },
+					{ icon: Heart, label: "Our Mission", value: "Equal Access" },
+					{ icon: Coffee, label: "Current Phase", value: "Getting Started" },
 				].map((stat, index) => (
 					<Card
 						key={index}
-						className='flex flex-col items-center gap-2 p-4 text-center'
-					>
+						className='flex flex-col items-center gap-2 p-4 text-center'>
 						<stat.icon className='h-6 w-6 text-primary' />
 						<p className='text-lg font-semibold'>{stat.value}</p>
 						<p className='text-sm text-muted-foreground'>{stat.label}</p>
