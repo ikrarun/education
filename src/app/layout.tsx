@@ -1,17 +1,12 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Nunito_Sans } from "next/font/google";
 import "./globals.css";
 import { buttonVariants } from "@/components/ui/button";
 import Link from "next/link";
 import Image from "next/image";
 import logo from "@/components/logo.svg";
-const geistSans = Geist({
-	variable: "--font-geist-sans",
-	subsets: ["latin"],
-});
 
-const geistMono = Geist_Mono({
-	variable: "--font-geist-mono",
+const font = Nunito_Sans({
 	subsets: ["latin"],
 });
 
@@ -27,8 +22,7 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang='en'>
-			<body
-				className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+			<body className={`${font.className} antialiased`}>
 				<nav className='sticky top-0 w-full z-50  bg-background border-b'>
 					<div className='container mx-auto px-6 py-4'>
 						<div className='flex items-center justify-between'>

@@ -45,7 +45,6 @@ const PreLaunchEduKation = () => {
 
 	return (
 		<div className='h-full flex flex-col  items-center justify-center'>
-
 			{/* Hero Section */}
 			<section className='py-8 relative overflow-hidden'>
 				<div className='container mx-auto px-6 text-center relative z-10'>
@@ -138,7 +137,7 @@ const PreLaunchEduKation = () => {
 				</div>
 			</section>
 			<div className='h-fit py-4 mt-10 w-full  self-end bottom-0 bg-gradient-to-b from-transparent to-background'>
-				<h1 className='text-center text-sm font-bold'>
+				<h1 className='text-center text-sm font-medium'>
 					Crafted with ❤️ by{" "}
 					<Link
 						href='https://www.instagram.com/@suraj_is_arun'
