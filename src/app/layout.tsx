@@ -1,14 +1,13 @@
 import type { Metadata } from "next";
-import { Poppins } from "next/font/google";
+import { Nunito_Sans as Font  } from "next/font/google";
 import "./globals.css";
 import { buttonVariants } from "@/components/ui/button";
 import Link from "next/link";
 import Image from "next/image";
 import logo from "@/components/logo.svg";
 
-const font = Poppins({
+const font = Font({
 	subsets: ["latin"],
-	weight: ["400", "500", "600", "700", "800", "900", "100", "200", "300"],
 });
 
 export const metadata: Metadata = {
