@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Raleway as Font  } from "next/font/google";
-import "./globals.css";
+import "@/app/globals.css";
 import { buttonVariants } from "@/components/ui/button";
 import Link from "next/link";
 import Image from "next/image";
