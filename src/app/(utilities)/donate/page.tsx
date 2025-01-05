@@ -4,9 +4,10 @@ import { Card } from "@/components/ui/card";
 import { BookOpen, Coffee, Heart, Users } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-const support_link = "https://payments.cashfree.com/forms/donateEduKation";
+// const support_link = "https://payments.cashfree.com/forms/donateEduKation";
 
-export default function DonatePage() {
+export default async function DonatePage() {
+	
 	return (
 		<div className='flex h-full w-full grow flex-col items-center justify-center gap-6 bg-background p-4'>
 			{/* Vision Statement */}
@@ -73,7 +74,7 @@ export default function DonatePage() {
 
 						{/* Donation Button */}
 						<Button className='h-11 w-full text-base' asChild>
-							<Link href={support_link}>Support Our Initiative</Link>
+							<Link href='/donate/payment'>Support Our Initiative</Link>
 						</Button>
 
 						{/* Footer */}
