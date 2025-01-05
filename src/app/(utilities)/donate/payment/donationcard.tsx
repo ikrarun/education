@@ -247,6 +247,11 @@ const DonationCard = () => {
 						<Button
 							onClick={() => {
 								setPaymentMethod("debit");
+								const qrCodeContainer =
+									document.getElementById("qr-code-container");
+								if (qrCodeContainer?.classList.contains("hidden")) {
+									qrCodeContainer?.classList.remove("hidden");
+								}
 								renderPaymentComponent({ modeofPayment: "debit" });
 							}}
 							className='w-full'
@@ -290,21 +295,24 @@ const DonationCard = () => {
 											id='qr-code-container'
 											className='h-full max-w-[220px]'
 										/>
-										<Button
+										<button
 											id='reveal-qr-code'
-											variant={"outline"}
 											onClick={() => {
 												payNow().then((res) => {
 													if (res) {
-														const revealButton =
-															document.getElementById("reveal-qr-code");
-														revealButton?.classList.add("scale-0");
+														// const revealButton =
+														// 	document.getElementById("reveal-qr-code");
+														// revealButton?.classList.add("hidden");
 													}
 												});
 											}}
-											className='absolute rounded-full mx-auto'>
-											<EyeIcon size={12} />
-										</Button>
+											className='absolute w-full h-full bg-primary/50 backdrop-blur-sm font-thin rounded-md items-center justify-center	flex'>
+											<EyeIcon
+												strokeWidth={1}
+												className='text-white/60 font-thin'
+												size={64}
+											/>
+										</button>
 									</div>
 								</div>
 							}

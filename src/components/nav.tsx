@@ -11,7 +11,7 @@ const Nav = () => {
 	const pathname = usePathname();
 
 	return (
-		<nav className='fixed top-0 left-0 right-0 w-full z-50  bg-background border-b'>
+		<nav className='sticky top-0 left-0 right-0 w-full z-50 bg-background border-b'>
 			<div className='container mx-auto px-6 py-4'>
 				<div className='flex items-center justify-between'>
 					<Link href='/' className='flex items-center gap-3'>
