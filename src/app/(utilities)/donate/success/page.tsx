@@ -24,11 +24,11 @@ Cashfree.XEnvironment =
 const Success = async ({
 	searchParams,
 }: {
-	searchParams: { order_id: string };
+	searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) => {
-	const orderId = searchParams.order_id;
+	const orderId = (await searchParams).order_id;
 
-	if (!orderId) {
+	if (!orderId || typeof orderId !== "string") {
 		redirect("/donate");
 	}
 
@@ -42,7 +42,7 @@ const Success = async ({
 			redirect("/donate");
 		});
 
-	console.log("response recieved is ", response);
+	// console.log("response recieved is ", response);
 	const status = response[0].payment_status;
 
 	return (
