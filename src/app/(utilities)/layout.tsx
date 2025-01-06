@@ -26,7 +26,7 @@ export default async function RootLayout({
 				style={font.style}>
 				<Nav />
 				{children}
-				<Toaster richColors />
+				<Toaster invert richColors expand closeButton position='bottom-left' />
 				<Script
 					src='https://sdk.cashfree.com/js/v3/cashfree.js'
 					strategy='beforeInteractive'

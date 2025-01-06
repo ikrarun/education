@@ -74,7 +74,7 @@ export default async function DonatePage() {
 
 						{/* Donation Button */}
 						<Button className='h-11 w-full text-base' asChild>
-							<Link href='/donate/payment'>Support Our Initiative</Link>
+							<Link href='/payment'>Support Our Initiative</Link>
 						</Button>
 
 						{/* Footer */}

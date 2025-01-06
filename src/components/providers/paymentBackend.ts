@@ -22,8 +22,8 @@ const request = (amount: number, customerId: string, customerPhone: string) => {
 		order_meta: {
 			return_url:
 				process.env.NODE_ENV === "development"
-					? `http://localhost:3000/donate/success?order_id=${orderId}`
-					: `https://edukation.vercel.app/donate/success?order_id=${orderId}`,
+					? `http://localhost:3000/payment/success?order_id=${orderId}`
+					: `https://edukation.vercel.app/payment/success?order_id=${orderId}`,
 		},
 	};
 };
