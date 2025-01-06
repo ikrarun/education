@@ -12,7 +12,7 @@ import useCashfree from "@/components/hook/useCashFree";
 import { getPaymentSessionId } from "@/components/providers/paymentBackend";
 import { OrderEntity } from "cashfree-pg";
 import { isMobile } from "react-device-detect";
-
+import { useRouter } from "next/navigation";
 type PaymentMethod = "upi" | "debit" | "upiCollect" | "upiIntent" | undefined;
 
 interface PaymentContextType {
@@ -40,6 +40,7 @@ export const PaymentProvider: React.FC<{ children: ReactNode }> = ({
 	const [userPhone, setUserPhone] = useState<string>("");
 	const [donationAmount, setDonationAmount] = useState<number>(100);
 	const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>(undefined);
+	const router = useRouter();
 
 	const donationDate = new Date().toLocaleDateString("en-GB", {
 		day: "2-digit",
@@ -85,7 +86,7 @@ export const PaymentProvider: React.FC<{ children: ReactNode }> = ({
 			}
 			return order;
 		} catch (error) {
-			console.warn( error);
+			console.warn(error);
 			toast.error((error as Error).message);
 			return undefined;
 		}
@@ -104,10 +105,35 @@ export const PaymentProvider: React.FC<{ children: ReactNode }> = ({
 				throw new Error("Cashfree was not initialized");
 			}
 
-			CashFree.current.checkout({
-				paymentSessionId: orderDetails.payment_session_id,
-				redirectTarget: "_modal",
-			});
+			CashFree.current
+				.checkout({
+					paymentSessionId: orderDetails.payment_session_id,
+					redirectTarget: "_modal",
+				})
+				.then((result: CheckoutResult) => {
+					if (result.error) {
+						// This will be true if the user clicks on close icon inside the modal or any error occurs
+						console.log(
+							"User has closed the popup or there is some payment error, Check for Payment Status"
+						);
+						console.log(result.error);
+						router.push("/payment/success?order_id=" + orderDetails.order_id);
+					}
+
+					if (result.redirect) {
+						router.push("/payment/success?order_id=" + orderDetails.order_id);
+					}
+					if (result.paymentDetails) {
+						// Called whenever the payment is completed, regardless of transaction status
+						console.log("Payment has been completed, Check for Payment Status");
+						console.log(result.paymentDetails.paymentMessage);
+						router.push("/payment/success?order_id=" + orderDetails.order_id);
+					}
+				})
+				.catch((err) => {
+					console.error("Error in proceeding to payment:", err);
+					toast.error(err.message);
+				});
 		} catch (error) {
 			console.error("Error in proceeding to payment:", error);
 			toast.error((error as Error).message);

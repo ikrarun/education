@@ -1,8 +1,10 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { toast } from "sonner";
 
+
+
 interface CashfreeInstance {
-	checkout: (options: unknown) => void;
+	checkout: (options: unknown) => Promise<CheckoutResult>;
 }
 
 const useCashfree = () => {

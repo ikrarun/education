@@ -49,7 +49,7 @@ const Success = async ({
 		<div className='flex flex-col justify-center items-center h-full grow'>
 			<Card className={poppins.className}>
 				<CardHeader>
-					<CardTitle>Thank you for your donation!</CardTitle>
+					<CardTitle>Thank you for Choosing Us!</CardTitle>
 					<CardDescription className='flex flex-row items-center gap-1'>
 						TXN ID <ArrowRight size={10} /> {orderId}
 					</CardDescription>
@@ -65,7 +65,7 @@ const Success = async ({
 											strokeWidth={4}
 											className='text-white bg-green-500 rounded-full p-1'
 										/>
-										Your Payment was successful
+										Your Last Payment was successful
 									</h1>
 								</CardContent>
 							);
@@ -78,7 +78,7 @@ const Success = async ({
 											strokeWidth={4}
 											className='text-white bg-red-500 rounded-full p-1'
 										/>
-										Your Payment was failed
+										Your Last Payment was failed
 									</h1>
 								</CardContent>
 							);
@@ -92,7 +92,7 @@ const Success = async ({
 											strokeWidth={4}
 											className='text-white bg-yellow-500 rounded-full p-1'
 										/>
-										Your Payment is pending
+										Your Last Payment is pending
 									</h1>
 								</CardContent>
 							);
