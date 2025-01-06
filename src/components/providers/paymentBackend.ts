@@ -28,7 +28,15 @@ const request = (amount: number, customerId: string, customerPhone: string) => {
 	};
 };
 
-export const getPaymentSessionId = async ({ amount }: { amount: number }) => {
+export const getPaymentSessionId = async ({
+	amount,
+	name,
+	phone,
+}: {
+	amount: number;
+	name: string;
+	phone: string;
+}) => {
 	if (amount === undefined) {
 		return undefined;
 	}
@@ -38,15 +46,16 @@ export const getPaymentSessionId = async ({ amount }: { amount: number }) => {
 	if (typeof amount !== "number") {
 		return undefined;
 	}
-	console.log("Getting Payment Session Id for amount", amount);
-	const req = request(amount, "devstudio_user", "8474090589");
+	// console.log("Getting Payment Session Id for amount", amount);
+	const req = request(amount, name, phone);
 	const response = await Cashfree.PGCreateOrder("2023-08-01", req)
 		.then((response) => {
-			console.log("Order created successfully:", response.data);
+			// console.log("Order created successfully:", response.data);
 			return response.data;
 		})
 		.catch((error) => {
-			console.error("Error:", error.response.data.message);
+			const err = error as Error;
+			console.error("Error:", err.message);
 			return undefined;
 		});
 	return response;

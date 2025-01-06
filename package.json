@@ -21,6 +21,8 @@
     "react": "^19.0.0",
     "react-device-detect": "^2.2.3",
     "react-dom": "^19.0.0",
+    "react-input-number": "^5.0.19",
+    "react-number-format": "^5.4.3",
     "sonner": "^1.7.1",
     "tailwind-merge": "^2.6.0",
     "tailwindcss-animate": "^1.0.7",

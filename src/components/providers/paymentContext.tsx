@@ -1,4 +1,5 @@
 "use client";
+
 import React, {
 	createContext,
 	useContext,
@@ -7,7 +8,7 @@ import React, {
 	useEffect,
 } from "react";
 import { toast } from "sonner";
-import useCashfree from "../hook/useCashFree";
+import useCashfree from "@/components/hook/useCashFree";
 import { getPaymentSessionId } from "@/components/providers/paymentBackend";
 import { OrderEntity } from "cashfree-pg";
 import { isMobile } from "react-device-detect";
@@ -15,16 +16,18 @@ import { isMobile } from "react-device-detect";
 type PaymentMethod = "upi" | "debit" | "upiCollect" | "upiIntent" | undefined;
 
 interface PaymentContextType {
-	donationAmount: number | undefined;
-	setDonationAmount: (amount: number | undefined) => void;
+	donationAmount: number;
+	setDonationAmount: (amount: number) => void;
 	donationDate: string;
-	startSettingUpPayment: () => void;
-	setShowPaymentPanel: (show: boolean) => void;
-	showPaymentPanel: boolean;
-	paymentMethod: PaymentMethod | undefined;
+	paymentMethod: PaymentMethod;
 	setPaymentMethod: (method: PaymentMethod) => void;
 	getOrderDetails: () => Promise<OrderEntity | undefined>;
 	onlyOnMobile: boolean;
+	proceedToPayment: () => Promise<void>;
+	setUserName: (name: string) => void;
+	setUserPhone: (phone: string) => void;
+	userName: string;
+	userPhone: string;
 }
 
 const PaymentContext = createContext<PaymentContextType | undefined>(undefined);
@@ -32,100 +35,103 @@ const PaymentContext = createContext<PaymentContextType | undefined>(undefined);
 export const PaymentProvider: React.FC<{ children: ReactNode }> = ({
 	children,
 }) => {
-	// Referencing the useCashfree hook
-	const { checkIsCashfreeInitialized } = useCashfree();
-
-	// Setting up the state for the donation amount
-	const [donationAmount, setDonationAmount] = useState<number | undefined>(
-		undefined
-	);
-	// Setting up the state for the payment panel
-	const [showPaymentPanel, setShowPaymentPanel] = useState(false);
-	// Setting up the state for the payment method
+	const { checkIsCashfreeInitialized, CashFree } = useCashfree();
+	const [userName, setUserName] = useState<string>("");
+	const [userPhone, setUserPhone] = useState<string>("");
+	const [donationAmount, setDonationAmount] = useState<number>(100);
 	const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>(undefined);
-	// Setting up the state for the donation date
+
 	const donationDate = new Date().toLocaleDateString("en-GB", {
 		day: "2-digit",
 		month: "2-digit",
 		year: "numeric",
 	});
 
-	// Toasting the message to select a payment method
 	useEffect(() => {
-		if (showPaymentPanel) {
-			toast.info(
-				"Please select a payment method to proceed. You can change the payment method later."
-			);
+		if (paymentMethod) {
+			toast.success(`You have chosen ${paymentMethod} as your payment method`);
 		}
-	}, [showPaymentPanel]);
-	useEffect(() => {
-		toast.success(
-			"You have Choosen " + paymentMethod + " as your payment method"
-		);
 	}, [paymentMethod]);
 
-	// Function to start setting up the payment
 	const startSettingUpPayment = () => {
 		if (!checkIsCashfreeInitialized()) {
-			toast.error("Cashfree was not initialized");
-			return;
+			throw new Error("Cashfree was not initialized");
 		}
-
-		if (donationAmount !== undefined) {
-			setShowPaymentPanel(true);
-			return;
+		if (donationAmount === undefined) {
+			throw new Error("Please select a donation amount to proceed.");
 		}
-		toast.error("Please select a donation amount to proceed.");
 	};
 
-	// Function to start the payment
-
-	const getOrderDetails = async () => {
+	const getOrderDetails = async (): Promise<OrderEntity | undefined> => {
 		try {
-			if (donationAmount === undefined) {
+			if (donationAmount === undefined || donationAmount === 0) {
 				throw new Error("Donation Amount is not selected");
 			}
-			console.log("Trying to Find Out the Payment ID");
 
-			const Order = await getPaymentSessionId({
+			if (!userName) {
+				throw new Error("User name is not set");
+			}
+			if (!userPhone) {
+				throw new Error("User phone number is not set");
+			}
+			const order = await getPaymentSessionId({
 				amount: donationAmount,
+				name: userName,
+				phone: userPhone,
 			});
-			if (Order === undefined) {
-				throw new Error("Error in getting the payment session id");
+			console.log(order);
+			if (!order?.payment_session_id || !order?.order_id) {
+				throw new Error("Invalid order details received");
 			}
-
-			const paymentId = Order?.payment_session_id;
-
-			const orderId = Order?.order_id;
-			if (paymentId === undefined) {
-				throw new Error("Payment ID is not found");
-			}
-			if (orderId === undefined) {
-				throw new Error("Order ID is not found");
-			}
-			return Order;
-		} catch (error: unknown) {
-			const err = error as Error;
-			console.warn(err.cause, err.message);
-			toast.error("Error in starting the payment because" + err.message);
+			return order;
+		} catch (error) {
+			console.warn( error);
+			toast.error((error as Error).message);
 			return undefined;
 		}
 	};
 
+	const proceedToPayment = async () => {
+		try {
+			startSettingUpPayment();
+			const orderDetails = await getOrderDetails();
+			if (!orderDetails) return;
+
+			toast.success(`Payment Session ID: ${orderDetails.payment_session_id}`);
+			toast.success(`Order ID: ${orderDetails.order_id}`);
+
+			if (!CashFree.current) {
+				throw new Error("Cashfree was not initialized");
+			}
+
+			CashFree.current.checkout({
+				paymentSessionId: orderDetails.payment_session_id,
+				redirectTarget: "_modal",
+			});
+		} catch (error) {
+			console.error("Error in proceeding to payment:", error);
+			toast.error((error as Error).message);
+		}
+	};
+
+	const contextValue: PaymentContextType = {
+		donationAmount,
+		setDonationAmount,
+		donationDate,
+
+		setPaymentMethod,
+		paymentMethod,
+		getOrderDetails,
+		onlyOnMobile: isMobile,
+		proceedToPayment,
+		setUserName,
+		setUserPhone,
+		userName,
+		userPhone,
+	};
+
 	return (
-		<PaymentContext.Provider
-			value={{
-				donationAmount,
-				setDonationAmount,
-				donationDate,
-				startSettingUpPayment,
-				setShowPaymentPanel,
-				showPaymentPanel,
-				setPaymentMethod,
-				paymentMethod,
-				getOrderDetails,
-				onlyOnMobile: isMobile,
-			}}>
+		<PaymentContext.Provider value={contextValue}>
 			{children}
 		</PaymentContext.Provider>
 	);

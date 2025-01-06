@@ -1,41 +1,48 @@
-import { useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { toast } from "sonner";
 
+interface CashfreeInstance {
+	checkout: (options: unknown) => void;
+}
+
 const useCashfree = () => {
-	const CashFree = useRef<unknown>(null);
+	const [isInitialized, setIsInitialized] = useState(false);
+	const CashFree = useRef<CashfreeInstance | null>(null);
 
-	// Initialize Cashfree on component mount
-	useEffect(() => {
+	const initializeCashfree = useCallback(() => {
+		if (typeof window === "undefined" || !window.Cashfree) {
+			console.error("Cashfree library is not available in the window object.");
+			return false;
+		}
+
 		try {
-			if (!window.Cashfree) {
-				toast.error("Cashfree library is not available in the window object.");
-				return;
-			}
-
 			CashFree.current = window.Cashfree({
 				mode: process.env.NODE_ENV === "development" ? "sandbox" : "production",
 			});
-
-			if (CashFree.current) {
-				toast.success("Cashfree successfully initialized.");
-			} else {
-				toast.error("Cashfree could not be initialized during setup.");
-			}
+			setIsInitialized(true);
+			return true;
 		} catch (error) {
 			console.error("Error during Cashfree initialization:", error);
-			toast.error("An error occurred while initializing Cashfree.");
+			return false;
 		}
 	}, []);
 
-	// Function to check if Cashfree is initialized
-	const checkIsCashfreeInitialized = () => {
-		if (CashFree.current) {
-			return true;
+	useEffect(() => {
+		if (!isInitialized) {
+			const success = initializeCashfree();
+			if (!success) {
+				toast.error("Failed to initialize Cashfree. Please try again later.");
+			}
 		}
+	}, [isInitialized, initializeCashfree]);
 
-		toast.error("Cashfree is not initialized.");
-		return false;
-	};
+	const checkIsCashfreeInitialized = useCallback(() => {
+		if (!isInitialized) {
+			toast.error("Cashfree is not initialized.");
+			return false;
+		}
+		return true;
+	}, [isInitialized]);
 
 	return { checkIsCashfreeInitialized, CashFree };
 };
