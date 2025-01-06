@@ -1,3 +1,4 @@
+"use client";
 import { usePaymentContext } from "@/components/providers/paymentContext";
 import { Button } from "@/components/ui/button";
 import React from "react";
@@ -37,17 +38,19 @@ const PaymentModeSwitcher = () => {
 				value='upiCollect'>
 				UPI Collect
 			</Button>
-			<Button
-				onClick={() => {
-					paymentContext.setPaymentMethod("upiIntent");
-				}}
-				className='w-full'
-				variant={
-					paymentContext.paymentMethod === "upiIntent" ? "default" : "outline"
-				}
-				value='upiIntent'>
-				UPI Intent
-			</Button>
+			{paymentContext.onlyOnMobile && (
+				<Button
+					onClick={() => {
+						paymentContext.setPaymentMethod("upiIntent");
+					}}
+					className='w-full'
+					variant={
+						paymentContext.paymentMethod === "upiIntent" ? "default" : "outline"
+					}
+					value='upiIntent'>
+					UPI Intent
+				</Button>
+			)}
 		</div>
 	);
 };

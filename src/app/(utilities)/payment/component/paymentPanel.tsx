@@ -41,7 +41,7 @@ const PaymentCard = () => {
 				{/* UPI Collect Payment Method */}
 				<UpiCollectComponent />
 				{/* UPI Intent Payment Method */}
-				<UpiIntentComponent />
+				{paymentContext.onlyOnMobile && <UpiIntentComponent />}
 			</CardContent>
 		</Card>
 	) : null;

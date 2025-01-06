@@ -10,6 +10,7 @@ import { toast } from "sonner";
 import useCashfree from "../hook/useCashFree";
 import { getPaymentSessionId } from "@/components/providers/paymentBackend";
 import { OrderEntity } from "cashfree-pg";
+import { isMobile } from "react-device-detect";
 
 type PaymentMethod = "upi" | "debit" | "upiCollect" | "upiIntent" | undefined;
 
@@ -23,6 +24,7 @@ interface PaymentContextType {
 	paymentMethod: PaymentMethod | undefined;
 	setPaymentMethod: (method: PaymentMethod) => void;
 	getOrderDetails: () => Promise<OrderEntity | undefined>;
+	onlyOnMobile: boolean;
 }
 
 const PaymentContext = createContext<PaymentContextType | undefined>(undefined);
@@ -122,6 +124,7 @@ export const PaymentProvider: React.FC<{ children: ReactNode }> = ({
 				setPaymentMethod,
 				paymentMethod,
 				getOrderDetails,
+				onlyOnMobile: isMobile,
 			}}>
 			{children}
 		</PaymentContext.Provider>
