@@ -104,6 +104,4 @@ img.ajs-img {
 	animation-delay: 2s;
 }
 
-input {
-	@apply outline-none no-underline;
-}
+

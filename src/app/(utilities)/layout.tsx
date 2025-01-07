@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Raleway as Font } from "next/font/google";
 import "@/app/globals.css";
-import Nav from "@/components/nav";
+import Nav from "@/components/ui/nav";
 import { Toaster } from "sonner";
 import Script from "next/script";
 import { PaymentProvider } from "@/components/providers/paymentContext";

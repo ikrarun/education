@@ -1,14 +1,8 @@
 "use client";
 
-import React, {
-	createContext,
-	useContext,
-	useState,
-	ReactNode,
-	useEffect,
-} from "react";
+import React, { createContext, useContext, useState, ReactNode } from "react";
 import { toast } from "sonner";
-import useCashfree from "@/components/hook/useCashFree";
+import useCashfree from "@/hooks/useCashFree";
 import {
 	getOrderDetailsById,
 	getPaymentSessionId,
@@ -16,21 +10,17 @@ import {
 import { OrderEntity } from "cashfree-pg";
 import { isMobile } from "react-device-detect";
 import { useRouter } from "next/navigation";
-type PaymentMethod = "upi" | "debit" | "upiCollect" | "upiIntent" | undefined;
 
 interface PaymentContextType {
-	donationAmount: number;
-	setDonationAmount: (amount: number) => void;
 	donationDate: string;
-	paymentMethod: PaymentMethod;
-	setPaymentMethod: (method: PaymentMethod) => void;
 	getOrderDetails: () => Promise<OrderEntity | undefined>;
 	onlyOnMobile: boolean;
-	proceedToPayment: () => Promise<void>;
-	setUserName: (name: string) => void;
-	setUserPhone: (phone: string) => void;
-	userName: string;
-	userPhone: string;
+	proceedToPayment: (
+		donationAmount: number,
+		userName: string,
+		userPhone: string
+	) => Promise<void>;
+
 	setPaymentID: (paymentID: string) => void;
 	paymentID: string;
 	retryPayment: (paymentID: string) => Promise<void>;
@@ -43,10 +33,6 @@ export const PaymentProvider: React.FC<{ children: ReactNode }> = ({
 }) => {
 	const router = useRouter();
 	const { checkIsCashfreeInitialized, CashFree } = useCashfree();
-	const [userName, setUserName] = useState<string>("");
-	const [userPhone, setUserPhone] = useState<string>("");
-	const [donationAmount, setDonationAmount] = useState<number>(100);
-	const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>(undefined);
 	const [paymentID, setPaymentID] = useState<string>("");
 
 	const donationDate = new Date().toLocaleDateString("en-GB", {
@@ -55,13 +41,7 @@ export const PaymentProvider: React.FC<{ children: ReactNode }> = ({
 		year: "numeric",
 	});
 
-	useEffect(() => {
-		if (paymentMethod) {
-			toast.success(`You have chosen ${paymentMethod} as your payment method`);
-		}
-	}, [paymentMethod]);
-
-	const startSettingUpPayment = () => {
+	const startSettingUpPayment = (donationAmount: number) => {
 		if (!checkIsCashfreeInitialized()) {
 			throw new Error("Cashfree was not initialized");
 		}
@@ -70,7 +50,11 @@ export const PaymentProvider: React.FC<{ children: ReactNode }> = ({
 		}
 	};
 
-	const getNewOrderDetails = async (): Promise<OrderEntity | undefined> => {
+	const getNewOrderDetails = async (
+		donationAmount: number,
+		userName: string,
+		userPhone: string
+	): Promise<OrderEntity | undefined> => {
 		try {
 			if (donationAmount === undefined || donationAmount === 0) {
 				throw new Error("Donation Amount is not selected");
@@ -113,12 +97,12 @@ export const PaymentProvider: React.FC<{ children: ReactNode }> = ({
 		CashFree.current
 			.checkout({
 				paymentSessionId: orderDetails.payment_session_id,
-				redirectTarget: "_modal",
-				redirectUrl: "/payment/success?order_id=" + orderDetails.order_id,
+				redirectTarget: "_blank",
+				redirectUrl: "/success?order_id=" + orderDetails.order_id,
 			})
 			.then((result: CheckoutResult) => {
 				if (result.error) {
-					router.push("/payment/success?order_id=" + orderDetails.order_id);
+					router.push("/success?order_id=" + orderDetails.order_id);
 				}
 				return;
 			})
@@ -127,10 +111,18 @@ export const PaymentProvider: React.FC<{ children: ReactNode }> = ({
 			});
 	};
 
-	const proceedToPayment = async () => {
+	const proceedToPayment = async (
+		donationAmount: number,
+		userName: string,
+		userPhone: string
+	) => {
 		try {
-			startSettingUpPayment();
-			const orderDetails = await getNewOrderDetails();
+			startSettingUpPayment(donationAmount);
+			const orderDetails = await getNewOrderDetails(
+				donationAmount,
+				userName,
+				userPhone
+			);
 
 			if (!orderDetails || !orderDetails.payment_session_id) return;
 
@@ -146,7 +138,6 @@ export const PaymentProvider: React.FC<{ children: ReactNode }> = ({
 
 	const retryPayment = async (orderId: string) => {
 		try {
-			startSettingUpPayment();
 			const orderDetails = await getOrderDetailsById(orderId);
 			if (!orderDetails || !orderDetails.payment_session_id) {
 				throw new Error("Invalid order details received");
@@ -161,19 +152,11 @@ export const PaymentProvider: React.FC<{ children: ReactNode }> = ({
 	};
 
 	const contextValue: PaymentContextType = {
-		donationAmount,
-		setDonationAmount,
 		donationDate,
 		retryPayment,
-		setPaymentMethod,
-		paymentMethod,
 		getOrderDetails,
 		onlyOnMobile: isMobile,
 		proceedToPayment,
-		setUserName,
-		setUserPhone,
-		userName,
-		userPhone,
 		setPaymentID,
 		paymentID,
 	};

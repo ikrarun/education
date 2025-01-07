@@ -30,8 +30,8 @@ const request = (
 			payment_methods: "upi,dc,dcemi",
 			return_url:
 				process.env.NODE_ENV === "development"
-					? `http://localhost:3000/payment/success?order_id=${orderId}`
-					: `https://edukation.vercel.app/payment/success?order_id=${orderId}`,
+					? `http://localhost:3000/success?order_id=${orderId}`
+					: `https://edukation.vercel.app/success?order_id=${orderId}`,
 		},
 	};
 };
@@ -45,21 +45,28 @@ export const getPaymentSessionId = async ({
 	name: string;
 	phone: string;
 }) => {
-	if (amount === undefined) {
+	const trimmedName = name.trim();
+	let trimmedPhone = phone.trim();
+	trimmedPhone = trimmedPhone
+		.replace(/^\+/, "")
+		.replace(/\s+/g, "")
+		.replace(/^0/, "");
+	if (
+		amount === undefined ||
+		amount <= 0 ||
+		typeof amount !== "number" ||
+		trimmedName.length < 3 ||
+		trimmedName.length > 20 ||
+		trimmedPhone.length !== 10 ||
+		trimmedPhone.startsWith("0") ||
+		trimmedPhone.length > 12
+	) {
 		return undefined;
 	}
-	if (amount <= 0) {
-		return undefined;
-	}
-	if (typeof amount !== "number") {
-		return undefined;
-	}
-	// 
 	const req = request(amount, name.trim(), phone.trim(), name.trim());
-	// );
+
 	const response = await Cashfree.PGCreateOrder("2023-08-01", req)
 		.then((response) => {
-			// 
 			return response.data;
 		})
 		.catch((error) => {
@@ -71,10 +78,8 @@ export const getPaymentSessionId = async ({
 export const getOrderDetailsById = async (orderId: string) => {
 	const response = await Cashfree.PGFetchOrder("2023-08-01", orderId)
 		.then((response) => {
-			
 			return response.data;
 		})
-		// eslint-disable-next-line @typescript-eslint/no-unused-vars
 		.catch((error) => {
 			return undefined;
 		});

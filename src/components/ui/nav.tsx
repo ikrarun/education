@@ -1,15 +1,14 @@
 "use client";
 import Link from "next/link";
 import React from "react";
-import { buttonVariants } from "./ui/button";
+import { buttonVariants } from "./button";
 import Image from "next/image";
-import logo from "@/components/logo.svg";
+import logo from "@/assets/logo.svg";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 
 const Nav = () => {
 	const pathname = usePathname();
-
 	return (
 		<nav className='sticky top-0 left-0 right-0 w-full z-50 bg-background border-b'>
 			<div className='container mx-auto px-6 py-4'>
@@ -28,7 +27,7 @@ const Nav = () => {
 						prefetch={false}
 						className={cn(
 							buttonVariants({ variant: "default" }),
-							pathname == "/donate" ? "hidden" : ""
+							/donate|payment/.test(pathname) ? "hidden" : ""
 						)}
 						href='/donate'>
 						Fund the Initiative

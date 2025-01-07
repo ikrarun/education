@@ -3,7 +3,7 @@ import { Raleway as Font } from "next/font/google";
 import "@/app/globals.css";
 import Image from "next/image";
 import wave from "@/app/wave.svg";
-import Nav from "@/components/nav";
+import Nav from "@/components/ui/nav";
 
 const font = Font({
 	subsets: ["latin"],

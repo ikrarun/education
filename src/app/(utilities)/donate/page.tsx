@@ -1,12 +1,21 @@
-import donation_illustration from "@/components/donation_sticker.svg";
+"use client";
+import donation_illustration from "@/assets/donation_sticker.svg";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { BookOpen, Coffee, Heart, Users } from "lucide-react";
+import {
+	Dialog,
+	DialogContent,
+	DialogDescription,
+	DialogHeader,
+	DialogTitle,
+	DialogTrigger,
+} from "@/components/ui/dialog";
+import { BookOpen, Coffee, Heart, SparkleIcon, Users } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import PaymentModal from "@/components/ui/paymmentModal";
 
-export default async function DonatePage() {
-	
+export default function DonatePage() {
 	return (
 		<div className='flex h-full w-full grow flex-col items-center justify-center gap-6 bg-background p-4'>
 			{/* Vision Statement */}
@@ -72,9 +81,30 @@ export default async function DonatePage() {
 						</div>
 
 						{/* Donation Button */}
-						<Button className='h-11 w-full text-base' asChild>
-							<Link href='/payment'>Support Our Initiative</Link>
-						</Button>
+						<Dialog >
+							<DialogTrigger asChild>
+								<Button
+									variant='default'
+									effect={"expandIcon"}
+									iconPlacement='right'
+									icon={SparkleIcon}>
+									Support Our Initiative
+								</Button>
+							</DialogTrigger>
+							<DialogContent
+								onInteractOutside={(e) => {
+									e.preventDefault();
+								}}>
+								<DialogHeader>
+									<DialogTitle>Support Our Initiative</DialogTitle>
+									<DialogDescription>
+										Support our mission to make education accessible to all
+									</DialogDescription>
+								</DialogHeader>
+
+								<PaymentModal />
+							</DialogContent>
+						</Dialog>
 
 						{/* Footer */}
 						<p className='text-center text-sm text-muted-foreground'>
