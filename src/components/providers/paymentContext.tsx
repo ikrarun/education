@@ -15,6 +15,7 @@ import {
 } from "@/components/providers/paymentBackend";
 import { OrderEntity } from "cashfree-pg";
 import { isMobile } from "react-device-detect";
+import { useRouter } from "next/navigation";
 type PaymentMethod = "upi" | "debit" | "upiCollect" | "upiIntent" | undefined;
 
 interface PaymentContextType {
@@ -40,6 +41,7 @@ const PaymentContext = createContext<PaymentContextType | undefined>(undefined);
 export const PaymentProvider: React.FC<{ children: ReactNode }> = ({
 	children,
 }) => {
+	const router = useRouter();
 	const { checkIsCashfreeInitialized, CashFree } = useCashfree();
 	const [userName, setUserName] = useState<string>("");
 	const [userPhone, setUserPhone] = useState<string>("");
@@ -85,13 +87,12 @@ export const PaymentProvider: React.FC<{ children: ReactNode }> = ({
 				name: userName,
 				phone: userPhone,
 			});
-			console.log(order);
+
 			if (!order?.payment_session_id || !order?.order_id) {
 				throw new Error("Invalid order details received");
 			}
 			return order;
 		} catch (error) {
-			console.warn(error);
 			toast.error((error as Error).message);
 			return undefined;
 		}
@@ -116,32 +117,12 @@ export const PaymentProvider: React.FC<{ children: ReactNode }> = ({
 				redirectUrl: "/payment/success?order_id=" + orderDetails.order_id,
 			})
 			.then((result: CheckoutResult) => {
-				// if (result.error) {
-				// 	// This will be true if the user clicks on close icon inside the modal or any error occurs
-				// 	console.log(
-				// 		"User has closed the popup or there is some payment error, Check for Payment Status"
-				// 	);
-				// 	console.log(result.error);
-				// 	router.push("/payment/success?order_id=" + orderDetails.order_id);
-				// 	return;
-				// }
-
-				// if (result.redirect) {
-				// 	router.push("/payment/success?order_id=" + orderDetails.order_id);
-				// 	return;
-				// }
-				// if (result.paymentDetails) {
-				// 	// Called whenever the payment is completed, regardless of transaction status
-				// 	console.log("Payment has been completed, Check for Payment Status");
-				// 	console.log(result.paymentDetails.paymentMessage);
-				// 	router.push("/payment/success?order_id=" + orderDetails.order_id);
-				// 	return;
-				// }
-				console.log(result);
+				if (result.error) {
+					router.push("/payment/success?order_id=" + orderDetails.order_id);
+				}
 				return;
 			})
 			.catch((err) => {
-				console.error("Error in proceeding to payment:", err);
 				toast.error(err.message);
 			});
 	};
@@ -159,13 +140,11 @@ export const PaymentProvider: React.FC<{ children: ReactNode }> = ({
 
 			startTransaction(orderDetails);
 		} catch (error) {
-			console.error("Error in proceeding to payment:", error);
 			toast.error((error as Error).message);
 		}
 	};
 
 	const retryPayment = async (orderId: string) => {
-		console.log("Retrying payment with ID:", paymentID);
 		try {
 			startSettingUpPayment();
 			const orderDetails = await getOrderDetailsById(orderId);
@@ -177,7 +156,6 @@ export const PaymentProvider: React.FC<{ children: ReactNode }> = ({
 			toast.success(`Order ID: ${orderDetails.order_id}`);
 			startTransaction(orderDetails);
 		} catch (error) {
-			console.error("Error in retrying payment:", error);
 			toast.error((error as Error).message);
 		}
 	};

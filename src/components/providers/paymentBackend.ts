@@ -54,16 +54,15 @@ export const getPaymentSessionId = async ({
 	if (typeof amount !== "number") {
 		return undefined;
 	}
-	// console.log("Getting Payment Session Id for amount", amount);
+	// 
 	const req = request(amount, name.trim(), phone.trim(), name.trim());
-	console.log("Request:", JSON.stringify(req));
+	// );
 	const response = await Cashfree.PGCreateOrder("2023-08-01", req)
 		.then((response) => {
-			// console.log("Order created successfully:", response.data);
+			// 
 			return response.data;
 		})
 		.catch((error) => {
-			console.error("Error:", error.message);
 			return error;
 		});
 	return response;
@@ -72,11 +71,11 @@ export const getPaymentSessionId = async ({
 export const getOrderDetailsById = async (orderId: string) => {
 	const response = await Cashfree.PGFetchOrder("2023-08-01", orderId)
 		.then((response) => {
-			console.log("Order Details:", response.data);
+			
 			return response.data;
 		})
+		// eslint-disable-next-line @typescript-eslint/no-unused-vars
 		.catch((error) => {
-			console.error("Error:", error.message);
 			return undefined;
 		});
 	return response;

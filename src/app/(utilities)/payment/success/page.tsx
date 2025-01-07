@@ -54,19 +54,15 @@ const Success = async ({
 
 	const response = await Cashfree.PGOrderFetchPayments("2023-08-01", orderId)
 		.then((response) => {
-			// console.log("Order fetched successfully:", response.data);
 			return response.data;
 		})
-		.catch((error) => {
-			console.error("Error:", error.response.data.message);
+		.catch(() => {
 			redirect("/donate");
 		});
 
-	// console.log("response recieved is ", response);
-
 	if (!response || response.length === 0) {
 		return (
-			<div className='flex flex-col justify-center items-center h-full grow'>
+			<div className='flex flex-col p-4 justify-center items-center h-full grow'>
 				<Card className={poppins.className}>
 					<CardHeader>
 						<CardTitle>
@@ -87,7 +83,7 @@ const Success = async ({
 	const status = response[0].payment_status;
 
 	return (
-		<div className='flex flex-col justify-center items-center h-full grow'>
+		<div className='flex flex-col p-4 justify-center items-center h-full grow'>
 			<Card className={poppins.className}>
 				<CardHeader>
 					<CardTitle>Thank you for Choosing Us!</CardTitle>

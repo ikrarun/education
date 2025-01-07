@@ -13,7 +13,6 @@ const useCashfree = () => {
 
 	const initializeCashfree = useCallback(() => {
 		if (typeof window === "undefined" || !window.Cashfree) {
-			console.error("Cashfree library is not available in the window object.");
 			return false;
 		}
 
@@ -23,8 +22,8 @@ const useCashfree = () => {
 			});
 			setIsInitialized(true);
 			return true;
+		// eslint-disable-next-line @typescript-eslint/no-unused-vars
 		} catch (error) {
-			console.error("Error during Cashfree initialization:", error);
 			return false;
 		}
 	}, []);

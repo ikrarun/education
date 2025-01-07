@@ -15,7 +15,9 @@ const TermsOfService = () => {
 	return (
 		<div className='p-8 max-w-7xl mx-auto rounded-lg'>
 			<h1 className='text-4xl font-bold mb-6'>Terms of Service</h1>
-			<p className='text-sm text-gray-500 mb-4'>Last updated: December 31, 2024</p>
+			<p className='text-sm text-gray-500 mb-4'>
+				Last updated: December 31, 2024
+			</p>
 			<p className='mt-4 mb-6'>
 				Welcome to EduKation! By accessing or using our services, you agree to
 				be bound by these Terms of Service. Please read them carefully.
@@ -55,8 +57,8 @@ const termsData = [
 		icon: <CheckCircle className='mr-4 text-primary' />,
 		content: (
 			<span>
-				By using EduKation&apos;s services, you agree to comply with and be bound by
-				these Terms of Service, along with our{" "}
+				By using EduKation&apos;s services, you agree to comply with and be
+				bound by these Terms of Service, along with our{" "}
 				<Link
 					className='text-primary underline underline-offset-4'
 					href='/privacy'>

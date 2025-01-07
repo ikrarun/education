@@ -4,7 +4,6 @@ import { Card } from "@/components/ui/card";
 import { BookOpen, Coffee, Heart, Users } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-// const support_link = "https://payments.cashfree.com/forms/donateEduKation";
 
 export default async function DonatePage() {
 	

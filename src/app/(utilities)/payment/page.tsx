@@ -43,7 +43,6 @@ const PaymentPage = () => {
 							className='space-x-1'
 							min={1}
 							onValueChange={(value) => {
-								console.log(value.floatValue);
 								paymentContext.setDonationAmount(value.floatValue ?? 0);
 							}}
 							inputMode='decimal'
