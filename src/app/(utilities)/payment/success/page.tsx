@@ -11,7 +11,9 @@ import {
 	CardDescription,
 } from "@/components/ui/card";
 import { Poppins } from "next/font/google";
-
+import { RetryPaymentSection } from "./retryPaymentSection";
+import Link from "next/link";
+import { buttonVariants } from "@/components/ui/button";
 const poppins = Poppins({ subsets: ["latin"], weight: "400" });
 
 Cashfree.XClientId = process.env.CASHFREE_X_CLIENT_ID;
@@ -29,7 +31,25 @@ const Success = async ({
 	const orderId = (await searchParams).order_id;
 
 	if (!orderId || typeof orderId !== "string") {
-		redirect("/donate");
+		return (
+			<div className='flex flex-col justify-center items-center h-full grow'>
+				<Card className={poppins.className}>
+					<CardHeader>
+						<CardTitle>Uh oh!</CardTitle>
+						<CardDescription>
+							This page is not supposed to be accessed directly
+						</CardDescription>
+					</CardHeader>
+					<CardContent>
+						<Link
+							className={buttonVariants({ variant: "default" })}
+							href='/donate'>
+							Go Home
+						</Link>
+					</CardContent>
+				</Card>
+			</div>
+		);
 	}
 
 	const response = await Cashfree.PGOrderFetchPayments("2023-08-01", orderId)
@@ -43,6 +63,27 @@ const Success = async ({
 		});
 
 	// console.log("response recieved is ", response);
+
+	if (!response || response.length === 0) {
+		return (
+			<div className='flex flex-col justify-center items-center h-full grow'>
+				<Card className={poppins.className}>
+					<CardHeader>
+						<CardTitle>
+							You might have dropped out of the payment process
+						</CardTitle>
+						<CardDescription>
+							Please try again by clicking the button below
+						</CardDescription>
+					</CardHeader>
+					<CardContent>
+						<RetryPaymentSection orderId={orderId} />
+					</CardContent>
+				</Card>
+			</div>
+		);
+	}
+
 	const status = response[0].payment_status;
 
 	return (
@@ -96,6 +137,9 @@ const Success = async ({
 									</h1>
 								</CardContent>
 							);
+
+						case undefined:
+							return <p>Payment status unknown</p>;
 						default:
 							return <p>Payment status unknown</p>;
 					}

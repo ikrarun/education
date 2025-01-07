@@ -9,7 +9,10 @@ import React, {
 } from "react";
 import { toast } from "sonner";
 import useCashfree from "@/components/hook/useCashFree";
-import { getPaymentSessionId } from "@/components/providers/paymentBackend";
+import {
+	getOrderDetailsById,
+	getPaymentSessionId,
+} from "@/components/providers/paymentBackend";
 import { OrderEntity } from "cashfree-pg";
 import { isMobile } from "react-device-detect";
 import { useRouter } from "next/navigation";
@@ -28,6 +31,9 @@ interface PaymentContextType {
 	setUserPhone: (phone: string) => void;
 	userName: string;
 	userPhone: string;
+	setPaymentID: (paymentID: string) => void;
+	paymentID: string;
+	retryPayment: (paymentID: string) => Promise<void>;
 }
 
 const PaymentContext = createContext<PaymentContextType | undefined>(undefined);
@@ -41,6 +47,7 @@ export const PaymentProvider: React.FC<{ children: ReactNode }> = ({
 	const [donationAmount, setDonationAmount] = useState<number>(100);
 	const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>(undefined);
 	const router = useRouter();
+	const [paymentID, setPaymentID] = useState<string>("");
 
 	const donationDate = new Date().toLocaleDateString("en-GB", {
 		day: "2-digit",
@@ -63,7 +70,7 @@ export const PaymentProvider: React.FC<{ children: ReactNode }> = ({
 		}
 	};
 
-	const getOrderDetails = async (): Promise<OrderEntity | undefined> => {
+	const getNewOrderDetails = async (): Promise<OrderEntity | undefined> => {
 		try {
 			if (donationAmount === undefined || donationAmount === 0) {
 				throw new Error("Donation Amount is not selected");
@@ -92,50 +99,86 @@ export const PaymentProvider: React.FC<{ children: ReactNode }> = ({
 		}
 	};
 
+	const getOrderDetails = async (): Promise<OrderEntity | undefined> => {
+		if (!paymentID) {
+			return undefined;
+		}
+		return await getOrderDetailsById(paymentID);
+	};
+
+	const startTransaction = async (orderDetails: OrderEntity) => {
+		if (!CashFree.current) {
+			throw new Error("Cashfree was not initialized");
+		}
+
+		CashFree.current
+			.checkout({
+				paymentSessionId: orderDetails.payment_session_id,
+				redirectTarget: "_modal",
+				redirectUrl: "/payment/success?order_id=" + orderDetails.order_id,
+			})
+			.then((result: CheckoutResult) => {
+				if (result.error) {
+					// This will be true if the user clicks on close icon inside the modal or any error occurs
+					console.log(
+						"User has closed the popup or there is some payment error, Check for Payment Status"
+					);
+					console.log(result.error);
+					router.push("/payment/success?order_id=" + orderDetails.order_id);
+					return;
+				}
+
+				if (result.redirect) {
+					router.push("/payment/success?order_id=" + orderDetails.order_id);
+					return;
+				}
+				if (result.paymentDetails) {
+					// Called whenever the payment is completed, regardless of transaction status
+					console.log("Payment has been completed, Check for Payment Status");
+					console.log(result.paymentDetails.paymentMessage);
+					router.push("/payment/success?order_id=" + orderDetails.order_id);
+					return;
+				}
+				return;
+			})
+			.catch((err) => {
+				console.error("Error in proceeding to payment:", err);
+				toast.error(err.message);
+			});
+	};
+
 	const proceedToPayment = async () => {
 		try {
 			startSettingUpPayment();
-			const orderDetails = await getOrderDetails();
-			if (!orderDetails) return;
+			const orderDetails = await getNewOrderDetails();
 
+			if (!orderDetails || !orderDetails.payment_session_id) return;
+
+			setPaymentID(orderDetails.payment_session_id);
 			toast.success(`Payment Session ID: ${orderDetails.payment_session_id}`);
 			toast.success(`Order ID: ${orderDetails.order_id}`);
 
-			if (!CashFree.current) {
-				throw new Error("Cashfree was not initialized");
-			}
-
-			CashFree.current
-				.checkout({
-					paymentSessionId: orderDetails.payment_session_id,
-					redirectTarget: "_modal",
-				})
-				.then((result: CheckoutResult) => {
-					if (result.error) {
-						// This will be true if the user clicks on close icon inside the modal or any error occurs
-						console.log(
-							"User has closed the popup or there is some payment error, Check for Payment Status"
-						);
-						console.log(result.error);
-						router.push("/payment/success?order_id=" + orderDetails.order_id);
-					}
-
-					if (result.redirect) {
-						router.push("/payment/success?order_id=" + orderDetails.order_id);
-					}
-					if (result.paymentDetails) {
-						// Called whenever the payment is completed, regardless of transaction status
-						console.log("Payment has been completed, Check for Payment Status");
-						console.log(result.paymentDetails.paymentMessage);
-						router.push("/payment/success?order_id=" + orderDetails.order_id);
-					}
-				})
-				.catch((err) => {
-					console.error("Error in proceeding to payment:", err);
-					toast.error(err.message);
-				});
+			startTransaction(orderDetails);
 		} catch (error) {
 			console.error("Error in proceeding to payment:", error);
+			toast.error((error as Error).message);
+		}
+	};
+
+	const retryPayment = async (orderId: string) => {
+		console.log("Retrying payment with ID:", paymentID);
+		try {
+			startSettingUpPayment();
+			const orderDetails = await getOrderDetailsById(orderId);
+			if (!orderDetails || !orderDetails.payment_session_id) {
+				throw new Error("Invalid order details received");
+			}
+			setPaymentID(orderDetails.payment_session_id);
+			toast.success(`Payment Session ID: ${orderDetails.payment_session_id}`);
+			toast.success(`Order ID: ${orderDetails.order_id}`);
+			startTransaction(orderDetails);
+		} catch (error) {
+			console.error("Error in retrying payment:", error);
 			toast.error((error as Error).message);
 		}
 	};
@@ -144,7 +187,7 @@ export const PaymentProvider: React.FC<{ children: ReactNode }> = ({
 		donationAmount,
 		setDonationAmount,
 		donationDate,
-
+		retryPayment,
 		setPaymentMethod,
 		paymentMethod,
 		getOrderDetails,
@@ -154,6 +197,8 @@ export const PaymentProvider: React.FC<{ children: ReactNode }> = ({
 		setUserPhone,
 		userName,
 		userPhone,
+		setPaymentID,
+		paymentID,
 	};
 
 	return (

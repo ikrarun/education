@@ -9,18 +9,25 @@ Cashfree.XEnvironment =
 		? Cashfree.Environment.SANDBOX
 		: Cashfree.Environment.PRODUCTION;
 
-const request = (amount: number, customerId: string, customerPhone: string, customerName: string) => {
+const request = (
+	amount: number,
+	customerId: string,
+	customerPhone: string,
+	customerName: string
+) => {
 	const orderId = new Date().getTime().toString();
 	return {
 		order_amount: amount,
 		order_currency: "INR",
 		order_id: orderId,
 		customer_details: {
-			customer_id: customerId.trim().replace(/ /g,"_"),
+			customer_id: customerId.trim().replace(/ /g, "_"),
 			customer_phone: customerPhone.trim(),
 			customer_name: customerName.trim(),
 		},
+
 		order_meta: {
+			payment_methods: "upi,dc,dcemi",
 			return_url:
 				process.env.NODE_ENV === "development"
 					? `http://localhost:3000/payment/success?order_id=${orderId}`
@@ -58,6 +65,19 @@ export const getPaymentSessionId = async ({
 		.catch((error) => {
 			console.error("Error:", error.message);
 			return error;
+		});
+	return response;
+};
+
+export const getOrderDetailsById = async (orderId: string) => {
+	const response = await Cashfree.PGFetchOrder("2023-08-01", orderId)
+		.then((response) => {
+			console.log("Order Details:", response.data);
+			return response.data;
+		})
+		.catch((error) => {
+			console.error("Error:", error.message);
+			return undefined;
 		});
 	return response;
 };
