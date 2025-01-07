@@ -81,6 +81,7 @@ export const getOrderDetailsById = async (orderId: string) => {
 			return response.data;
 		})
 		.catch((error) => {
+			console.log(error);
 			return undefined;
 		});
 	return response;

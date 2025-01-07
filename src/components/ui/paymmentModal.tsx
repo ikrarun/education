@@ -22,7 +22,6 @@ import {
 	FormControl,
 	FormMessage,
 } from "@/components/ui/form";
-import { useEffect } from "react";
 
 const formSchema = z.object({
 	name: z.string().min(2, "Name must be at least 2 characters."),
@@ -75,6 +74,7 @@ const PaymentPage = () => {
 			);
 		} catch (error) {
 			toast.error("Error processing payment");
+			console.log(error);
 		}
 	};
 
@@ -131,7 +131,7 @@ const PaymentPage = () => {
 					<FormField
 						control={form.control}
 						name='donationAmount'
-						render={({ field: { onChange, value }, fieldState: { error } }) => (
+						render={({ field: { onChange, value }}) => (
 							<FormItem className='flex flex-col mb-2 gap-1'>
 								<FormLabel>Amount</FormLabel>
 								<FormControl>

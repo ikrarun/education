@@ -23,6 +23,7 @@ const useCashfree = () => {
 			setIsInitialized(true);
 			return true;
 		} catch (error) {
+			console.log(error);
 			return false;
 		}
 	}, []);
