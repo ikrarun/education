@@ -3,17 +3,17 @@ import donation_illustration from "@/assets/donation_sticker.svg";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import {
-	Dialog,
-	DialogContent,
-	DialogDescription,
-	DialogHeader,
-	DialogTitle,
-	DialogTrigger,
-} from "@/components/ui/dialog";
+	ResponsiveModal as Dialog,
+	ResponsiveModalContent as DialogContent,
+	ResponsiveModalDescription as DialogDescription,
+	ResponsiveModalHeader as DialogHeader,
+	ResponsiveModalTitle as DialogTitle,
+	ResponsiveModalTrigger as DialogTrigger,
+} from "@/components/originui/responsive-modal";
 import { BookOpen, Coffee, Heart, SparkleIcon, Users } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import PaymentModal from "@/components/ui/paymmentModal";
+import PaymentModal from "@/components/paymmentModal";
 
 export default function DonatePage() {
 	return (
@@ -81,7 +81,7 @@ export default function DonatePage() {
 						</div>
 
 						{/* Donation Button */}
-						<Dialog >
+						<Dialog>
 							<DialogTrigger asChild>
 								<Button
 									variant='default'
