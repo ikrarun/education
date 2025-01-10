@@ -4,14 +4,25 @@ import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import logo from "@/images/logo.svg";
 import Link from "@/components/custom/customLink";
-import { Wallet } from "lucide-react";
+import { User, Wallet } from "lucide-react";
 import SearchPanel from "./searchPanel";
 import { usePathname } from "next/navigation";
 import { toast } from "sonner";
+import { authClient, signInGoogle, signOut } from "@/lib/auth-client";
 
 const Nav = () => {
 	const pathName = usePathname();
 	const [showDonationButton, setShowDonationButton] = useState(false);
+	const {
+		data: session,
+		isPending, //loading state
+	} = authClient.useSession();
+
+	useEffect(() => {
+		authClient.oneTap({
+			callbackURL: "/about",
+		});
+	}, []);
 
 	useEffect(() => {
 		toast.success(`Welcome to EduKation ${pathName}`, {
@@ -27,9 +38,11 @@ const Nav = () => {
 
 	return (
 		<nav className='sticky top-0 left-0 right-0 w-full z-50 bg-background/80 backdrop-blur-3xl border-b'>
-			{<div className="hidden md:block">
-				< SearchPanel />
-				</div>}
+			{
+				<div className='hidden md:block'>
+					<SearchPanel />
+				</div>
+			}
 
 			<div className='container mx-auto px-6 py-4'>
 				<div className='flex items-center justify-between'>
@@ -43,18 +56,40 @@ const Nav = () => {
 						/>
 						<span className='text-xl font-bold bg-clip-text'>EduKation</span>
 					</Link>
-					<Link
-						href='/donate'
-						className={showDonationButton ? "block" : "hidden"}>
-						<Button
-							size='sm'
-							variant={"outline"}
-							className='text-foreground/80 '
-							effect={"ringHover"}>
-							<Wallet className='h-5 w-5' />
-							Fund the Initiative
-						</Button>
-					</Link>
+
+					<div className='inline-flex items-center justify-center gap-2'>
+						<Link
+							href='/donate'
+							className={showDonationButton ? "block" : "hidden"}>
+							<Button
+								size='sm'
+								variant={"outline"}
+								className='text-foreground/80 '
+								effect={"ringHover"}>
+								<Wallet className='h-5 w-5' />
+								Fund the Initiative
+							</Button>
+						</Link>
+						{isPending ? (
+							<p className='animate-pulse '>Loading</p>
+						) : (
+							<Button
+								size='sm'
+								variant={"outline"}
+								onClick={() => {
+									if (!session?.user) {
+										signInGoogle();
+									} else {
+										signOut();
+									}
+								}}
+								className='text-foreground/80 '
+								effect={"ringHover"}>
+								<User className='h-5 w-5' />
+								{session?.user ? "Sign Out" : "Sign In"}
+							</Button>
+						)}
+					</div>
 				</div>
 			</div>
 		</nav>
