@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1"
+  xmlns:xlink="http://www.w3.org/1999/xlink"
+  xmlns:svgjs="http://svgjs.dev/svgjs" viewBox="0 0 800 800">
+  <defs>
+    <radialGradient id="cccircular-grad" r="50%" cx="50%" cy="50%">
+      <stop offset="25%" stop-color="#a90020" stop-opacity="0.5"></stop>
+      <stop offset="85%" stop-color="hsl(347, 78%, 50%)" stop-opacity="1"></stop>
+      <stop offset="100%" stop-color="#ff93a1" stop-opacity="0.5"></stop>
+    </radialGradient>
+  </defs>
+  <g fill="url(#cccircular-grad)">
+    <circle r="957" cx="400" cy="0" opacity="0.05"></circle>
+    <circle r="940.5" cx="400" cy="0" opacity="0.07"></circle>
+    <circle r="924" cx="400" cy="0" opacity="0.08"></circle>
+    <circle r="907.5" cx="400" cy="0" opacity="0.10"></circle>
+    <circle r="891" cx="400" cy="0" opacity="0.12"></circle>
+    <circle r="874.5" cx="400" cy="0" opacity="0.13"></circle>
+    <circle r="858" cx="400" cy="0" opacity="0.15"></circle>
+    <circle r="841.5" cx="400" cy="0" opacity="0.17"></circle>
+    <circle r="825" cx="400" cy="0" opacity="0.18"></circle>
+    <circle r="808.5" cx="400" cy="0" opacity="0.20"></circle>
+    <circle r="792" cx="400" cy="0" opacity="0.22"></circle>
+    <circle r="775.5" cx="400" cy="0" opacity="0.23"></circle>
+    <circle r="759" cx="400" cy="0" opacity="0.25"></circle>
+    <circle r="742.5" cx="400" cy="0" opacity="0.27"></circle>
+    <circle r="726" cx="400" cy="0" opacity="0.28"></circle>
+    <circle r="709.5" cx="400" cy="0" opacity="0.30"></circle>
+    <circle r="693" cx="400" cy="0" opacity="0.32"></circle>
+    <circle r="676.5" cx="400" cy="0" opacity="0.33"></circle>
+    <circle r="660" cx="400" cy="0" opacity="0.35"></circle>
+    <circle r="643.5" cx="400" cy="0" opacity="0.37"></circle>
+    <circle r="627" cx="400" cy="0" opacity="0.38"></circle>
+    <circle r="610.5" cx="400" cy="0" opacity="0.40"></circle>
+    <circle r="594" cx="400" cy="0" opacity="0.42"></circle>
+    <circle r="577.5" cx="400" cy="0" opacity="0.43"></circle>
+    <circle r="561" cx="400" cy="0" opacity="0.45"></circle>
+    <circle r="544.5" cx="400" cy="0" opacity="0.47"></circle>
+    <circle r="528" cx="400" cy="0" opacity="0.48"></circle>
+    <circle r="511.5" cx="400" cy="0" opacity="0.50"></circle>
+    <circle r="495" cx="400" cy="0" opacity="0.52"></circle>
+    <circle r="478.5" cx="400" cy="0" opacity="0.53"></circle>
+    <circle r="462" cx="400" cy="0" opacity="0.55"></circle>
+    <circle r="445.5" cx="400" cy="0" opacity="0.57"></circle>
+    <circle r="429" cx="400" cy="0" opacity="0.58"></circle>
+    <circle r="412.5" cx="400" cy="0" opacity="0.60"></circle>
+    <circle r="396" cx="400" cy="0" opacity="0.62"></circle>
+    <circle r="379.5" cx="400" cy="0" opacity="0.63"></circle>
+    <circle r="363" cx="400" cy="0" opacity="0.65"></circle>
+    <circle r="346.5" cx="400" cy="0" opacity="0.67"></circle>
+    <circle r="330" cx="400" cy="0" opacity="0.68"></circle>
+    <circle r="313.5" cx="400" cy="0" opacity="0.70"></circle>
+    <circle r="297" cx="400" cy="0" opacity="0.72"></circle>
+    <circle r="280.5" cx="400" cy="0" opacity="0.73"></circle>
+    <circle r="264" cx="400" cy="0" opacity="0.75"></circle>
+    <circle r="247.5" cx="400" cy="0" opacity="0.77"></circle>
+    <circle r="231" cx="400" cy="0" opacity="0.78"></circle>
+    <circle r="214.5" cx="400" cy="0" opacity="0.80"></circle>
+    <circle r="198" cx="400" cy="0" opacity="0.82"></circle>
+    <circle r="181.5" cx="400" cy="0" opacity="0.83"></circle>
+    <circle r="165" cx="400" cy="0" opacity="0.85"></circle>
+    <circle r="148.5" cx="400" cy="0" opacity="0.87"></circle>
+    <circle r="132" cx="400" cy="0" opacity="0.88"></circle>
+    <circle r="115.5" cx="400" cy="0" opacity="0.90"></circle>
+    <circle r="99" cx="400" cy="0" opacity="0.92"></circle>
+    <circle r="82.5" cx="400" cy="0" opacity="0.93"></circle>
+    <circle r="66" cx="400" cy="0" opacity="0.95"></circle>
+    <circle r="49.5" cx="400" cy="0" opacity="0.97"></circle>
+    <circle r="33" cx="400" cy="0" opacity="0.98"></circle>
+  </g>
+</svg>

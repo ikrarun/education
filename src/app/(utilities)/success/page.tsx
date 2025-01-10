@@ -10,11 +10,9 @@ import {
 	CardTitle,
 	CardDescription,
 } from "@/components/ui/card";
-import { Poppins } from "next/font/google";
 import { RetryPaymentSection } from "./retryPaymentSection";
 import Link from "next/link";
 import { buttonVariants } from "@/components/ui/button";
-const poppins = Poppins({ subsets: ["latin"], weight: "400" });
 
 Cashfree.XClientId = process.env.CASHFREE_X_CLIENT_ID;
 Cashfree.XClientSecret = process.env.CASHFREE_X_CLIENT_SECRET;
@@ -33,7 +31,7 @@ const Success = async ({
 	if (!orderId || typeof orderId !== "string") {
 		return (
 			<div className='flex flex-col justify-center items-center h-full grow'>
-				<Card className={poppins.className}>
+				<Card>
 					<CardHeader>
 						<CardTitle>Uh oh!</CardTitle>
 						<CardDescription>
@@ -63,7 +61,7 @@ const Success = async ({
 	if (!response || response.length === 0) {
 		return (
 			<div className='flex flex-col p-4 justify-center items-center h-full grow'>
-				<Card className={poppins.className}>
+				<Card>
 					<CardHeader>
 						<CardTitle>
 							You might have dropped out of the payment process
@@ -76,6 +74,9 @@ const Success = async ({
 						<RetryPaymentSection orderId={orderId} />
 					</CardContent>
 				</Card>
+				<pre className='mx-auto font-sans select-text w-fit max-w-[900px] p-4'>
+					{JSON.stringify(response, null, 2)}
+				</pre>
 			</div>
 		);
 	}
@@ -84,7 +85,7 @@ const Success = async ({
 
 	return (
 		<div className='flex flex-col p-4 justify-center items-center h-full grow'>
-			<Card className={poppins.className}>
+			<Card>
 				<CardHeader>
 					<CardTitle>Thank you for Choosing Us!</CardTitle>
 					<CardDescription className='flex flex-row items-center gap-1'>
@@ -141,6 +142,9 @@ const Success = async ({
 					}
 				})()}
 			</Card>
+			<pre className='mx-auto font-sans select-text w-fit max-w-[900px] p-4'>
+				{JSON.stringify(response, null, 2)}
+			</pre>
 		</div>
 	);
 };

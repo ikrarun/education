@@ -1,5 +1,5 @@
 "use client";
-import donation_illustration from "@/assets/donation_sticker.svg";
+import donation_illustration from "@/images/donation_sticker.svg";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import {
@@ -9,7 +9,7 @@ import {
 	ResponsiveModalHeader as DialogHeader,
 	ResponsiveModalTitle as DialogTitle,
 	ResponsiveModalTrigger as DialogTrigger,
-} from "@/components/originui/responsive-modal";
+} from "@/components/custom/responsive-modal";
 import { BookOpen, Coffee, Heart, SparkleIcon, Users } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -20,7 +20,7 @@ export default function DonatePage() {
 		<div className='flex h-full w-full grow flex-col items-center justify-center gap-6 bg-background p-4'>
 			{/* Vision Statement */}
 			<div className='w-full max-w-[1000px] p-6 text-center'>
-				<p className='text-muted-foreground'>
+				<p className=''>
 					&quot;Every journey begins with a single step. Join us in taking the
 					first steps towards educational equality.&quot;
 				</p>
@@ -46,9 +46,9 @@ export default function DonatePage() {
 					{/* Header */}
 					<div className='mb-8 flex items-center justify-between'>
 						<Coffee className='h-8 w-8 text-primary' />
-						<div className='text-sm text-muted-foreground'>
+						<div className='text-sm '>
 							Need help?{" "}
-							<Link href='/contact' className='text-primary hover:underline'>
+							<Link href='/contact' className='underline underline-offset-2 text-secondary-foreground '>
 								Contact us
 							</Link>
 						</div>
@@ -60,11 +60,11 @@ export default function DonatePage() {
 							<h1 className='text-2xl font-semibold tracking-tight'>
 								Be an Early Supporter
 							</h1>
-							<p className='text-muted-foreground'>
+							<p className=''>
 								Help us kickstart our mission to make education accessible to
 								all
 							</p>
-							<ul className='space-y-2 text-sm text-muted-foreground'>
+							<ul className='space-y-2 text-sm '>
 								<li className='flex items-center gap-2'>
 									<Heart className='h-4 w-4 text-primary' /> Be part of our
 									founding supporters
@@ -107,9 +107,9 @@ export default function DonatePage() {
 						</Dialog>
 
 						{/* Footer */}
-						<p className='text-center text-sm text-muted-foreground'>
+						<p className='text-start text-sm '>
 							By donating, you agree to our{" "}
-							<Link href='/terms' className='text-primary hover:underline'>
+							<Link href='/terms' className='underline underline-offset-2 text-secondary-foreground hover:underline'>
 								Terms of Service
 							</Link>
 						</p>
@@ -117,27 +117,7 @@ export default function DonatePage() {
 				</div>
 			</Card>
 
-			{/* Vision Cards */}
-			<div className='grid w-full max-w-[1000px] grid-cols-2 gap-4 md:grid-cols-4'>
-				{[
-					{ icon: Users, label: "Target Students", value: "Starting Small" },
-					{
-						icon: BookOpen,
-						label: "Learning Focus",
-						value: "Quality Education",
-					},
-					{ icon: Heart, label: "Our Mission", value: "Equal Access" },
-					{ icon: Coffee, label: "Current Phase", value: "Getting Started" },
-				].map((stat, index) => (
-					<Card
-						key={index}
-						className='flex flex-col items-center gap-2 p-4 text-center'>
-						<stat.icon className='h-6 w-6 text-primary' />
-						<p className='text-lg font-semibold'>{stat.value}</p>
-						<p className='text-sm text-muted-foreground'>{stat.label}</p>
-					</Card>
-				))}
-			</div>
+			
 		</div>
 	);
 }
