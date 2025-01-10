@@ -8,9 +8,11 @@ import { User, Wallet } from "lucide-react";
 import SearchPanel from "./searchPanel";
 import { usePathname } from "next/navigation";
 import { toast } from "sonner";
-import { authClient, signInGoogle, signOut } from "@/lib/auth-client";
+import { authClient } from "@/lib/auth-client";
+import { useRouter } from "next/navigation";
 
 const Nav = () => {
+	const router = useRouter();
 	const pathName = usePathname();
 	const [showDonationButton, setShowDonationButton] = useState(false);
 	const {
@@ -20,9 +22,11 @@ const Nav = () => {
 
 	useEffect(() => {
 		authClient.oneTap({
-			callbackURL: "/about",
+			fetchOptions: {
+				onSuccess: () => router.push("/about"),
+			},
 		});
-	}, []);
+	}, [router]);
 
 	useEffect(() => {
 		toast.success(`Welcome to EduKation ${pathName}`, {
@@ -76,11 +80,17 @@ const Nav = () => {
 							<Button
 								size='sm'
 								variant={"outline"}
-								onClick={() => {
+								onClick={async () => {
 									if (!session?.user) {
-										signInGoogle();
+										await authClient.signIn.social({
+											provider: "google",
+											
+											fetchOptions: {
+												onSuccess: () => router.push("/about"),
+											},
+										});
 									} else {
-										signOut();
+										await authClient.signOut();
 									}
 								}}
 								className='text-foreground/80 '

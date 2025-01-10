@@ -21,7 +21,10 @@ export default function ResponsiveHero() {
 						Start your journey toward success today.
 					</h2>
 					<div className='flex flex-col sm:flex-row gap-4 w-full sm:w-auto'>
-						<BetterButton href="/about"  variant='outline' className='w-full sm:w-auto'>
+						<BetterButton
+							href='/about'
+							variant='outline'
+							className='w-full sm:w-auto'>
 							Learn More
 						</BetterButton>
 						<BetterButton className='w-full sm:w-auto'>
@@ -37,8 +40,7 @@ export default function ResponsiveHero() {
 						alt='Hero Image'
 						fill
 						unoptimized
-						objectFit='contain'
-						className='rounded-lg  px-12 md:pb-0'
+						className='rounded-lg object-contain px-12 md:pb-0'
 						priority
 					/>
 				</div>
