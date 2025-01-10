@@ -2,7 +2,7 @@ import { createAuthClient } from "better-auth/react";
 import { oneTapClient } from "better-auth/client/plugins";
 
 export const authClient = createAuthClient({
-	baseURL: process.env.BETTER_AUTH_URL as string,
+	baseURL: process.env.NEXT_PUBLIC_BETTER_AUTH_URL as string,
 	plugins: [
 		oneTapClient({
 			clientId: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID as string,
@@ -21,4 +21,3 @@ export const signInGoogle = async () => {
 export const signOut = async () => {
 	await authClient.signOut();
 };
-
