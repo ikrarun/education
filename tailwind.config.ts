@@ -16,9 +16,14 @@ export default {
 					"25%": { backgroundPosition: "-200% 0" },
 					"100%": { backgroundPosition: "-200% 0" },
 				},
+				rotation: {
+					"0%": { transform: "rotate(0deg)" },
+					"100%": { transform: "rotate(360deg)" },
+				},
 			},
 			animation: {
 				shine: "shine 3s ease-out infinite",
+				rotation: "rotation 2s linear infinite", // Example animation definition for rotation
 			},
 			colors: {
 				background: "hsl(var(--background))",
