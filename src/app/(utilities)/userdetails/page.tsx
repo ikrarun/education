@@ -57,7 +57,7 @@ const UserDetail = () => {
 				) : (
 					<h1>User Image is Not Available</h1>
 				)}
-				<p className='font-sans break-before-avoid'>
+				<p className='font-sans break-before-all'>
 					{JSON.stringify(session.user, null, 2)}
 				</p>
 			</div>
