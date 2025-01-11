@@ -2,8 +2,16 @@
 import { authClient } from "@/lib/authClient";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
-// @ts-expect-error not type defined
-import ReactJsonViewer from "react-json-viewer-cool";
+import dynamic from "next/dynamic";
+
+const ReactJsonViewer = dynamic(
+	// @ts-expect-error types missing
+	() => import("react-json-viewer-cool")
+) as React.FC<{
+	data: Record<string, unknown>;
+	theme?: string;
+}>;
+
 const UserDetail = () => {
 	const { data: session, isPending } = authClient.useSession();
 	const [timeLeft, setTimeLeft] = useState<number>(10);
@@ -58,6 +66,7 @@ const UserDetail = () => {
 				) : (
 					<h1>User Image is Not Available</h1>
 				)}
+
 				<ReactJsonViewer data={session.user} />
 			</div>
 		);
