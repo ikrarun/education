@@ -4,26 +4,20 @@ import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import logo from "@/images/logo.svg";
 import Link from "@/components/custom/customLink";
-import { User, Wallet } from "lucide-react";
+import { Wallet } from "lucide-react";
 import SearchPanel from "./searchPanel";
 import { usePathname } from "next/navigation";
 import { toast } from "sonner";
-import { authClient } from "@/lib/auth-client";
+import { User } from "lucide-react";
+// import { signIn, signOut, useSession } from "next-auth/react";
+import { authClient } from "@/lib/authClient"; //import the auth client
+import { useRouter } from "next/navigation";
 
 const Nav = () => {
+	const router = useRouter();
 	const pathName = usePathname();
 	const [showDonationButton, setShowDonationButton] = useState(false);
-	const {
-		data: session,
-		isPending, //loading state
-	} = authClient.useSession();
-
-	useEffect(() => {
-		authClient.oneTap({
-			callbackURL: "/",
-		});
-	}, []);
-
+	const { data: session, isPending } = authClient.useSession();
 	useEffect(() => {
 		toast.success(`Welcome to EduKation ${pathName}`, {
 			icon: "🎉",
@@ -35,6 +29,75 @@ const Nav = () => {
 			setShowDonationButton(true);
 		}
 	}, [pathName]);
+
+	const signIn = async (
+		provider:
+			| "github"
+			| "apple"
+			| "discord"
+			| "facebook"
+			| "microsoft"
+			| "google"
+			| "spotify"
+			| "twitch"
+			| "twitter"
+			| "dropbox"
+			| "linkedin"
+			| "gitlab"
+			| "reddit"
+	) => {
+		await authClient.signIn.social({
+			provider: provider,
+			callbackURL: "/about", //redirect to dashboard after sign in
+		});
+	};
+	const signOut = async () => {
+		await authClient.signOut();
+	};
+
+	useEffect(() => {
+		const tryOneTap = async () => {
+			await authClient.oneTap({
+				fetchOptions: {
+					onSuccess: () => {
+						router.push("/dashboard");
+					},
+				},
+			});
+		};
+
+		tryOneTap();
+	}, [router]);
+
+	const UserComp = () => {
+		if (isPending) return <p>Wait</p>;
+
+		if (session?.user) {
+			return (
+				<Button
+					size='sm'
+					variant={"outline"}
+					onClick={() => signOut()}
+					className='text-foreground/80 '
+					effect={"ringHover"}>
+					<User className='h-5 w-5' />
+					{session?.user.name ?? "User Missing"}
+				</Button>
+			);
+		} else {
+			return (
+				<Button
+					size='sm'
+					variant={"outline"}
+					onClick={() => signIn("google")}
+					className='text-foreground/80 '
+					effect={"ringHover"}>
+					<User className='h-5 w-5' />
+					Sign In With Google
+				</Button>
+			);
+		}
+	};
 
 	return (
 		<nav className='sticky top-0 left-0 right-0 w-full z-50 bg-background/80 backdrop-blur-3xl border-b'>
@@ -70,28 +133,8 @@ const Nav = () => {
 								Fund the Initiative
 							</Button>
 						</Link>
-						{isPending ? (
-							<p className='animate-pulse '>Loading</p>
-						) : (
-							<Button
-								size='sm'
-								variant={"outline"}
-								onClick={async () => {
-									if (!session?.user) {
-										await authClient.signIn.social({
-											provider: "google",
-											callbackURL: pathName ?? "/",
-										});
-									} else {
-										await authClient.signOut();
-									}
-								}}
-								className='text-foreground/80 '
-								effect={"ringHover"}>
-								<User className='h-5 w-5' />
-								{session?.user ? "Sign Out" : "Sign In"}
-							</Button>
-						)}
+
+						<UserComp />
 					</div>
 				</div>
 			</div>
