@@ -9,10 +9,8 @@ import SearchPanel from "./searchPanel";
 import { usePathname } from "next/navigation";
 import { toast } from "sonner";
 import { authClient } from "@/lib/auth-client";
-import { useRouter } from "next/navigation";
 
 const Nav = () => {
-	const router = useRouter();
 	const pathName = usePathname();
 	const [showDonationButton, setShowDonationButton] = useState(false);
 	const {
@@ -22,11 +20,9 @@ const Nav = () => {
 
 	useEffect(() => {
 		authClient.oneTap({
-			fetchOptions: {
-				onSuccess: () => router.push("/about"),
-			},
+			callbackURL: "/",
 		});
-	}, [router]);
+	}, []);
 
 	useEffect(() => {
 		toast.success(`Welcome to EduKation ${pathName}`, {
@@ -84,10 +80,7 @@ const Nav = () => {
 									if (!session?.user) {
 										await authClient.signIn.social({
 											provider: "google",
-											
-											fetchOptions: {
-												onSuccess: () => router.push("/about"),
-											},
+											callbackURL: pathName ?? "/",
 										});
 									} else {
 										await authClient.signOut();
