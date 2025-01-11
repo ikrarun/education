@@ -5,7 +5,6 @@ import { Toaster } from "sonner";
 import Script from "next/script";
 import { PaymentProvider } from "@/components/providers/paymentContext";
 import { SearchProvider } from "@/components/custom/fullpageSeachProvider";
-import OneTapComp from "@/components/custom/oneTapComp";
 // import { SessionProvider } from "next-auth/react";
 const font = Font({
 	subsets: ["latin"],
@@ -35,7 +34,7 @@ export default async function RootLayout({
 						src='https://sdk.cashfree.com/js/v3/cashfree.js'
 						strategy='beforeInteractive'
 					/>
-					<OneTapComp />
+					{/* <OneTapComp /> */}
 				</SearchProvider>
 				{/* </SessionProvider> */}
 			</body>

@@ -1,6 +1,5 @@
 "use client";
 import { authClient } from "@/lib/authClient";
-import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 
@@ -9,6 +8,7 @@ const UserDetail = () => {
 	const [timeLeft, setTimeLeft] = useState<number>(10);
 	const router = useRouter();
 	useEffect(() => {
+		if (isPending) return;
 		if (!session && timeLeft > 0) {
 			const timerId = setInterval(() => {
 				setTimeLeft((prev) => prev - 1);
@@ -21,19 +21,19 @@ const UserDetail = () => {
 		if (timeLeft === 0) {
 			router.push("/"); // Redirect to homepage
 		}
-	}, [session, timeLeft, router]);
+	}, [session, isPending, timeLeft, router]);
 
 	if (isPending) {
 		return (
-			<div className='flex flex-col items-center justify-center h-full w-full grow'>
+			<div className='flex flex-col p-4 items-center justify-center h-full w-full grow'>
 				<p className='animate-pulse text-xl'>Loading...</p>;
 			</div>
 		);
 	}
 	if (!session) {
 		return (
-			<div className='flex flex-col items-center justify-center h-full w-full grow'>
-				<h1 className='animate-shine duration-700 transition-all text-2xl'>
+			<div className='flex flex-col p-4 items-center justify-center h-full w-full grow'>
+				<h1 className='animate-ping duration-700 transition-all text-2xl'>
 					No user is Signed In, You will redirected to homepage within{" "}
 					{timeLeft} seconds
 				</h1>
@@ -43,11 +43,11 @@ const UserDetail = () => {
 
 	if (session.user) {
 		return (
-			<div className='flex flex-col gap-6 items-start justify-center h-full w-fit mx-auto grow'>
+			<div className='flex flex-col p-4 gap-6 items-start justify-center h-full w-fit mx-auto grow'>
 				<h1>User Details</h1>
 				{session.user.image ? (
-					<Image
-						unoptimized={true}
+					// eslint-disable-next-line @next/next/no-img-element
+					<img
 						width={125}
 						height={125}
 						className='rounded-full'
@@ -57,7 +57,9 @@ const UserDetail = () => {
 				) : (
 					<h1>User Image is Not Available</h1>
 				)}
-				<pre className='font-sans'>{JSON.stringify(session.user, null, 2)}</pre>
+				<p className='font-sans break-before-avoid'>
+					{JSON.stringify(session.user, null, 2)}
+				</p>
 			</div>
 		);
 	}
