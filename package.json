@@ -40,6 +40,8 @@
     "react-dom": "^19.0.0",
     "react-hook-form": "^7.54.2",
     "react-input-number": "^5.0.19",
+    "react-json-view": "^1.21.3",
+    "react-json-viewer-cool": "^2.0.0",
     "react-number-format": "^5.4.3",
     "react-phone-input-2": "^2.15.1",
     "react-phone-number-input": "^3.4.10",

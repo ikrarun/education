@@ -2,7 +2,8 @@
 import { authClient } from "@/lib/authClient";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
-
+// @ts-expect-error not type defined
+import ReactJsonViewer from "react-json-viewer-cool";
 const UserDetail = () => {
 	const { data: session, isPending } = authClient.useSession();
 	const [timeLeft, setTimeLeft] = useState<number>(10);
@@ -43,7 +44,7 @@ const UserDetail = () => {
 
 	if (session.user) {
 		return (
-			<div className='flex flex-col p-4 gap-6 items-start justify-center h-full w-fit mx-auto grow'>
+			<div className='flex max-w-full  flex-col p-4 gap-6 items-start justify-center h-full w-fit mx-auto grow'>
 				<h1>User Details</h1>
 				{session.user.image ? (
 					// eslint-disable-next-line @next/next/no-img-element
@@ -57,9 +58,7 @@ const UserDetail = () => {
 				) : (
 					<h1>User Image is Not Available</h1>
 				)}
-				<p className='font-sans break-before-all'>
-					{JSON.stringify(session.user, null, 2)}
-				</p>
+				<ReactJsonViewer data={session.user} />
 			</div>
 		);
 	}
