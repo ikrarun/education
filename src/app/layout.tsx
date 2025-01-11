@@ -5,6 +5,7 @@ import { Toaster } from "sonner";
 import Script from "next/script";
 import { PaymentProvider } from "@/components/providers/paymentContext";
 import { SearchProvider } from "@/components/custom/fullpageSeachProvider";
+import OneTapComp from "@/components/custom/oneTapComp";
 // import { SessionProvider } from "next-auth/react";
 const font = Font({
 	subsets: ["latin"],
@@ -27,14 +28,15 @@ export default async function RootLayout({
 				className='flex flex-col min-h-screen antialiased'
 				style={font.style}>
 				{/* <SessionProvider> */}
-					<SearchProvider>
-						<PaymentProvider>{children}</PaymentProvider>
-						<Toaster invert richColors expand position='bottom-left' />
-						<Script
-							src='https://sdk.cashfree.com/js/v3/cashfree.js'
-							strategy='beforeInteractive'
-						/>
-					</SearchProvider>
+				<SearchProvider>
+					<PaymentProvider>{children}</PaymentProvider>
+					<Toaster invert richColors expand position='bottom-left' />
+					<Script
+						src='https://sdk.cashfree.com/js/v3/cashfree.js'
+						strategy='beforeInteractive'
+					/>
+					<OneTapComp />
+				</SearchProvider>
 				{/* </SessionProvider> */}
 			</body>
 		</html>

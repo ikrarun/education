@@ -4,70 +4,58 @@ import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import logo from "@/images/logo.svg";
 import Link from "@/components/custom/customLink";
-import { Wallet } from "lucide-react";
-import SearchPanel from "./searchPanel";
-import { usePathname } from "next/navigation";
+import { LogOut, LogIn, ReceiptIndianRupee } from "lucide-react";
+// import SearchPanel from "./searchPanel";
+import { usePathname, useRouter } from "next/navigation";
 import { toast } from "sonner";
-import { User } from "lucide-react";
-// import { signIn, signOut, useSession } from "next-auth/react";
-import { authClient } from "@/lib/authClient"; //import the auth client
-import { useRouter } from "next/navigation";
+import { authClient } from "@/lib/authClient";
+
+type Provider =
+	| "github"
+	| "apple"
+	| "discord"
+	| "facebook"
+	| "microsoft"
+	| "google"
+	| "spotify"
+	| "twitch"
+	| "twitter"
+	| "dropbox"
+	| "linkedin"
+	| "gitlab"
+	| "reddit";
 
 const Nav = () => {
 	const router = useRouter();
 	const pathName = usePathname();
 	const [showDonationButton, setShowDonationButton] = useState(false);
 	const { data: session, isPending } = authClient.useSession();
+
 	useEffect(() => {
 		toast.success(`Welcome to EduKation ${pathName}`, {
 			icon: "🎉",
 			duration: 3000,
 		});
-		if (pathName === "/donate" || pathName === "/success") {
-			setShowDonationButton(false);
-		} else {
-			setShowDonationButton(true);
-		}
+
+		setShowDonationButton(pathName !== "/donate" && pathName !== "/success");
 	}, [pathName]);
 
-	const signIn = async (
-		provider:
-			| "github"
-			| "apple"
-			| "discord"
-			| "facebook"
-			| "microsoft"
-			| "google"
-			| "spotify"
-			| "twitch"
-			| "twitter"
-			| "dropbox"
-			| "linkedin"
-			| "gitlab"
-			| "reddit"
-	) => {
+	const signIn = async (provider: Provider) => {
 		await authClient.signIn.social({
-			provider: provider,
-			callbackURL: "/about", //redirect to dashboard after sign in
+			provider,
+			callbackURL: "/userdetails", // Redirect after sign-in
 		});
 	};
+
 	const signOut = async () => {
-		await authClient.signOut();
-	};
-
-	useEffect(() => {
-		const tryOneTap = async () => {
-			await authClient.oneTap({
-				fetchOptions: {
-					onSuccess: () => {
-						router.push("/dashboard");
-					},
+		await authClient.signOut({
+			fetchOptions: {
+				onSuccess: () => {
+					router.push("/");
 				},
-			});
-		};
-
-		tryOneTap();
-	}, [router]);
+			},
+		});
+	};
 
 	const UserComp = () => {
 		if (isPending) return <p>Wait</p>;
@@ -80,8 +68,8 @@ const Nav = () => {
 					onClick={() => signOut()}
 					className='text-foreground/80 '
 					effect={"ringHover"}>
-					<User className='h-5 w-5' />
-					{session?.user.name ?? "User Missing"}
+					<LogOut className='h-5 w-5' />
+					{session?.user.name.split(" ")[0] ?? "User Missing"}
 				</Button>
 			);
 		} else {
@@ -92,8 +80,7 @@ const Nav = () => {
 					onClick={() => signIn("google")}
 					className='text-foreground/80 '
 					effect={"ringHover"}>
-					<User className='h-5 w-5' />
-					Sign In With Google
+					<LogIn className='h-5 w-5' />
 				</Button>
 			);
 		}
@@ -101,11 +88,9 @@ const Nav = () => {
 
 	return (
 		<nav className='sticky top-0 left-0 right-0 w-full z-50 bg-background/80 backdrop-blur-3xl border-b'>
-			{
-				<div className='hidden md:block'>
-					<SearchPanel />
-				</div>
-			}
+			{/* <div className='hidden md:block'>
+				<SearchPanel />
+			</div> */}
 
 			<div className='container mx-auto px-6 py-4'>
 				<div className='flex items-center justify-between'>
@@ -121,6 +106,7 @@ const Nav = () => {
 					</Link>
 
 					<div className='inline-flex items-center justify-center gap-2'>
+						<UserComp />
 						<Link
 							href='/donate'
 							className={showDonationButton ? "block" : "hidden"}>
@@ -129,12 +115,10 @@ const Nav = () => {
 								variant={"outline"}
 								className='text-foreground/80 '
 								effect={"ringHover"}>
-								<Wallet className='h-5 w-5' />
-								Fund the Initiative
+								<ReceiptIndianRupee className='h-5 w-5' />
+								Donate
 							</Button>
 						</Link>
-
-						<UserComp />
 					</div>
 				</div>
 			</div>
