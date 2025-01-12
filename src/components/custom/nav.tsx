@@ -6,9 +6,11 @@ import Link from "@/components/custom/customLink";
 import { Gift } from "lucide-react";
 // import SearchPanel from "./searchPanel";
 import { usePathname, useRouter } from "next/navigation";
-import UserButton from "../UserButton";
+import dynamic from "next/dynamic";
 import ToolTipComponent from "@/components/tooltipComponent";
 import { cn } from "@/lib/utils";
+
+const UserButton = dynamic(() => import("../UserButton"), { ssr: false });
 
 const Nav = () => {
 	const pathName = usePathname();

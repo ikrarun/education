@@ -16,5 +16,7 @@ declare module "react-input-number" {
 	export default function InputNumber(props: InputNumberProps): React.ReactNode;
 }
 
-declare module "react-json-viewer-cool" {}
+declare module "react-json-viewer-cool" {
+	export {};
+}
 export {};

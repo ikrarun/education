@@ -1,12 +1,12 @@
 "use client";
 
-/* eslint-disable @next/next/no-img-element */
 import { Button } from "@/components/ui/button";
 import { authClient } from "@/lib/authClient";
-import { ChevronDown, RotateCw, User } from "lucide-react";
+import { ChevronDown, User } from "lucide-react";
 import { useRouter } from "next/navigation";
 import React from "react";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 
 type Provider =
 	| "github"
@@ -54,35 +54,32 @@ export default function UserButton() {
 					else signIn("google");
 				}}
 				className='h-full inline-flex p-1 items-center justify-center w-fit rounded-full'>
-				{session === null ? (
+				{isPending === null ? (
 					<Skeleton className='w-8 h-8 flex bg-black items-center justify-center rounded-full'>
 						<User className='w-6 h-6 text-muted-foreground' />
 					</Skeleton>
 				) : (
-					<img
-						className='rounded-full'
-						src={session?.user.image ?? ""}
-						alt='Profile image'
-						width={40}
-						referrerPolicy='no-referrer'
-						height={40}
-						aria-hidden='true'
-					/>
+					<Avatar>
+						<AvatarImage
+							src={session?.user.image ?? "https://github.com/shadcn.png"}
+						/>
+						<AvatarFallback>{session?.user.name.slice(0, 1)}</AvatarFallback>
+					</Avatar>
 				)}
 			</Button>
-			{isPending && (
-				<RotateCw
-					size={16}
-					strokeWidth={2}
-					className='opacity-60 ml-1 p-0 animate-rotation'
-					aria-hidden='true'
-				/>
-			)}
-			{session && (
+
+			{session ? (
 				<ChevronDown
 					size={18}
 					strokeWidth={2}
 					className='opacity-60 p-0'
+					aria-hidden='true'
+				/>
+			) : (
+				<ChevronDown
+					size={18}
+					strokeWidth={2}
+					className='opacity-10 p-0'
 					aria-hidden='true'
 				/>
 			)}

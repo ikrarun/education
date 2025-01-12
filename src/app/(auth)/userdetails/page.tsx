@@ -1,58 +1,41 @@
 "use client";
 import { authClient } from "@/lib/authClient";
-import { useRouter } from "next/navigation";
-import { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
-
-const ReactJsonViewer = dynamic(
-	// @ts-expect-error types missing
-	() => import("react-json-viewer-cool")
-) as React.FC<{
+import { Button } from "@/components/ui/button";
+// @ts-ignore
+const ReactJsonViewer = dynamic(() => import("react-json-viewer-cool"), {
+	ssr: false,
+}) as React.FC<{
 	data: Record<string, unknown>;
 	theme?: string;
 }>;
 
 const UserDetail = () => {
 	const { data: session, isPending } = authClient.useSession();
-	const [timeLeft, setTimeLeft] = useState<number>(10);
-	const router = useRouter();
-	useEffect(() => {
-		if (isPending) return;
-		if (!session && timeLeft > 0) {
-			const timerId = setInterval(() => {
-				setTimeLeft((prev) => prev - 1);
-			}, 1000);
 
-			// Cleanup timer on unmount
-			return () => clearInterval(timerId);
-		}
+	const loginNow = async () => {
+		await authClient.signIn.social({
+			provider: "google",
+		});
+	};
 
-		if (timeLeft === 0) {
-			router.push("/"); // Redirect to homepage
-		}
-	}, [session, isPending, timeLeft, router]);
-
-	if (isPending) {
+	if (isPending || session === undefined) {
 		return (
 			<div className='flex flex-col p-4 items-center justify-center h-full w-full grow'>
-				<p className='animate-pulse text-xl'>Loading...</p>;
+				<p className='text-xl'>Loading...</p>
 			</div>
 		);
-	}
-	if (!session) {
+	} else if (!session) {
 		return (
-			<div className='flex flex-col p-4 items-center justify-center h-full w-full grow'>
-				<h1 className='animate-ping duration-700 transition-all text-2xl'>
-					No user is Signed In, You will redirected to homepage within{" "}
-					{timeLeft} seconds
-				</h1>
+			<div className='flex shadow-lg border space-y-2 flex-col p-4 items-center justify-center h-full w-full grow'>
+				<h1 className='text-2xl text-center'>Want to access this page?</h1>
+				<h3>Kindly login before proceeding any further.</h3>
+				<Button onClick={loginNow}>Login</Button>
 			</div>
 		);
-	}
-
-	if (session.user) {
+	} else if (session.user) {
 		return (
-			<div className='flex max-w-full  flex-col p-4 gap-6 items-start justify-center h-full w-fit mx-auto grow'>
+			<div className='flex max-w-full flex-col p-4 gap-6 items-start justify-center h-full w-fit mx-auto grow'>
 				<h1>User Details</h1>
 				{session.user.image ? (
 					// eslint-disable-next-line @next/next/no-img-element
@@ -67,7 +50,6 @@ const UserDetail = () => {
 				) : (
 					<h1>User Image is Not Available</h1>
 				)}
-
 				<ReactJsonViewer data={session.user} />
 			</div>
 		);
