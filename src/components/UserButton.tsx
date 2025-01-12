@@ -3,7 +3,7 @@
 /* eslint-disable @next/next/no-img-element */
 import { Button } from "@/components/ui/button";
 import { authClient } from "@/lib/authClient";
-import { ChevronDown,  RotateCw, User } from "lucide-react";
+import { ChevronDown, RotateCw, User } from "lucide-react";
 import { useRouter } from "next/navigation";
 import React from "react";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -64,6 +64,7 @@ export default function UserButton() {
 						src={session?.user.image ?? ""}
 						alt='Profile image'
 						width={40}
+						referrerPolicy='no-referrer'
 						height={40}
 						aria-hidden='true'
 					/>

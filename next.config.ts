@@ -1,15 +1,20 @@
 import type { NextConfig } from "next";
 
+import BundleAnalyger from "@next/bundle-analyzer";
 const nextConfig: NextConfig = {
 	/* config options here */
 	output: "standalone",
 	images: {
-		// remotePatterns: [
-		// 	{
-		// 		hostname: "lh3.googleusercontent.com",
-		// 	},
-		// ],
+		remotePatterns: [
+			{
+				hostname: "lh3.googleusercontent.com",
+			},
+		],
 	},
 };
 
-export default nextConfig;
+const withBundleAnalyzer = BundleAnalyger({
+	enabled: process.env.ANALYZE === "true",
+});
+
+export default withBundleAnalyzer(nextConfig);

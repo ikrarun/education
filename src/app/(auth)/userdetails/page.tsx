@@ -58,6 +58,7 @@ const UserDetail = () => {
 					// eslint-disable-next-line @next/next/no-img-element
 					<img
 						width={125}
+						referrerPolicy='no-referrer'
 						height={125}
 						className='rounded-full'
 						src={session.user.image}
