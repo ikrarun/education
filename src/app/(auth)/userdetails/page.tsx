@@ -2,10 +2,15 @@
 import { authClient } from "@/lib/authClient";
 import dynamic from "next/dynamic";
 import { Button } from "@/components/ui/button";
-// @ts-ignore
-const ReactJsonViewer = dynamic(() => import("react-json-viewer-cool"), {
-	ssr: false,
-}) as React.FC<{
+
+const ReactJsonViewer = dynamic(
+	() =>
+		// @ts-expect-error types not defined
+		import("react-json-viewer-cool"),
+	{
+		ssr: false,
+	}
+) as React.FC<{
 	data: Record<string, unknown>;
 	theme?: string;
 }>;
